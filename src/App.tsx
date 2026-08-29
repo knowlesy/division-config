@@ -179,8 +179,38 @@ export default function App() {
     context
   );
 
-  // Load URL build parameter or stored token on mount
+  // Load URL build parameter, stored token, or OAuth code callback on mount
   useEffect(() => {
+    // 1. Check for OAuth code in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const oauthCode = urlParams.get('code');
+    if (oauthCode) {
+      const exchangeUrl = import.meta.env.VITE_TOKEN_EXCHANGE_URL || 'https://division-config.pknowlesuk.workers.dev';
+      fetch(exchangeUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: oauthCode })
+      })
+        .then(res => res.json())
+        .then(async data => {
+          if (data.access_token) {
+            setToken(data.access_token);
+            const { setStoredToken } = await import('./lib/storage/build-storage');
+            setStoredToken(data.access_token);
+            const client = new GitHubClient(data.access_token);
+            const u = await client.getUser();
+            await client.getOrCreateBuildsRepo(u.login);
+            setUser(u);
+          }
+        })
+        .catch(err => console.error('OAuth token exchange error:', err))
+        .finally(() => {
+          // Clean code from URL
+          const cleanUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        });
+    }
+
     const urlBuild = importBuildFromUrl();
     if (urlBuild) {
       loadSavedBuild(urlBuild);

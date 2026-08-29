@@ -10,10 +10,22 @@ interface Props {
 
 export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated }) => {
   const [patInput, setPatInput] = useState('');
+  const [clientIdInput, setClientIdInput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleOAuthRedirect = () => {
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID || clientIdInput.trim();
+    if (!clientId) {
+      setError('Please enter your GitHub App Client ID to initiate 1-click authorization.');
+      return;
+    }
+    const redirectUri = window.location.origin + window.location.pathname;
+    const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=repo`;
+    window.location.href = url;
+  };
 
   const handleVerifyPat = async () => {
     const token = patInput.trim();
@@ -25,7 +37,6 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated })
     try {
       const client = new GitHubClient(token);
       const user = await client.getUser();
-      // Ensure private repo exists
       await client.getOrCreateBuildsRepo(user.login);
 
       setStoredToken(token);
@@ -59,13 +70,39 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated })
           When connected, it automatically initializes a <strong>private repository</strong> named <code className="text-shd-orange">my-division-builds</code>. No telemetry, third-party databases, or trackers.
         </p>
 
-        {/* Development PAT Fallback */}
+        {/* Method 1: 1-Click GitHub App Login */}
         <div className="flex flex-col gap-2 bg-shd-surface2 p-3.5 border border-shd-border2 clip-corner-sm">
           <label className="text-xs font-heading font-bold text-shd-textPrimary uppercase">
-            Connect with Personal Access Token (PAT)
+            Option A: 1-Click GitHub Authorization
           </label>
           <p className="text-[11px] font-mono text-shd-textMonoMuted">
-            Requires fine-grained or classic token with <code className="text-shd-orange">repo</code> scope.
+            Uses your Cloudflare Worker token exchange at <code className="text-shd-orange">division-config.pknowlesuk.workers.dev</code>
+          </p>
+
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={clientIdInput}
+              onChange={(e) => setClientIdInput(e.target.value)}
+              placeholder="Paste Client ID (e.g. Iv1... or Ov2...)"
+              className="flex-1 bg-shd-surface1 border border-shd-border3 p-2 text-xs font-mono text-shd-textPrimary outline-none focus:border-shd-orange clip-corner-sm"
+            />
+            <button
+              onClick={handleOAuthRedirect}
+              className="px-4 py-2 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors"
+            >
+              Authorise
+            </button>
+          </div>
+        </div>
+
+        {/* Method 2: Personal Access Token (PAT) */}
+        <div className="flex flex-col gap-2 bg-shd-surface2 p-3.5 border border-shd-border2 clip-corner-sm">
+          <label className="text-xs font-heading font-bold text-shd-textPrimary uppercase">
+            Option B: Personal Access Token (PAT)
+          </label>
+          <p className="text-[11px] font-mono text-shd-textMonoMuted">
+            Classic or fine-grained token with <code className="text-shd-orange">repo</code> scope.
           </p>
 
           <input
