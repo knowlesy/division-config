@@ -86,13 +86,13 @@ export const WeaponSlotCard: React.FC<Props> = ({
 
   return (
     <div
-      className={`bg-shd-surface2 border p-3.5 clip-corner relative flex flex-col gap-2.5 shadow-md transition-colors ${
+      className={`bg-shd-surface2 border p-3 clip-corner relative flex flex-col gap-2.5 shadow-md transition-colors ${
         isActive ? 'border-shd-orange ring-1 ring-shd-orange/50' : 'border-shd-border2'
       }`}
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-shd-border1 pb-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <button
             onClick={onSetActive}
             className={`px-2 py-0.5 text-xs font-heading font-bold uppercase tracking-wider clip-corner-sm transition-colors ${
@@ -108,7 +108,7 @@ export const WeaponSlotCard: React.FC<Props> = ({
           )}
         </div>
 
-        <span className="text-[11px] font-mono text-shd-textMonoMuted">{weapon.category}</span>
+        <span className="text-[10px] font-mono text-shd-textMonoMuted truncate max-w-[90px]">{weapon.category}</span>
       </div>
 
       {/* Weapon Selector */}
@@ -119,7 +119,7 @@ export const WeaponSlotCard: React.FC<Props> = ({
         <select
           value={weapon.name}
           onChange={(e) => handleWeaponSelect(e.target.value)}
-          className={`bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2.5 py-1.5 focus:border-shd-orange outline-none clip-corner-sm ${
+          className={`bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 focus:border-shd-orange outline-none clip-corner-sm truncate w-full ${
             isExotic ? 'text-shd-exotic font-semibold' : 'text-shd-textPrimary'
           }`}
         >
@@ -142,36 +142,36 @@ export const WeaponSlotCard: React.FC<Props> = ({
       </div>
 
       {/* Weapon Base Stats Bar */}
-      <div className="grid grid-cols-4 gap-1 bg-shd-surface1 p-2 border border-shd-border1 text-center clip-corner-sm font-mono text-[10px]">
+      <div className="grid grid-cols-4 gap-1 bg-shd-surface1 p-1.5 border border-shd-border1 text-center clip-corner-sm font-mono text-[10px]">
         <div>
-          <div className="text-shd-textMonoMuted">RPM</div>
+          <div className="text-shd-textMonoMuted text-[9px]">RPM</div>
           <div className="text-shd-textPrimary font-semibold">{weapon.rpm}</div>
         </div>
         <div>
-          <div className="text-shd-textMonoMuted">MAG</div>
+          <div className="text-shd-textMonoMuted text-[9px]">MAG</div>
           <div className="text-shd-textPrimary font-semibold">{weapon.magSize}</div>
         </div>
         <div>
-          <div className="text-shd-textMonoMuted">RELOAD</div>
+          <div className="text-shd-textMonoMuted text-[9px]">RELOAD</div>
           <div className="text-shd-textPrimary font-semibold">{weapon.reloadTime}s</div>
         </div>
         <div>
-          <div className="text-shd-textMonoMuted">HSD</div>
+          <div className="text-shd-textMonoMuted text-[9px]">HSD</div>
           <div className="text-shd-textPrimary font-semibold">{Math.round(weapon.innateHsd * 100)}%</div>
         </div>
       </div>
 
       {/* Fixed Secondary Attribute */}
-      <div className="flex items-center justify-between bg-shd-surface1 px-2 py-1 border border-shd-border1 clip-corner-sm text-xs font-mono">
-        <span className="text-shd-textMonoMuted">Secondary:</span>
-        <span className="text-shd-orange">
+      <div className="flex flex-col bg-shd-surface1 px-2 py-1.5 border border-shd-border1 clip-corner-sm text-xs font-mono">
+        <span className="text-[10px] text-shd-textMonoMuted uppercase">Fixed Secondary:</span>
+        <span className="text-shd-orange font-semibold truncate">
           +{weapon.secondaryCoreAttribute?.value * 100}% {weapon.secondaryCoreAttribute?.type}
         </span>
       </div>
 
       {/* Minor Attribute */}
-      <div className="flex items-center justify-between gap-1 bg-shd-surface1 px-2 py-1 border border-shd-border1 clip-corner-sm">
-        <span className="text-[10px] font-mono text-shd-textMonoMuted">Minor:</span>
+      <div className="flex flex-col gap-1 bg-shd-surface1 px-2 py-1.5 border border-shd-border1 clip-corner-sm">
+        <span className="text-[10px] font-mono text-shd-textMonoMuted uppercase">Minor Attribute:</span>
         <select
           value={weapon.minorAttribute ? `${weapon.minorAttribute.attribute} (${weapon.minorAttribute.value * 100}%)` : (weapon.minorAttribute?.attribute || 'Damage to Target Out of Cover (10%)')}
           disabled={isExotic}
@@ -188,7 +188,7 @@ export const WeaponSlotCard: React.FC<Props> = ({
               });
             }
           }}
-          className="bg-transparent text-[11px] font-mono text-shd-textSecondary outline-none flex-1 text-right"
+          className="bg-transparent text-[11px] font-mono text-shd-textSecondary outline-none w-full truncate"
         >
           {WEAPON_MINOR_OPTIONS.map(opt => (
             <option key={opt.name} value={opt.name} className="bg-shd-surface1">
@@ -206,14 +206,14 @@ export const WeaponSlotCard: React.FC<Props> = ({
         </div>
 
         {isExotic ? (
-          <div className="text-xs font-sans text-shd-exotic bg-shd-surface1 p-2 border border-shd-border1 clip-corner-sm">
-            <span className="font-semibold">{weapon.talent}</span>
+          <div className="text-xs font-sans text-shd-exotic bg-shd-surface1 p-1.5 border border-shd-border1 clip-corner-sm">
+            <span className="font-semibold truncate block">{weapon.talent}</span>
           </div>
         ) : (
           <select
             value={weapon.talent || 'none'}
             onChange={(e) => onChange({ ...weapon, talent: e.target.value })}
-            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2.5 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm"
+            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm w-full truncate"
           >
             {weaponTalents.map(t => (
               <option key={t.name} value={t.name}>

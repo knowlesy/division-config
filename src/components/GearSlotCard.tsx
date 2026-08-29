@@ -157,10 +157,10 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
   if (piece.isTalentRecalibrated) recalCount++;
 
   return (
-    <div className="bg-shd-surface2 border border-shd-border2 p-3.5 clip-corner relative flex flex-col gap-2.5 shadow-md">
+    <div className="bg-shd-surface2 border border-shd-border2 p-3 clip-corner relative flex flex-col gap-2.5 shadow-md">
       {/* Header: Slot and Kind */}
       <div className="flex items-center justify-between border-b border-shd-border1 pb-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <span className="font-heading font-bold text-xs uppercase tracking-wider text-shd-orange">
             {slot}
           </span>
@@ -173,7 +173,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
           onChange={(e) => handleKindChange(e.target.value as any)}
           className="bg-shd-surface1 border border-shd-border3 text-[11px] font-mono px-2 py-0.5 text-shd-textSecondary focus:border-shd-orange outline-none clip-corner-sm"
         >
-          <option value="brand">Brand Piece (High-End)</option>
+          <option value="brand">Brand (High-End)</option>
           <option value="gear-set">Gear Set Piece</option>
           <option value="named">Named Gear</option>
           <option value="exotic">Exotic Piece</option>
@@ -190,7 +190,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
           <select
             value={piece.brandOrSetId}
             onChange={(e) => handleBrandOrSetChange(e.target.value)}
-            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2.5 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm"
+            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
             {brandSets.map(b => (
               <option key={b.id} value={b.id}>
@@ -204,7 +204,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
           <select
             value={piece.brandOrSetId}
             onChange={(e) => handleBrandOrSetChange(e.target.value)}
-            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2.5 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm"
+            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
             {gearSets.map(s => (
               <option key={s.id} value={s.id}>
@@ -228,7 +228,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
                 });
               }
             }}
-            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2.5 py-1.5 text-shd-named focus:border-shd-orange outline-none clip-corner-sm"
+            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-named focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
             {slotNamedItems.filter(i => !i.isExotic).map(i => (
               <option key={i.id} value={i.name}>
@@ -251,7 +251,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
                 });
               }
             }}
-            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2.5 py-1.5 text-shd-exotic font-semibold focus:border-shd-orange outline-none clip-corner-sm"
+            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-exotic font-semibold focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
             {slotNamedItems.filter(i => i.isExotic).length > 0 ? (
               slotNamedItems.filter(i => i.isExotic).map(i => (
@@ -265,10 +265,10 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
       </div>
 
       {/* Core Attribute */}
-      <div className="flex items-center justify-between gap-2 bg-shd-surface1 p-2 border border-shd-border1 clip-corner-sm">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-1.5 bg-shd-surface1 p-1.5 border border-shd-border1 clip-corner-sm">
+        <div className="flex items-center gap-1.5 flex-1 min-w-0">
           <span
-            className={`w-2.5 h-2.5 rounded-full ${
+            className={`w-2.5 h-2.5 rounded-full shrink-0 ${
               piece.core.type === 'Weapon Damage'
                 ? 'bg-shd-redCore'
                 : piece.core.type === 'Armor'
@@ -290,16 +290,16 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
                 }
               });
             }}
-            className="bg-transparent text-xs font-mono text-shd-textPrimary outline-none cursor-pointer"
+            className="bg-transparent text-xs font-mono text-shd-textPrimary outline-none cursor-pointer truncate w-full"
           >
-            <option value="Weapon Damage" className="bg-shd-surface1">Core: +15.0% Weapon Damage</option>
-            <option value="Armor" className="bg-shd-surface1">Core: +170,000 Armor</option>
-            <option value="Skill Tier" className="bg-shd-surface1">Core: +1 Skill Tier</option>
+            <option value="Weapon Damage" className="bg-shd-surface1">+15.0% Weapon Damage</option>
+            <option value="Armor" className="bg-shd-surface1">+170,000 Armor</option>
+            <option value="Skill Tier" className="bg-shd-surface1">+1 Skill Tier</option>
           </select>
         </div>
 
         {piece.kind !== 'gear-set' && piece.kind !== 'exotic' && (
-          <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer">
+          <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer shrink-0">
             <input
               type="checkbox"
               checked={!!piece.core.isRecalibrated}
@@ -321,7 +321,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
         <div className="flex items-center justify-between text-[10px] font-mono text-shd-textMonoMuted uppercase">
           <span>Minor Attributes</span>
           {piece.kind === 'gear-set' && (
-            <span className="text-amber-400">1-Minor Budget (-1 vs Brand)</span>
+            <span className="text-amber-400 font-semibold text-[9px]">1-Minor Budget</span>
           )}
         </div>
 
@@ -343,7 +343,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
                   onChange({ ...piece, minors: newMinors });
                 }
               }}
-              className="bg-transparent text-[11px] font-mono text-shd-textSecondary outline-none flex-1"
+              className="bg-transparent text-[11px] font-mono text-shd-textSecondary outline-none flex-1 truncate"
             >
               {MINOR_OPTIONS.map(opt => (
                 <option key={opt.name} value={opt.name} className="bg-shd-surface1">
@@ -353,7 +353,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
             </select>
 
             {piece.kind !== 'exotic' && (
-              <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer">
+              <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer shrink-0 ml-1">
                 <input
                   type="checkbox"
                   checked={!!minor.isRecalibrated}
@@ -374,7 +374,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
       {/* Mod Slot (if eligible) */}
       {hasModSlot && (
         <div className="flex items-center justify-between gap-2 bg-shd-surface1/60 px-2 py-1 border border-dashed border-shd-border2 clip-corner-sm">
-          <span className="text-[10px] font-mono text-shd-textMonoMuted uppercase">Gear Mod:</span>
+          <span className="text-[10px] font-mono text-shd-textMonoMuted uppercase shrink-0">Mod:</span>
           <select
             value={piece.modSlot?.attribute ? `${piece.modSlot.attribute} (${piece.modSlot.value * 100}%)` : (piece.modSlot?.attribute || 'none')}
             onChange={(e) => {
@@ -384,7 +384,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
                 modSlot: opt ? { attribute: opt.name.split(' (')[0], value: opt.value, unit: opt.unit } : null
               });
             }}
-            className="bg-transparent text-[11px] font-mono text-shd-textSecondary outline-none flex-1 text-right"
+            className="bg-transparent text-[11px] font-mono text-shd-textSecondary outline-none flex-1 text-right truncate"
           >
             <option value="none" className="bg-shd-surface1">Empty Slot</option>
             {MOD_OPTIONS.map(opt => (
@@ -405,20 +405,20 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
           </div>
 
           {piece.kind === 'gear-set' ? (
-            <div className="text-xs font-sans text-shd-textSecondary bg-shd-surface1 p-2 border border-shd-border1 clip-corner-sm">
-              <span className="font-semibold text-shd-gearSet">{piece.talent || 'Set Talent'}</span>
+            <div className="text-xs font-sans text-shd-textSecondary bg-shd-surface1 p-1.5 border border-shd-border1 clip-corner-sm">
+              <span className="font-semibold text-shd-gearSet truncate block">{piece.talent || 'Set Talent'}</span>
             </div>
           ) : piece.kind === 'named' ? (
-            <div className="text-xs font-sans text-shd-named bg-shd-surface1 p-2 border border-shd-border1 clip-corner-sm flex items-center justify-between">
-              <span className="font-semibold">{piece.talent || 'Perfect Talent'}</span>
-              <span className="text-[10px] font-mono text-amber-500">LOCKED</span>
+            <div className="text-xs font-sans text-shd-named bg-shd-surface1 p-1.5 border border-shd-border1 clip-corner-sm flex items-center justify-between">
+              <span className="font-semibold truncate">{piece.talent || 'Perfect Talent'}</span>
+              <span className="text-[10px] font-mono text-amber-500 shrink-0 ml-1">LOCKED</span>
             </div>
           ) : (
             <div className="flex items-center justify-between gap-1 bg-shd-surface1 px-2 py-1 border border-shd-border1 clip-corner-sm">
               <select
                 value={piece.talent || 'none'}
                 onChange={(e) => onChange({ ...piece, talent: e.target.value === 'none' ? null : e.target.value })}
-                className="bg-transparent text-xs font-sans text-shd-textPrimary outline-none flex-1"
+                className="bg-transparent text-xs font-sans text-shd-textPrimary outline-none flex-1 truncate"
               >
                 <option value="none" className="bg-shd-surface1">No Talent</option>
                 {(isChest ? availableChestTalents : availableBackpackTalents).map(t => (
@@ -427,7 +427,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
                   </option>
                 ))}
               </select>
-              <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer">
+              <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer shrink-0 ml-1">
                 <input
                   type="checkbox"
                   checked={!!piece.isTalentRecalibrated}
