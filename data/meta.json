@@ -1,0 +1,30 @@
+{
+  "appName": "Division Config",
+  "patch": "Y8S3 / TU30 / 2.34",
+  "generatedAt": "2026-08-29T17:29:12.927Z",
+  "spreadsheetHash": "a6affadd1598f2f9e6345774e7e2cfcbf5c7f110ff94796ad1a1def0a23c3924",
+  "referenceDocHash": "52a5e99166c9632700cd9914ecb208358fdf142944ccb3399eaaab614cb1ef78",
+  "correctionsHash": "a26f4a535c3d81af61c3e9272570e5695b7a7d204b3c5e1bca477ee9c0ebbf94",
+  "counts": {
+    "weapons": 317,
+    "weaponsNamedAndExotic": 144,
+    "gearSets": 28,
+    "brandSets": 37,
+    "gearNamedAndExotic": 102,
+    "weaponTalents": 68,
+    "gearTalents": 46,
+    "weaponMods": 94,
+    "skills": 14,
+    "specializations": 7
+  },
+  "credits": {
+    "spreadsheetAuthors": [
+      "Azurmen",
+      "Bend3n",
+      "Gingerbeard_x",
+      "Maplestruck",
+      "Saint Landwalker"
+    ],
+    "community": "#build-advice on the Division 2 Discord"
+  }
+}

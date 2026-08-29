@@ -1,0 +1,1556 @@
+[
+  {
+    "id": "acog-scope-4x-",
+    "name": "Acog Scope (4x)",
+    "type": null,
+    "slot": null,
+    "bonusRaw": "+50% Optimal Range",
+    "bonus": {
+      "raw": "+50% Optimal Range",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "from perks"
+  },
+  {
+    "id": "552-holo-sight",
+    "name": "552 Holo Sight",
+    "type": "OPTICS RAIL",
+    "slot": null,
+    "bonusRaw": "+30% Accuracy\nNo zoom",
+    "bonus": {
+      "raw": "+30% Accuracy\nNo zoom",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "No zoom"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Judiciary Square side mission: Police Headquarters (talk to Odessa Sawyer in Story)"
+  },
+  {
+    "id": "c79-scope-3-4x-",
+    "name": "C79 Scope (3.4x)",
+    "type": "OPTICS RAIL",
+    "slot": null,
+    "bonusRaw": "+5% Critical Hit Chance\nOptional zoom",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance\nOptional zoom",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Optional zoom"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Constitution Hall side mission: Missing Scavengers (talk to NPCs in open world hidden safe zone)"
+  },
+  {
+    "id": "cqbss-scope-8x-",
+    "name": "CQBSS Scope (8x)",
+    "type": "OPTICS RAIL",
+    "slot": "Optics",
+    "bonusRaw": "+30% Headshot Damage\nForced zoom",
+    "bonus": {
+      "raw": "+30% Headshot Damage\nForced zoom",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Forced zoom"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "East Mall side mission: DC-62 Lab Quarantine"
+  },
+  {
+    "id": "vx1-scope-12x-",
+    "name": "VX1 Scope  (12x)",
+    "type": "OPTICS RAIL",
+    "slot": "Optics",
+    "bonusRaw": "+35% Headshot damage\nForced zoom",
+    "bonus": {
+      "raw": "+35% Headshot damage\nForced zoom",
+      "value": 0.35,
+      "unit": "%",
+      "attribute": "Forced zoom"
+    },
+    "penaltyRaw": "-10% Reload Speed",
+    "penalty": {
+      "raw": "-10% Reload Speed",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "source": "Available by default"
+  },
+  {
+    "id": "digital-scope",
+    "name": "Digital Scope",
+    "type": "OPTICS RAIL",
+    "slot": "Optics",
+    "bonusRaw": "+45% Headshot Damage\nForced zoom\nTab to toggle second zoom",
+    "bonus": {
+      "raw": "+45% Headshot Damage\nForced zoom\nTab to toggle second zoom",
+      "value": 0.45,
+      "unit": "%",
+      "attribute": "Forced zoom Tab to toggle second zoom"
+    },
+    "penaltyRaw": "-5% Critical Hit Damage",
+    "penalty": {
+      "raw": "-5% Critical Hit Damage",
+      "value": -0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "source": "Sharpshooter specialiation perk"
+  },
+  {
+    "id": "gr9-built-in-scope-8x-",
+    "name": "GR9 Built-in scope (8x)",
+    "type": "OPTICS RAIL",
+    "slot": "Optics",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "GR9 only"
+  },
+  {
+    "id": "small-rds-scope",
+    "name": "Small RDS Scope",
+    "type": "OPTICS RAIL",
+    "slot": "Optics",
+    "bonusRaw": "+50% Stability",
+    "bonus": {
+      "raw": "+50% Stability",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": "-20% Accuracy",
+    "penalty": {
+      "raw": "-20% Accuracy",
+      "value": -0.2,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "source": "Campus project: outfit rescue team"
+  },
+  {
+    "id": "t2-micro-red-dot-sight",
+    "name": "T2 Micro Red Dot Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Long/Short Optics Rail",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "russian-red-dot-sight",
+    "name": "Russian Red dot Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Long/Short Optics Rail",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "exps3-holo-sight",
+    "name": "EXPS3 Holo Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Long/Short Optics Rail",
+    "bonusRaw": "+10% Headshot Damage",
+    "bonus": {
+      "raw": "+10% Headshot Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "pro-red-dot-sight",
+    "name": "PRO Red Dot Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Long/Short Optics Rail",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Constitution Hall side mission: Outcast Work Camp"
+  },
+  {
+    "id": "reflex-sight",
+    "name": "Reflex Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Long/Short Optics Rail",
+    "bonusRaw": "+12% Weapon Handling",
+    "bonus": {
+      "raw": "+12% Weapon Handling",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "Weapon Handling"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Theatre Project: Water Pipeline Construction"
+  },
+  {
+    "id": "rugged-mini-reflex-sight",
+    "name": "Rugged Mini Reflex Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Long/Short/Micro Optics Rail",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "low-reflex-sight",
+    "name": "Low Reflex Sight",
+    "type": "OPTICS RAIL",
+    "slot": "Short/Micro Optics Rail",
+    "bonusRaw": "+15% Headshot Damage",
+    "bonus": {
+      "raw": "+15% Headshot Damage",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": "-25% Optimal Range",
+    "penalty": {
+      "raw": "-25% Optimal Range",
+      "value": -0.25,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "source": "Foggy Bottom side mission: Columbia Plaza Broadcast"
+  },
+  {
+    "id": "open-iron-sights",
+    "name": "Open Iron Sights",
+    "type": "OPTICS RAIL",
+    "slot": "Iron Sights Slot",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "streamlined-iron-sights",
+    "name": "Streamlined Iron Sights",
+    "type": "OPTICS RAIL",
+    "slot": "Iron Sights Slot",
+    "bonusRaw": "+14% Reload Speed",
+    "bonus": {
+      "raw": "+14% Reload Speed",
+      "value": 0.14,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Theatre Project: Outfit Hunting Party"
+  },
+  {
+    "id": "weighted-iron-sights",
+    "name": "Weighted Iron Sights",
+    "type": "OPTICS RAIL",
+    "slot": "Iron Sights Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "counter-clockwise-tubular-spring",
+    "name": "Counter-Clockwise Tubular Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Tubular Magazine Slot",
+    "bonusRaw": "+5% Headshot Damage",
+    "bonus": {
+      "raw": "+5% Headshot Damage",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "hard-tubular-spring",
+    "name": "Hard Tubular Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Tubular Magazine Slot",
+    "bonusRaw": "+5% Rate of Fire",
+    "bonus": {
+      "raw": "+5% Rate of Fire",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Rate of Fire"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Southwest side mission: SHD Tech Beacon"
+  },
+  {
+    "id": "flexible-tubular-spring",
+    "name": "Flexible tubular Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Tubular Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "non-disruptive-link",
+    "name": "Non-Disruptive Link",
+    "type": "MAGAZINE SLOT",
+    "slot": "Ammunition Belt Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "nimble-link-belt",
+    "name": "Nimble Link Belt",
+    "type": "MAGAZINE SLOT",
+    "slot": "Ammunition Belt Slot",
+    "bonusRaw": "+5% Rate of Fire",
+    "bonus": {
+      "raw": "+5% Rate of Fire",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Rate of Fire"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Foggy Bottom side mission: Navy Hill Transmission"
+  },
+  {
+    "id": "tactical-small-pouch",
+    "name": "Tactical Small Pouch",
+    "type": "MAGAZINE SLOT",
+    "slot": "Ammunition Belt Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "large-pouch",
+    "name": "Large Pouch",
+    "type": "MAGAZINE SLOT",
+    "slot": "Ammunition Belt Slot",
+    "bonusRaw": "+35 rounds",
+    "bonus": {
+      "raw": "+35 rounds",
+      "value": 35,
+      "unit": "",
+      "attribute": "rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "large-pouch-gunner-mag-",
+    "name": "Large Pouch (Gunner mag)",
+    "type": "MAGAZINE SLOT",
+    "slot": "Ammunition Belt Slot",
+    "bonusRaw": "+50 rounds",
+    "bonus": {
+      "raw": "+50 rounds",
+      "value": 50,
+      "unit": "",
+      "attribute": "rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Gunner specialization perk"
+  },
+  {
+    "id": "calibrated-link",
+    "name": "Calibrated Link",
+    "type": "MAGAZINE SLOT",
+    "slot": "Ammunition Belt Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "East Mall side mission: Missing Curators"
+  },
+  {
+    "id": "underbalanced-integrated-spring",
+    "name": "Underbalanced Integrated Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Integrated Magazine Slot",
+    "bonusRaw": "+5% Rate of Fire",
+    "bonus": {
+      "raw": "+5% Rate of Fire",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Rate of Fire"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "compensated-integrated-spring",
+    "name": "Compensated Integrated Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Integrated Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Downtown West side mission: Worksite Community"
+  },
+  {
+    "id": "overbalanced-integrated-spring",
+    "name": "Overbalanced Integrated Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Integrated Magazine Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "stiff-integrated-spring",
+    "name": "Stiff Integrated Spring",
+    "type": "MAGAZINE SLOT",
+    "slot": "Integrated Magazine Slot",
+    "bonusRaw": "+5% Weapon Damage",
+    "bonus": {
+      "raw": "+5% Weapon Damage",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Weapon Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "mended-marksman-mag",
+    "name": "Mended Marksman Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Marksman 7.62 Magazine Slot",
+    "bonusRaw": "+50% Optimal Range",
+    "bonus": {
+      "raw": "+50% Optimal Range",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Federal Triangle side mission: Bureau Headquarters"
+  },
+  {
+    "id": "lightweight-marksman-mag",
+    "name": "Lightweight Marksman Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Marksman 7.62 Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "tightly-packed-marksman-mag",
+    "name": "Tightly Packed Marksman Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Marksman 7.62 Magazine Slot",
+    "bonusRaw": "+5 Rounds",
+    "bonus": {
+      "raw": "+5 Rounds",
+      "value": 5,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "sturdy-marksman-mag",
+    "name": "Sturdy Marksman Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Marksman 7.62 Magazine Slot",
+    "bonusRaw": "+20% Stability",
+    "bonus": {
+      "raw": "+20% Stability",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "precision-7-62-mag",
+    "name": "Precision 7.62 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "7.62 Magazine Slot",
+    "bonusRaw": "+10% Headshot Damage",
+    "bonus": {
+      "raw": "+10% Headshot Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "thin-7-62-mag",
+    "name": "Thin 7.62 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "7.62 Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "light-extended-7-62-mag",
+    "name": "Light Extended 7.62 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "7.62 Magazine Slot",
+    "bonusRaw": "+15 Rounds",
+    "bonus": {
+      "raw": "+15 Rounds",
+      "value": 15,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "sturdy-extended-7-62-mag",
+    "name": "Sturdy Extended 7.62 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "7.62 Magazine Slot",
+    "bonusRaw": "+20 Rounds",
+    "bonus": {
+      "raw": "+20 Rounds",
+      "value": 20,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": "-10% Reload Speed",
+    "penalty": {
+      "raw": "-10% Reload Speed",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "source": "Main Pool"
+  },
+  {
+    "id": "weighted-7-62-mag",
+    "name": "Weighted 7.62 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "7.62 Magazine Slot",
+    "bonusRaw": "+20% Stability",
+    "bonus": {
+      "raw": "+20% Stability",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "tactical-5-56-mag",
+    "name": "Tactical 5.56 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "5.56 Magazine Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "West Potomac Park side mission: Outcast Propaganda Outpost (The Mast CP)"
+  },
+  {
+    "id": "infantry-5-56-mag",
+    "name": "Infantry 5.56 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "5.56 Magazine Slot",
+    "bonusRaw": "+70% Optimal Range",
+    "bonus": {
+      "raw": "+70% Optimal Range",
+      "value": 0.7,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Survivalist specialisation perk"
+  },
+  {
+    "id": "light-extended-5-56-mag",
+    "name": "Light Extended 5.56 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "5.56 Magazine Slot",
+    "bonusRaw": "+15 Rounds",
+    "bonus": {
+      "raw": "+15 Rounds",
+      "value": 15,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Federal Triangle side mission: Department of Justice"
+  },
+  {
+    "id": "sturdy-extended-5-56-mag",
+    "name": "Sturdy Extended 5.56 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "5.56 Magazine Slot",
+    "bonusRaw": "+20 Rounds",
+    "bonus": {
+      "raw": "+20 Rounds",
+      "value": 20,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": "-10% Reload Speed",
+    "penalty": {
+      "raw": "-10% Reload Speed",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "source": "Main Pool"
+  },
+  {
+    "id": "balanced-spring-5-56-mag",
+    "name": "Balanced Spring 5.56 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "5.56 Magazine Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "force-feed-45-acp-mag",
+    "name": "Force Feed .45 ACP Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": ".45 ACP Magazine Slot",
+    "bonusRaw": "+5% Rate of Fire",
+    "bonus": {
+      "raw": "+5% Rate of Fire",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Rate of Fire"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "West End side mission: Garage Stash (+Underground faction)"
+  },
+  {
+    "id": "short-spring-45-acp-mag",
+    "name": "Short Spring .45 ACP Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": ".45 ACP Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "extended-45-acp-mag",
+    "name": "Extended .45 ACP Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": ".45 ACP Magazine Slot",
+    "bonusRaw": "+15 Rounds",
+    "bonus": {
+      "raw": "+15 Rounds",
+      "value": 15,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Downtown East side mission: Agent Edwards Support"
+  },
+  {
+    "id": "oversized-45-acp-mag",
+    "name": "Oversized .45 ACP Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": ".45 ACP Magazine Slot",
+    "bonusRaw": "+20 Rounds",
+    "bonus": {
+      "raw": "+20 Rounds",
+      "value": 20,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": "-10% Reload Speed",
+    "penalty": {
+      "raw": "-10% Reload Speed",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "source": "Main Pool"
+  },
+  {
+    "id": "precision-feeding-45-mag",
+    "name": "Precision Feeding .45 Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": ".45 ACP Magazine Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "heavy-spring-9mm-mag",
+    "name": "Heavy Spring 9mm Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "9mm Magazine Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "oversized-9mm-mag",
+    "name": "Oversized 9mm Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "9mm Magazine Slot",
+    "bonusRaw": "+15 Rounds",
+    "bonus": {
+      "raw": "+15 Rounds",
+      "value": 15,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "extended-9mm-mag",
+    "name": "Extended 9mm Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "9mm Magazine Slot",
+    "bonusRaw": "+20 Rounds",
+    "bonus": {
+      "raw": "+20 Rounds",
+      "value": 20,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": "-10% Reload speed",
+    "penalty": {
+      "raw": "-10% Reload speed",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Reload speed"
+    },
+    "source": "West Potomac Park side mission: Missing Campus Patrol"
+  },
+  {
+    "id": "segmented-9mm-mag",
+    "name": "Segmented 9mm Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "9mm Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "East Mall side mission: Agent Brooks Support"
+  },
+  {
+    "id": "field-pistol-mag",
+    "name": "Field Pistol Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Pistol Magazine Slot",
+    "bonusRaw": "+30% Optimal Range",
+    "bonus": {
+      "raw": "+30% Optimal Range",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "police-pistol-mag",
+    "name": "Police Pistol Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Pistol Magazine Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "extended-pistol-mag",
+    "name": "Extended Pistol Mag",
+    "type": "MAGAZINE SLOT",
+    "slot": "Pistol Magazine Slot",
+    "bonusRaw": "+11 Rounds",
+    "bonus": {
+      "raw": "+11 Rounds",
+      "value": 11,
+      "unit": "",
+      "attribute": "Rounds"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Downtown West side mission: Beekeeper Jeff"
+  },
+  {
+    "id": "speed-loading-revolver-drum",
+    "name": "Speed Loading Revolver Drum",
+    "type": "MAGAZINE SLOT",
+    "slot": "Revolver Drum Slot",
+    "bonusRaw": "+20% Reload Speed",
+    "bonus": {
+      "raw": "+20% Reload Speed",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "large-suppressor-7-62",
+    "name": "Large Suppressor 7.62",
+    "type": "MUZZLE SLOT",
+    "slot": "7.62 Muzzle Slot",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "West End side mission: Historic District Attack"
+  },
+  {
+    "id": "muzzle-brake-7-62",
+    "name": "Muzzle Brake 7.62",
+    "type": "MUZZLE SLOT",
+    "slot": "7.62 Muzzle Slot",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "flash-hider-7-62",
+    "name": "Flash Hider 7.62",
+    "type": "MUZZLE SLOT",
+    "slot": "7.62 Muzzle Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Downtown East side mission: Empire Autumn Hotel"
+  },
+  {
+    "id": "loud-vent-brake-7-62",
+    "name": "Loud Vent Brake 7.62",
+    "type": "MUZZLE SLOT",
+    "slot": "7.62 Muzzle Slot",
+    "bonusRaw": "+50% Optimal Range",
+    "bonus": {
+      "raw": "+50% Optimal Range",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "compensator-7-62",
+    "name": "Compensator 7.62",
+    "type": "MUZZLE SLOT",
+    "slot": "7.62 Muzzle Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "omega-7-62-rifle-suppresor",
+    "name": "Omega 7.62 Rifle Suppresor",
+    "type": "MUZZLE SLOT",
+    "slot": "7.62 Muzzle Slot",
+    "bonusRaw": "+40% Stability",
+    "bonus": {
+      "raw": "+40% Stability",
+      "value": 0.4,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": "-10% Optimal Range",
+    "penalty": {
+      "raw": "-10% Optimal Range",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "source": "Main Pool"
+  },
+  {
+    "id": "large-suppressor-5-56",
+    "name": "Large Suppressor 5.56",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "muzzle-brake-5-56",
+    "name": "Muzzle Brake 5.56",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Theatre Project: Reclaimer Crew"
+  },
+  {
+    "id": "flash-hider-5-56",
+    "name": "Flash Hider 5.56",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "loud-vent-brake-5-56",
+    "name": "Loud Vent Brake 5.56",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+50% Optimal Range",
+    "bonus": {
+      "raw": "+50% Optimal Range",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "compensator-5-56",
+    "name": "Compensator 5.56",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Campus Project: Food Aid Operation"
+  },
+  {
+    "id": "omega-5-56-rifle-suppressor",
+    "name": "Omega 5.56 Rifle Suppressor",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+40% Stability",
+    "bonus": {
+      "raw": "+40% Stability",
+      "value": 0.4,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": "-10% Optimal Range",
+    "penalty": {
+      "raw": "-10% Optimal Range",
+      "value": -0.1,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "source": "West End side mission: Potomac Relief Camp"
+  },
+  {
+    "id": "qdc-sound-suppressor",
+    "name": "QDC Sound Suppressor",
+    "type": "MUZZLE SLOT",
+    "slot": "5.56 Muzzle Slot",
+    "bonusRaw": "+20% Stability",
+    "bonus": {
+      "raw": "+20% Stability",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Stoner only and Dare Only"
+  },
+  {
+    "id": "small-suppressor-45",
+    "name": "Small Suppressor .45",
+    "type": "MUZZLE SLOT",
+    "slot": ".45 Muzzle Slot",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "osprey-45-suppressor",
+    "name": "Osprey 45 Suppressor",
+    "type": "MUZZLE SLOT",
+    "slot": ".45 Muzzle Slot",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "flash-hider-45",
+    "name": "Flash Hider .45",
+    "type": "MUZZLE SLOT",
+    "slot": ".45 Muzzle Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "muzzle-brake-45",
+    "name": "Muzzle Brake .45",
+    "type": "MUZZLE SLOT",
+    "slot": ".45 Muzzle Slot",
+    "bonusRaw": "+10% Headshot Damage",
+    "bonus": {
+      "raw": "+10% Headshot Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Foggy Bottom side mission: Greenhouse Community"
+  },
+  {
+    "id": "loud-vent-brake-45",
+    "name": "Loud Vent Brake .45",
+    "type": "MUZZLE SLOT",
+    "slot": ".45 Muzzle Slot",
+    "bonusRaw": "+50% Optimal Range",
+    "bonus": {
+      "raw": "+50% Optimal Range",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "West Mall side mission: Medical Camp Attack"
+  },
+  {
+    "id": "compensator-45",
+    "name": "Compensator .45",
+    "type": "MUZZLE SLOT",
+    "slot": ".45 Muzzle Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "small-suppressor-9mm",
+    "name": "Small Suppressor 9mm",
+    "type": "MUZZLE SLOT",
+    "slot": "9mm Muzzle Slot",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "osprey-9-suppressor",
+    "name": "Osprey 9 Suppressor",
+    "type": "MUZZLE SLOT",
+    "slot": "9mm Muzzle Slot",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Judiciary Square side mission: Missing Wire Scavengers"
+  },
+  {
+    "id": "flash-hider-9mm",
+    "name": "Flash Hider 9mm",
+    "type": "MUZZLE SLOT",
+    "slot": "9mm Muzzle Slot",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "muzzle-brake-9mm",
+    "name": "Muzzle Brake 9mm",
+    "type": "MUZZLE SLOT",
+    "slot": "9mm Muzzle Slot",
+    "bonusRaw": "+10% Headshot Damage",
+    "bonus": {
+      "raw": "+10% Headshot Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "loud-vent-brake-9mm",
+    "name": "Loud Vent Brake 9mm",
+    "type": "MUZZLE SLOT",
+    "slot": "9mm Muzzle Slot",
+    "bonusRaw": "+50% Optimal Range",
+    "bonus": {
+      "raw": "+50% Optimal Range",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "compensator-9mm",
+    "name": "Compensator 9mm",
+    "type": "MUZZLE SLOT",
+    "slot": "9mm Muzzle Slot",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Federal Triangle side mission: National Archives"
+  },
+  {
+    "id": "short-grip",
+    "name": "Short Grip",
+    "type": "UNDERBARREL",
+    "slot": "Long Underbarrel Rail",
+    "bonusRaw": "+10% Critical Hit Damage",
+    "bonus": {
+      "raw": "+10% Critical Hit Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "tactical-short-grip",
+    "name": "Tactical Short Grip",
+    "type": "UNDERBARREL",
+    "slot": "Long Underbarrel Rail",
+    "bonusRaw": "+15% Critical Hit Damage",
+    "bonus": {
+      "raw": "+15% Critical Hit Damage",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Firewall Specialisation Perk"
+  },
+  {
+    "id": "linked-laser-pointer",
+    "name": "Linked Laser Pointer",
+    "type": "UNDERBARREL",
+    "slot": "Long Underbarrel Rail",
+    "bonusRaw": "Pulses targets at which it's aimed",
+    "bonus": {
+      "raw": "Pulses targets at which it's aimed",
+      "value": null,
+      "unit": "",
+      "attribute": "Pulses targets at which it's aimed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Technician Specialisation Perk"
+  },
+  {
+    "id": "handstop",
+    "name": "Handstop",
+    "type": "UNDERBARREL",
+    "slot": "Long Underbarrel Rail",
+    "bonusRaw": "+14% Reload Speed",
+    "bonus": {
+      "raw": "+14% Reload Speed",
+      "value": 0.14,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Downtown East side mission: Odea Retail Store"
+  },
+  {
+    "id": "vertical-grip",
+    "name": "Vertical Grip",
+    "type": "UNDERBARREL",
+    "slot": "Long/Short Underbarrel Rail",
+    "bonusRaw": "+30% Accuracy",
+    "bonus": {
+      "raw": "+30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "angled-grip",
+    "name": "Angled Grip",
+    "type": "UNDERBARREL",
+    "slot": "Long/Short Underbarrel Rail",
+    "bonusRaw": "+30% Stability",
+    "bonus": {
+      "raw": "+30% Stability",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "East Mall side mission: Water Source"
+  },
+  {
+    "id": "laser-pointer",
+    "name": "Laser Pointer",
+    "type": "UNDERBARREL",
+    "slot": "Long/Short Underbarrel Rail/\nSide slot",
+    "bonusRaw": "+5% Critical Hit Chance",
+    "bonus": {
+      "raw": "+5% Critical Hit Chance",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Constitution Hall side mission: True Sons Broadcast Outpost"
+  },
+  {
+    "id": "small-laser-pointer",
+    "name": "Small Laser Pointer",
+    "type": "UNDERBARREL",
+    "slot": "Long/Short Underbarrel Rail/\nSide slot",
+    "bonusRaw": "+7% Critical Hit Chance",
+    "bonus": {
+      "raw": "+7% Critical Hit Chance",
+      "value": 0.07,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Demolitionist Specialisation Perk"
+  },
+  {
+    "id": "compact-coupled-small-laser-pointer",
+    "name": "Compact Coupled Small \nLaser Pointer",
+    "type": "UNDERBARREL",
+    "slot": "Gadget Slot",
+    "bonusRaw": "+10% Critical Hit Chance",
+    "bonus": {
+      "raw": "+10% Critical Hit Chance",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Complete Story missions and level up White House"
+  },
+  {
+    "id": "compact-coupled-laser-pointer",
+    "name": "Compact Coupled Laser Pointer",
+    "type": "UNDERBARREL",
+    "slot": "Gadget Slot",
+    "bonusRaw": "+10% Headshot Damage",
+    "bonus": {
+      "raw": "+10% Headshot Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Main Pool"
+  },
+  {
+    "id": "pistol-flashlight",
+    "name": "Pistol Flashlight",
+    "type": "UNDERBARREL",
+    "slot": "Gadget Slot",
+    "bonusRaw": "Illuminates dark areas",
+    "bonus": {
+      "raw": "Illuminates dark areas",
+      "value": null,
+      "unit": "",
+      "attribute": "Illuminates dark areas"
+    },
+    "penaltyRaw": null,
+    "penalty": null,
+    "source": "Underground tank (click for more info)"
+  }
+]

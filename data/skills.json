@@ -1,0 +1,3781 @@
+[
+  {
+    "name": "Smart Cover",
+    "variants": [
+      {
+        "name": "Precision",
+        "stats": [
+          {
+            "stat": "Radius",
+            "tier0": "6m",
+            "tier1": "+10% Radius",
+            "tier2": "+20% Radius",
+            "tier3": "+30% Radius",
+            "tier4": "+40% Radius",
+            "tier5": "+50% Radius",
+            "tier6": "+60% Radius",
+            "overchargeStats": "+100% Radius",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Duration"
+          },
+          {
+            "stat": "Cooldown",
+            "tier0": "45s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "24s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Weapon Handling",
+            "tier0": "0.15",
+            "tier1": "+25% Weapon Handling",
+            "tier2": "+35% Weapon Handling",
+            "tier3": "+45% Weapon Handling",
+            "tier4": "+55% Weapon Handling",
+            "tier5": "+65% Weapon Handling",
+            "tier6": "+75% Weapon Handling",
+            "overchargeStats": "+100% Weapon Handling",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage to targets out of cover",
+            "tier0": "0.1",
+            "tier1": "+7% Damage to targets out of cover",
+            "tier2": "+9% Damage to targets out of cover",
+            "tier3": "+12% Damage to targets out of cover",
+            "tier4": "+16% Damage to targets out of cover",
+            "tier5": "+21% Damage to targets out of cover",
+            "tier6": "+27% Damage to targets out of cover",
+            "overchargeStats": "+35% Damage to targets out of cover",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "663623",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Fortified",
+        "stats": [
+          {
+            "stat": "Radius",
+            "tier0": "6m",
+            "tier1": "+10% Radius",
+            "tier2": "+20% Radius",
+            "tier3": "+30% Radius",
+            "tier4": "+40% Radius",
+            "tier5": "+50% Radius",
+            "tier6": "+60% Radius",
+            "overchargeStats": "+100% Radius",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Bonus Armor"
+          },
+          {
+            "stat": "Cooldown",
+            "tier0": "45s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "36s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bonus Armor",
+            "tier0": "0.5",
+            "tier1": "+10% Bonus Armor",
+            "tier2": "+20% Bonus Armor",
+            "tier3": "+30% Bonus Armor",
+            "tier4": "+40% Bonus Armor",
+            "tier5": "+50% Bonus Armor",
+            "tier6": "+60% Bonus Armor",
+            "overchargeStats": "+100% Bonus Armor",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Explosive Resistance",
+            "tier0": "0.05",
+            "tier1": "+10% Explosive Resistance",
+            "tier2": "+15% Explosive Resistance",
+            "tier3": "+20% Explosive Resistance",
+            "tier4": "+25% Explosive Resistance",
+            "tier5": "+35% Explosive Resistance",
+            "tier6": "+40% Explosive Resistance",
+            "overchargeStats": "+60% Explosive Resistance",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Pulse Resistance",
+            "tier0": "0.05",
+            "tier1": "+5% Pulse Resistance",
+            "tier2": "+10% Pulse Resistance",
+            "tier3": "+15% Pulse Resistance",
+            "tier4": "+25% Pulse Resistance",
+            "tier5": "+35% Pulse Resistance",
+            "tier6": "+45% Pulse Resistance",
+            "overchargeStats": "+45% Pulse Resistance",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "663623",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Sticky Bomb",
+    "variants": [
+      {
+        "name": "Burn",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "60s",
+            "tier1": "‎+15% Skill Haste",
+            "tier2": "‎+30% Skill Haste",
+            "tier3": "‎+45% Skill Haste",
+            "tier4": "‎+60% Skill Haste",
+            "tier5": "‎+75% Skill Haste",
+            "tier6": "‎+90% Skill Haste",
+            "overchargeStats": "‎+500% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Burn Damage"
+          },
+          {
+            "stat": "Damage",
+            "tier0": "995434",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration (flare)",
+            "tier0": "10s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn damage",
+            "tier0": "79794",
+            "tier1": "‎+10% Burn Damage",
+            "tier2": "‎+20% Burn Damage",
+            "tier3": "‎+30% Burn Damage",
+            "tier4": "‎+40% Burn Damage",
+            "tier5": "‎+50% Burn Damage",
+            "tier6": "‎+60% Burn Damage",
+            "overchargeStats": "‎+100% Burn Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn duration",
+            "tier0": "4.5s",
+            "tier1": "‎+35% Burn Duration",
+            "tier2": "‎+40% Burn Duration",
+            "tier3": "‎+60% Burn Duration",
+            "tier4": "‎+80% Burn Duration",
+            "tier5": "‎+100% Burn Duration",
+            "tier6": "‎+120% Burn Duration",
+            "overchargeStats": "‎+200% Burn Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "218995",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "EMP",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% EMP Blast Radius"
+          },
+          {
+            "stat": "Duration (Flare)",
+            "tier0": "8s",
+            "tier1": "‎+10% Duration",
+            "tier2": "‎+20% Duration",
+            "tier3": "‎+30% Duration",
+            "tier4": "‎+40% Duration",
+            "tier5": "‎+50% Duration",
+            "tier6": "‎+60% Duration",
+            "overchargeStats": "‎+100% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Disrupt Duration",
+            "tier0": "??",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "EMP\nBlast Radius",
+            "tier0": "4m",
+            "tier1": "‎+10% EMP \nBlast Radius",
+            "tier2": "‎+20% EMP \nBlast Radius",
+            "tier3": "‎+30% EMP \nBlast Radius",
+            "tier4": "‎+40% EMP \nBlast Radius",
+            "tier5": "‎+50% EMP \nBlast Radius",
+            "tier6": "‎+60% EMP \nBlast Radius",
+            "overchargeStats": "‎+150% EMP \nBlast Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Explosive",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "60s",
+            "tier1": "‎+15% Skill Haste",
+            "tier2": "‎+30% Skill Haste",
+            "tier3": "‎+45% Skill Haste",
+            "tier4": "‎+60% Skill Haste",
+            "tier5": "‎+75% Skill Haste",
+            "tier6": "‎+90% Skill Haste",
+            "overchargeStats": "‎+500% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Damage",
+            "tier0": "1327245",
+            "tier1": "‎+10% Damage",
+            "tier2": "‎+20% Damage",
+            "tier3": "‎+30% Damage",
+            "tier4": "‎+40% Damage",
+            "tier5": "‎+50% Damage",
+            "tier6": "‎+60% Damage",
+            "overchargeStats": "‎+80% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Blast Radius",
+            "tier0": "3m",
+            "tier1": "‎+20% Blast Radius",
+            "tier2": "‎+30% Blast Radius",
+            "tier3": "‎+40% Blast Radius",
+            "tier4": "‎+50% Blast Radius",
+            "tier5": "‎+60% Blast Radius",
+            "tier6": "‎+70% Blast Radius",
+            "overchargeStats": "‎+200% Blast Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "10s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "291993",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Trap",
+    "variants": [
+      {
+        "name": "Shock",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "60s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Shock Duration"
+          },
+          {
+            "stat": "Traps",
+            "tier0": "6",
+            "tier1": "+2 Traps",
+            "tier2": "+2 Traps",
+            "tier3": "+4 Traps",
+            "tier4": "+6 Traps",
+            "tier5": "+8 Traps",
+            "tier6": "+10 Traps",
+            "overchargeStats": "+12 Traps",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Shock Radius",
+            "tier0": "2.5m",
+            "tier1": "+10% Shock Radius",
+            "tier2": "+20% Shock Radius",
+            "tier3": "+30% Shock Radius",
+            "tier4": "+40% Shock Radius",
+            "tier5": "+50% Shock Radius",
+            "tier6": "+60% Shock Radius",
+            "overchargeStats": "+70% Shock Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Shock Duration",
+            "tier0": "3s",
+            "tier1": "+10% Shock Duration",
+            "tier2": "+20% Shock Duration",
+            "tier3": "+30% Shock Duration",
+            "tier4": "+40% Shock Duration",
+            "tier5": "+50% Shock Duration",
+            "tier6": "+60% Shock Duration",
+            "overchargeStats": "+200% Shock Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "60s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Shock Effect Duration",
+            "tier0": "1.5s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Healing",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "40s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Immunizing Serum\nTraps also provide status effect immunity for 10s",
+            "expertise": "Per Grade Level : \n+1% Repair"
+          },
+          {
+            "stat": "Repair",
+            "tier0": "165906",
+            "tier1": "+20% Repair",
+            "tier2": "+40% Repair",
+            "tier3": "+60% Repair",
+            "tier4": "+80% Repair",
+            "tier5": "+100% Repair",
+            "tier6": "+120% Repair",
+            "overchargeStats": "+140% Repair",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Traps",
+            "tier0": "2",
+            "tier1": "+1 Traps",
+            "tier2": "+2 Traps",
+            "tier3": "+3 Traps",
+            "tier4": "+4 Traps",
+            "tier5": "+5 Traps",
+            "tier6": "+6 Traps",
+            "overchargeStats": "+6 Traps",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Repair Radius",
+            "tier0": "0.75m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "60s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Repair",
+            "tier0": "82952",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Shrapnel",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "60s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Damage",
+            "tier0": "663,623",
+            "tier1": "‎+10% Damage",
+            "tier2": "‎+20% Damage",
+            "tier3": "‎+30% Damage",
+            "tier4": "‎+40% Damage",
+            "tier5": "‎+50% Damage",
+            "tier6": "‎+60% Damage",
+            "overchargeStats": "‎+100% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Traps",
+            "tier0": "9",
+            "tier1": "+1 Traps",
+            "tier2": "+2 Traps",
+            "tier3": "+3 Traps",
+            "tier4": "+4 Traps",
+            "tier5": "+5 Traps",
+            "tier6": "+6 Traps",
+            "overchargeStats": "+6 Traps",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Explosion Radius",
+            "tier0": "2m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "60s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Pvp Damage",
+            "tier0": "6636",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Decoy",
+    "variants": [
+      {
+        "name": "Holographic Distraction",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+200% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Threat"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "15s",
+            "tier1": "+15% Duration",
+            "tier2": "+30% Duration",
+            "tier3": "+45% Duration",
+            "tier4": "+60% Duration",
+            "tier5": "+75% Duration",
+            "tier6": "+90% Duration",
+            "overchargeStats": "+90% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "929072",
+            "tier1": "+50% Health",
+            "tier2": "+100% Health",
+            "tier3": "+150% Health",
+            "tier4": "+200% Health",
+            "tier5": "+250% Health",
+            "tier6": "+300% Health",
+            "overchargeStats": "+600%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Threat",
+            "tier0": "1",
+            "tier1": "+15% Threat",
+            "tier2": "+30% Threat",
+            "tier3": "+45% Threat",
+            "tier4": "+60% Threat",
+            "tier5": "+75% Threat",
+            "tier6": "+90% Threat",
+            "overchargeStats": "+250% Threat",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pulse",
+    "variants": [
+      {
+        "name": "Scanner",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Weakness Exploit\nYou and your allies damage is amplified by 15% to pulsed targets",
+            "expertise": "Per Grade Level : \n+1% Duration"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "8s",
+            "tier1": "+15% Effect Duration",
+            "tier2": "+30% Effect Duration",
+            "tier3": "+45% Effect Duration",
+            "tier4": "+60% Effect Duration",
+            "tier5": "+75% Effect Duration",
+            "tier6": "+90% Effect Duration",
+            "overchargeStats": "+200% Effect Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Effect Radius",
+            "tier0": "100m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Conflict Cooldown",
+            "tier0": "120s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Remote",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Weakness Exploit\nYou and your allies damage is amplified by 15% to pulsed targets",
+            "expertise": "Per Grade Level : \n+1% Radius"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "45s",
+            "tier1": "+15% Duration",
+            "tier2": "+30% Duration",
+            "tier3": "+45% Duration",
+            "tier4": "+60% Duration",
+            "tier5": "+75% Duration",
+            "tier6": "+90% Duration",
+            "overchargeStats": "+120% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Effect Radius",
+            "tier0": "15m",
+            "tier1": "+15% Radius",
+            "tier2": "+30% Radius",
+            "tier3": "+45% Radius",
+            "tier4": "+60% Radius",
+            "tier5": "+75% Radius",
+            "tier6": "+90% Radius",
+            "overchargeStats": "+120% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Jammer (EMP)",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Radius"
+          },
+          {
+            "stat": "EMP Effect Duration",
+            "tier0": "3s",
+            "tier1": "+10% Effect Duration",
+            "tier2": "+20% Effect Duration",
+            "tier3": "+30% Effect Duration",
+            "tier4": "+40% Effect Duration",
+            "tier5": "+50% Effect Duration",
+            "tier6": "+60% Effect Duration",
+            "overchargeStats": "+100% Effect Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Radius",
+            "tier0": "20m",
+            "tier1": "+10% Radius",
+            "tier2": "+20% Radius",
+            "tier3": "+30% Radius",
+            "tier4": "+40% Radius",
+            "tier5": "+50% Radius",
+            "tier6": "+60% Radius",
+            "overchargeStats": "+150% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Charging Time",
+            "tier0": "2s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Achilles",
+        "stats": [
+          {
+            "stat": "Number of Zones",
+            "tier0": "1",
+            "tier1": null,
+            "tier2": null,
+            "tier3": "+1 Zone",
+            "tier4": "+1 Zone",
+            "tier5": "+1 Zone",
+            "tier6": "+2 Zones",
+            "overchargeStats": "+5 Zones",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Zone Health",
+            "tier0": "398174",
+            "tier1": "+10% Zone Health",
+            "tier2": "+20% Zone Health",
+            "tier3": "+30% Zone Health",
+            "tier4": "+40% Zone Health",
+            "tier5": "+50% Zone Health",
+            "tier6": "+60% Zone Health",
+            "overchargeStats": "+100% Zone Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Zone Duration",
+            "tier0": "10s",
+            "tier1": "+10% Duration",
+            "tier2": "+20% Duration",
+            "tier3": "+30% Duration",
+            "tier4": "+40% Duration",
+            "tier5": "+50% Duration",
+            "tier6": "+60% Duration",
+            "overchargeStats": "+100% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cooldown",
+            "tier0": "40s",
+            "tier1": "+10% Skill Haste",
+            "tier2": "+20% Skill Haste",
+            "tier3": "+30% Skill Haste",
+            "tier4": "+40% Skill Haste",
+            "tier5": "+50% Skill Haste",
+            "tier6": "+60% Skill Haste",
+            "overchargeStats": "+100% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Banshee",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+100% Charge Speed",
+            "overchargeEffects": "Weakness Exploit\nYou and your allies damage is amplified by 15% to pulsed targets",
+            "expertise": "Per Grade Level : \n+1% Disorient Duration"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "10s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Disorient Duration",
+            "tier0": "4s",
+            "tier1": "‎+10% Disorient Duration",
+            "tier2": "‎+20% Disorient Duration",
+            "tier3": "‎+30% Disorient Duration",
+            "tier4": "‎+40% Disorient Duration",
+            "tier5": "‎+50% Disorient Duration",
+            "tier6": "‎+60% Disorient Duration",
+            "overchargeStats": "‎+100% Disorient Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Radius",
+            "tier0": "30m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cone Angle",
+            "tier0": "20",
+            "tier1": "‎+10% Cone Size",
+            "tier2": "‎+20% Cone Size",
+            "tier3": "‎+20% Cone Size",
+            "tier4": "‎+40% Cone Size",
+            "tier5": "‎+50% Cone Size",
+            "tier6": "‎+60% Cone Size",
+            "overchargeStats": "‎+150% Cone Size",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Turret",
+    "variants": [
+      {
+        "name": "Assault",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+560%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "26545",
+            "tier1": "‎+20% Damage",
+            "tier2": "‎+40% Damage",
+            "tier3": "‎+60% Damage",
+            "tier4": "‎+80% Damage",
+            "tier5": "‎+100% Damage",
+            "tier6": "‎+120% Damage",
+            "overchargeStats": "‎+175% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "6636",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Incinerator",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "15s",
+            "tier1": "+10% Duration",
+            "tier2": "+20% Duration",
+            "tier3": "+30% Duration",
+            "tier4": "+40% Duration",
+            "tier5": "+50% Duration",
+            "tier6": "+60% Duration",
+            "overchargeStats": "+100% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+560%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "13272",
+            "tier1": "‎+10% Damage",
+            "tier2": "‎+20% Damage",
+            "tier3": "‎+30% Damage",
+            "tier4": "‎+40% Damage",
+            "tier5": "‎+50% Damage",
+            "tier6": "‎+60% Damage",
+            "overchargeStats": "‎+60% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Range",
+            "tier0": "15m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn Damage",
+            "tier0": "53090",
+            "tier1": "‎+10% Burn Strength",
+            "tier2": "‎+20% Burn Strength",
+            "tier3": "‎+30% Burn Strength",
+            "tier4": "‎+40% Burn Strength",
+            "tier5": "‎+50% Burn Strength",
+            "tier6": "‎+60% Burn Strength",
+            "overchargeStats": "‎+60% Burn Strength",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn Duration",
+            "tier0": "4s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "10617",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "8494",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Sniper",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "300s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+560%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "729985",
+            "tier1": "‎+15% Damage",
+            "tier2": "‎+30% Damage",
+            "tier3": "‎+45% Damage",
+            "tier4": "‎+60% Damage",
+            "tier5": "‎+75% Damage",
+            "tier6": "‎+90% Damage",
+            "overchargeStats": "‎+90% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Ammo",
+            "tier0": "3",
+            "tier1": "+2 Extra Sniper Ammo",
+            "tier2": "+4 Extra Sniper Ammo",
+            "tier3": "+6 Extra Sniper Ammo",
+            "tier4": "+8 Extra Sniper Ammo",
+            "tier5": "+10 Extra Sniper Ammo",
+            "tier6": "+12 Extra Sniper Ammo",
+            "overchargeStats": "+15 Extra Sniper Ammo",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "233595",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Artillery",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "300",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+560%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "729985",
+            "tier1": "‎+15% Damage",
+            "tier2": "‎+30% Damage",
+            "tier3": "‎+45% Damage",
+            "tier4": "‎+60% Damage",
+            "tier5": "‎+75% Damage",
+            "tier6": "‎+90% Damage",
+            "overchargeStats": "‎+137.5% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Ammo",
+            "tier0": "3",
+            "tier1": "+1 Extra Mortar Ammo",
+            "tier2": "+2 Extra Mortar Ammo",
+            "tier3": "+3 Extra Mortar Ammo",
+            "tier4": "+4 Extra Mortar Ammo",
+            "tier5": "+5 Extra Mortar Ammo",
+            "tier6": "+6 Extra Mortar Ammo",
+            "overchargeStats": "+10 Extra Mortar Ammo",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Blast Radius",
+            "tier0": "4.5m",
+            "tier1": "+8% Mortar Blast Radius",
+            "tier2": "+16% Mortar Blast Radius",
+            "tier3": "+24% Mortar Blast Radius",
+            "tier4": "+32% Mortar Blast Radius",
+            "tier5": "+40% Mortar Blast Radius",
+            "tier6": "+50% Mortar Blast Radius",
+            "overchargeStats": "+75% Mortar Blast Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bleed Damage",
+            "tier0": "29863",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bleed Duration",
+            "tier0": "7",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "182496",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Bleed Damage",
+            "tier0": "7465",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Hive",
+    "variants": [
+      {
+        "name": "Restorer",
+        "stats": [
+          {
+            "stat": "Refill Speed",
+            "tier0": "11s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+150% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Duration"
+          },
+          {
+            "stat": "Charges",
+            "tier0": "8",
+            "tier1": "+4 Repair Charges",
+            "tier2": "+8 Repair Charges",
+            "tier3": "+12 Repair Charges",
+            "tier4": "+16 Repair Charges",
+            "tier5": "+20 Repair Charges",
+            "tier6": "+24 Repair Charges",
+            "overchargeStats": "+24 Repair Charges",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Range",
+            "tier0": "8m",
+            "tier1": "+10% Range",
+            "tier2": "+20% Range",
+            "tier3": "+30% Range",
+            "tier4": "+40% Range",
+            "tier5": "+50% Range",
+            "tier6": "+60% Range",
+            "overchargeStats": "+200% Range",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "796347",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Healing",
+            "tier0": "59726",
+            "tier1": "+20% Healing",
+            "tier2": "+40% Healing",
+            "tier3": "+60% Healing",
+            "tier4": "+80% Healing",
+            "tier5": "+100% Healing",
+            "tier6": "+120% Healing",
+            "overchargeStats": "+140% Healing",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Healing",
+            "tier0": "36432",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Stinger",
+        "stats": [
+          {
+            "stat": "Refill Speed",
+            "tier0": "10s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+300% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Charges",
+            "tier0": "8",
+            "tier1": "+1 Stinger Charges",
+            "tier2": "+2 Stinger Charges",
+            "tier3": "+3 Stinger Charges",
+            "tier4": "+4 Stinger Charges",
+            "tier5": "+5 Stinger Charges",
+            "tier6": "+6 Stinger Charges",
+            "overchargeStats": "+6 Stinger Charges",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Range",
+            "tier0": "8m",
+            "tier1": "+5% Range",
+            "tier2": "+10% Range",
+            "tier3": "+15% Range",
+            "tier4": "+20% Range",
+            "tier5": "+25% Range",
+            "tier6": "+30% Range",
+            "overchargeStats": "+100% Range",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "796347",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "265449",
+            "tier1": "‎+20% Damage",
+            "tier2": "‎+40% Damage",
+            "tier3": "‎+60% Damage",
+            "tier4": "‎+80% Damage",
+            "tier5": "‎+100% Damage",
+            "tier6": "‎+120% Damage",
+            "overchargeStats": "‎+200% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bleed Damage",
+            "tier0": "29863",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bleed Duration",
+            "tier0": "7s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "63707",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Bleed Damage",
+            "tier0": "7465",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Reviver",
+        "stats": [
+          {
+            "stat": "Refill Speed",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+1000% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Range"
+          },
+          {
+            "stat": "Charges",
+            "tier0": "1",
+            "tier1": "+1 Charges",
+            "tier2": "+2 Charges",
+            "tier3": "+3 Charges",
+            "tier4": "+4 Charges",
+            "tier5": "+5 Charges",
+            "tier6": "+6 Charges",
+            "overchargeStats": "+6 Charges",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Range",
+            "tier0": "8m",
+            "tier1": "+5% Range",
+            "tier2": "+10% Range",
+            "tier3": "+15% Range",
+            "tier4": "+20% Range",
+            "tier5": "+25% Range",
+            "tier6": "+30% Range",
+            "overchargeStats": "+100% Range",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "796347",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Revive Armor",
+            "tier0": "0.25",
+            "tier1": "+10% Reviver Armor Repair",
+            "tier2": "+20% Reviver Armor Repair",
+            "tier3": "+30% Reviver Armor Repair",
+            "tier4": "+40% Reviver Armor Repair",
+            "tier5": "+50% Reviver Armor Repair",
+            "tier6": "+60% Reviver Armor Repair",
+            "overchargeStats": "+75% Reviver Armor Repair",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Booster",
+        "stats": [
+          {
+            "stat": "Refill Speed",
+            "tier0": "11.3s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+150% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Stim Efficiency"
+          },
+          {
+            "stat": "Charges",
+            "tier0": "8",
+            "tier1": "+4 Stim Charges",
+            "tier2": "+8 Stim Charges",
+            "tier3": "+12 Stim Charges",
+            "tier4": "+16 Stim Charges",
+            "tier5": "+20 Stim Charges",
+            "tier6": "+24 Stim Charges",
+            "overchargeStats": "+24 Stim Charges",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Range",
+            "tier0": "8m",
+            "tier1": "+5% Range",
+            "tier2": "+10% Range",
+            "tier3": "+15% Range",
+            "tier4": "+20% Range",
+            "tier5": "+25% Range",
+            "tier6": "+30% Range",
+            "overchargeStats": "+100% Range",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "796347",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Buff Amount",
+            "tier0": "0.2",
+            "tier1": "+33% Stim Efficiency",
+            "tier2": "+66% Stim Efficiency",
+            "tier3": "+100% Stim Efficiency",
+            "tier4": "+133% Stim Efficiency",
+            "tier5": "+166% Stim Efficiency",
+            "tier6": "+200% Stim Efficiency",
+            "overchargeStats": "+400% Stim Efficiency",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Buff Duration",
+            "tier0": "5s",
+            "tier1": "+20% Buff Duration",
+            "tier2": "+30% Buff Duration",
+            "tier3": "+40% Buff Duration",
+            "tier4": "+60% Buff Duration",
+            "tier5": "+80% Buff Duration",
+            "tier6": "+100% Buff Duration",
+            "overchargeStats": "+110% Buff Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Artificer",
+        "stats": [
+          {
+            "stat": "Refill Speed",
+            "tier0": "11.3s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+150% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Tech Efficiency"
+          },
+          {
+            "stat": "Charges",
+            "tier0": "8",
+            "tier1": "+4 Charges",
+            "tier2": "+8 Charges",
+            "tier3": "+12 Charges",
+            "tier4": "+16 Charges",
+            "tier5": "+20 Charges",
+            "tier6": "+24 Charges",
+            "overchargeStats": "+24 Charges",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Range",
+            "tier0": "8m",
+            "tier1": "+10% Range",
+            "tier2": "+20% Range",
+            "tier3": "+30% Range",
+            "tier4": "+40% Range",
+            "tier5": "+50% Range",
+            "tier6": "+60% Range",
+            "overchargeStats": "+200% Range",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "796347",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Buff Amount",
+            "tier0": "0.1",
+            "tier1": "+100% Charge Efficiency",
+            "tier2": "+200% Charge Efficiency",
+            "tier3": "+300% Charge Efficiency",
+            "tier4": "+400% Charge Efficiency",
+            "tier5": "+500% Charge Efficiency",
+            "tier6": "+600% Charge Efficiency",
+            "overchargeStats": "+700% Charge Efficiency",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Buff Duration",
+            "tier0": "10s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Skill Repair",
+            "tier0": "0.1",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Skill Refresh",
+            "tier0": "3s",
+            "tier1": "+2s Skill Refresh",
+            "tier2": "+4s Skill Refresh",
+            "tier3": "+6s Skill Refresh",
+            "tier4": "+8s Skill Refresh",
+            "tier5": "+10s Skill Refresh",
+            "tier6": "+12s Skill Refresh",
+            "overchargeStats": "+22s Skill Refresh",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Chem Launcher",
+    "variants": [
+      {
+        "name": "Reinforcer",
+        "stats": [
+          {
+            "stat": "Ammo",
+            "tier0": "2",
+            "tier1": "+1 Ammo",
+            "tier2": "+2 Ammo",
+            "tier3": "+3 Ammo",
+            "tier4": "+4 Ammo",
+            "tier5": "+5 Ammo",
+            "tier6": "+6 Ammo",
+            "overchargeStats": "+6 Ammo",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Duration"
+          },
+          {
+            "stat": "Ammo Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Radius",
+            "tier0": "3m",
+            "tier1": "+10% Radius",
+            "tier2": "+20% Radius",
+            "tier3": "+30% Radius",
+            "tier4": "+40% Radius",
+            "tier5": "+50% Radius",
+            "tier6": "+60% Radius",
+            "overchargeStats": "+150% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Duration",
+            "tier0": "5s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "+100% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Ally Repair",
+            "tier0": "199087",
+            "tier1": "+20% Heal",
+            "tier2": "+40% Heal",
+            "tier3": "+60% Heal",
+            "tier4": "+80% Heal",
+            "tier5": "+100% Heal",
+            "tier6": "+120% Heal",
+            "overchargeStats": "+140% Heal",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Repair Over Time",
+            "tier0": "39817",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Ally Repair",
+            "tier0": "99543",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Repair Over Time",
+            "tier0": "19908",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Firestarter",
+        "stats": [
+          {
+            "stat": "Ammo",
+            "tier0": "1",
+            "tier1": "+1 Ammo",
+            "tier2": "+2 Ammo",
+            "tier3": "+3 Ammo",
+            "tier4": "+4 Ammo",
+            "tier5": "+5 Ammo",
+            "tier6": "+6 Ammo",
+            "overchargeStats": "+6 Ammo",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Ammo Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Radius",
+            "tier0": "3.00m",
+            "tier1": "+5% Radius",
+            "tier2": "+10% Radius",
+            "tier3": "+15% Radius",
+            "tier4": "+20% Radius",
+            "tier5": "+25% Radius",
+            "tier6": "+30% Radius",
+            "overchargeStats": "+135% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Duration",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "265449",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn Damage",
+            "tier0": "79635",
+            "tier1": "‎+10% Burn Damage",
+            "tier2": "‎+20% Burn Damage",
+            "tier3": "‎+30% Burn Damage",
+            "tier4": "‎+40% Burn Damage",
+            "tier5": "‎+50% Burn Damage",
+            "tier6": "‎+60% Burn Damage",
+            "overchargeStats": "‎+60% Burn Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn Duration",
+            "tier0": "4s",
+            "tier1": "‎+10% Burn Duration",
+            "tier2": "‎+20% Burn Duration",
+            "tier3": "‎+30% Burn Duration",
+            "tier4": "‎+40% Burn Duration",
+            "tier5": "‎+50% Burn Duration",
+            "tier6": "‎+60% Burn Duration",
+            "overchargeStats": "‎+100% Burn Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PVP Damage",
+            "tier0": "106179",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PVP Burn Damage",
+            "tier0": "12741",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Riot Foam",
+        "stats": [
+          {
+            "stat": "Ammo",
+            "tier0": "1",
+            "tier1": "+1 Ammo",
+            "tier2": "+2 Ammo",
+            "tier3": "+3 Ammo",
+            "tier4": "+4 Ammo",
+            "tier5": "+5 Ammo",
+            "tier6": "+6 Ammo",
+            "overchargeStats": "+6 Ammo",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Ensnare Health"
+          },
+          {
+            "stat": "Ammo Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Radius",
+            "tier0": "3m",
+            "tier1": "+5% Radius",
+            "tier2": "+10% Radius",
+            "tier3": "+15% Radius",
+            "tier4": "+20% Radius",
+            "tier5": "+25% Radius",
+            "tier6": "+30% Radius",
+            "overchargeStats": "+135% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Ensnare Duration",
+            "tier0": "6s",
+            "tier1": "+10% Ensnare Duration",
+            "tier2": "+20% Ensnare Duration",
+            "tier3": "+30% Ensnare Duration",
+            "tier4": "+40% Ensnare Duration",
+            "tier5": "+50% Ensnare Duration",
+            "tier6": "+60% Ensnare Duration",
+            "overchargeStats": "+100% Ensnare Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Foam Health",
+            "tier0": "452470",
+            "tier1": "+50% Ensnare Health",
+            "tier2": "+100% Ensnare Health",
+            "tier3": "+150% Ensnare Health",
+            "tier4": "+200% Ensnare Health",
+            "tier5": "+250% Ensnare Health",
+            "tier6": "+300% Ensnare Health",
+            "overchargeStats": "+500% Ensnare Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Ensnare Duration",
+            "tier0": "2",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Oxidizer",
+        "stats": [
+          {
+            "stat": "Ammo",
+            "tier0": "1",
+            "tier1": "+1 Ammo",
+            "tier2": "+2 Ammo",
+            "tier3": "+3 Ammo",
+            "tier4": "+4 Ammo",
+            "tier5": "+5 Ammo",
+            "tier6": "+6 Ammo",
+            "overchargeStats": "+6 Ammo",
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Ammo Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Radius",
+            "tier0": "3.5m",
+            "tier1": "+2% Radius",
+            "tier2": "+4% Radius",
+            "tier3": "+6% Radius",
+            "tier4": "+8% Radius",
+            "tier5": "+10% Radius",
+            "tier6": "+12% Radius",
+            "overchargeStats": "+100% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Duration",
+            "tier0": "5s",
+            "tier1": "‎+20% Duration",
+            "tier2": "‎+40% Duration",
+            "tier3": "‎+60% Duration",
+            "tier4": "‎+80% Duration",
+            "tier5": "‎+100% Duration",
+            "tier6": "‎+120% Duration",
+            "overchargeStats": "‎+150% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Damage",
+            "tier0": "53090",
+            "tier1": "‎+10% Damage",
+            "tier2": "‎+20% Damage",
+            "tier3": "‎+30% Damage",
+            "tier4": "‎+40% Damage",
+            "tier5": "‎+50% Damage",
+            "tier6": "‎+60% Damage",
+            "overchargeStats": "‎+80% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "18581",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Firefly",
+    "variants": [
+      {
+        "name": "Blinder",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "50s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Blind Effect Duration"
+          },
+          {
+            "stat": "Max Targets",
+            "tier0": "3",
+            "tier1": "+1 Max Targets",
+            "tier2": "+2 Max Targets",
+            "tier3": "+3 Max Targets",
+            "tier4": "+4 Max Targets",
+            "tier5": "+5 Max Targets",
+            "tier6": "+6 Max Targets",
+            "overchargeStats": "+10 Max Targets",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "663623",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Speed",
+            "tier0": "1",
+            "tier1": "+35% Speed",
+            "tier2": "+70% Speed",
+            "tier3": "+105% Speed",
+            "tier4": "+140% Speed",
+            "tier5": "+175% Speed",
+            "tier6": "+210% Speed",
+            "overchargeStats": "+250% Speed",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Blind Duration",
+            "tier0": "5s",
+            "tier1": "+10% Blind Effect Duration",
+            "tier2": "+20% Blind Effect Duration",
+            "tier3": "+30% Blind Effect Duration",
+            "tier4": "+40% Blind Effect Duration",
+            "tier5": "+50% Blind Effect Duration",
+            "tier6": "+60% Blind Effect Duration",
+            "overchargeStats": "+100% Blind Effect Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Blind Duration",
+            "tier0": "2s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Burster",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Max Targets",
+            "tier0": "3",
+            "tier1": "+1 Max Targets",
+            "tier2": "+2 Max Targets",
+            "tier3": "+3 Max Targets",
+            "tier4": "+4 Max Targets",
+            "tier5": "+5 Max Targets",
+            "tier6": "+6 Max Targets",
+            "overchargeStats": "+10 Max Targets",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "663623",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Speed",
+            "tier0": "1",
+            "tier1": "+35% Speed",
+            "tier2": "+70% Speed",
+            "tier3": "+105% Speed",
+            "tier4": "+140% Speed",
+            "tier5": "+175% Speed",
+            "tier6": "+210% Speed",
+            "overchargeStats": "+250% Speed",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "663623",
+            "tier1": "‎+15% Damage",
+            "tier2": "‎+30% Damage",
+            "tier3": "‎+45% Damage",
+            "tier4": "‎+60% Damage",
+            "tier5": "‎+75% Damage",
+            "tier6": "‎+90% Damage",
+            "overchargeStats": "‎+137.5% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Demolisher",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "50s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Max Targets",
+            "tier0": "3",
+            "tier1": "+1 Max Targets",
+            "tier2": "+2 Max Targets",
+            "tier3": "+3 Max Targets",
+            "tier4": "+4 Max Targets",
+            "tier5": "+5 Max Targets",
+            "tier6": "+6 Max Targets",
+            "overchargeStats": "+10 Max Targets",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "663623",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Speed",
+            "tier0": "1",
+            "tier1": "+35% Speed",
+            "tier2": "+70% Speed",
+            "tier3": "+105% Speed",
+            "tier4": "+140% Speed",
+            "tier5": "+175% Speed",
+            "tier6": "+210% Speed",
+            "overchargeStats": "+250% Speed",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "1659056",
+            "tier1": "‎+35% Damage",
+            "tier2": "‎+70% Damage",
+            "tier3": "‎+105% Damage",
+            "tier4": "‎+140% Damage",
+            "tier5": "‎+175% Damage",
+            "tier6": "‎+210% Damage",
+            "overchargeStats": "‎+300% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "3318112",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Seeker",
+    "variants": [
+      {
+        "name": "Explosive",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "35s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Health",
+            "tier0": "199087",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "1061796",
+            "tier1": "+10% Damage",
+            "tier2": "+20% Damage",
+            "tier3": "+30% Damage",
+            "tier4": "+40% Damage",
+            "tier5": "+50% Damage",
+            "tier6": "+60% Damage",
+            "overchargeStats": "+80% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Blast Radius",
+            "tier0": "4m",
+            "tier1": "+5% Radius",
+            "tier2": "+10% Radius",
+            "tier3": "+15% Radius",
+            "tier4": "+20% Radius",
+            "tier5": "+25% Radius",
+            "tier6": "+30% Radius",
+            "overchargeStats": "+200% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bleed Damage",
+            "tier0": "29863",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Bleed Duration",
+            "tier0": "7s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "191123",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Bleed Damage",
+            "tier0": "7465",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Airburst",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "30s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Health",
+            "tier0": "199087",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "331811",
+            "tier1": "+10% Damage",
+            "tier2": "+20% Damage",
+            "tier3": "+30% Damage",
+            "tier4": "+40% Damage",
+            "tier5": "+50% Damage",
+            "tier6": "+60% Damage",
+            "overchargeStats": "+60% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn Damage",
+            "tier0": "79635",
+            "tier1": "‎+10% Burn Damage",
+            "tier2": "‎+20% Burn Damage",
+            "tier3": "‎+30% Burn Damage",
+            "tier4": "‎+40% Burn Damage",
+            "tier5": "‎+50% Burn Damage",
+            "tier6": "‎+60% Burn Damage",
+            "overchargeStats": "‎+60% Burn Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Burn Duration",
+            "tier0": "4s",
+            "tier1": "‎+50% Burn Duration",
+            "tier2": "‎+100% Burn Duration",
+            "tier3": "‎+150% Burn Duration",
+            "tier4": "‎+200% Burn Duration",
+            "tier5": "‎+250% Burn Duration",
+            "tier6": "‎+300% Burn Duration",
+            "overchargeStats": "‎+400% Burn Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "132724",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Burn Damage",
+            "tier0": "11945",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Radius",
+            "tier0": "6m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Cluster",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "50s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage"
+          },
+          {
+            "stat": "Health",
+            "tier0": "199087",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "729985",
+            "tier1": "+10% Damage",
+            "tier2": "+20% Damage",
+            "tier3": "+30% Damage",
+            "tier4": "+40% Damage",
+            "tier5": "+50% Damage",
+            "tier6": "+60% Damage",
+            "overchargeStats": "+80% Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Number of Mines",
+            "tier0": "3",
+            "tier1": "+1 Cluster Mines",
+            "tier2": "+2 Cluster Mines",
+            "tier3": "+3 Cluster Mines",
+            "tier4": "+4 Cluster Mines",
+            "tier5": "+5 Cluster Mines",
+            "tier6": "+6 Cluster Mines",
+            "overchargeStats": "+8 Cluster Mines",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Blast Radius",
+            "tier0": "2m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "131397",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Mender",
+        "stats": [
+          {
+            "stat": "Duration",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Healing"
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Healing",
+            "tier0": "17918 HP/s",
+            "tier1": "+20% Healing",
+            "tier2": "+40% Healing",
+            "tier3": "+60% Healing",
+            "tier4": "+80% Healing",
+            "tier5": "+100% Healing",
+            "tier6": "+120% Healing",
+            "overchargeStats": "+160% Healing",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Radius",
+            "tier0": "3m",
+            "tier1": "+5% Radius",
+            "tier2": "+10% Radius",
+            "tier3": "+15% Radius",
+            "tier4": "+20% Radius",
+            "tier5": "+25% Radius",
+            "tier6": "+30% Radius",
+            "overchargeStats": "+150% Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cloud Duration",
+            "tier0": "8s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "199087",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Healing",
+            "tier0": "8958",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Drone",
+    "variants": [
+      {
+        "name": "Striker",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Striker Damage"
+          },
+          {
+            "stat": "Health",
+            "tier0": "530898",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420% Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage",
+            "tier0": "16591",
+            "tier1": "+20% Striker Damage",
+            "tier2": "+40% Striker Damage",
+            "tier3": "+60% Striker Damage",
+            "tier4": "+80% Striker Damage",
+            "tier5": "+100% Striker Damage",
+            "tier6": "+120% Striker Damage",
+            "overchargeStats": "+175% Striker Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "3318",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Defender",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Damage Reduction"
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+560%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "20",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Damage Reduction",
+            "tier0": "0.2",
+            "tier1": "+5% Damage  Reduction",
+            "tier2": "+10% Damage Reduction",
+            "tier3": "+15% Damage Reduction",
+            "tier4": "+20% Damage Reduction",
+            "tier5": "+25% Damage Reduction",
+            "tier6": "+30% Damage \nReduction",
+            "overchargeStats": "+60% Damage \nReduction",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damge Reduction",
+            "tier0": "0.1",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Bombardier",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Blast Damage"
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+420%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Explosion Damage",
+            "tier0": "564079",
+            "tier1": "+10% Blast Damage",
+            "tier2": "+20% Blast Damage",
+            "tier3": "+30% Blast Damage",
+            "tier4": "+40% Blast Damage",
+            "tier5": "+50% Blast Damage",
+            "tier6": "+60% Blast Damage",
+            "overchargeStats": "+60% Blast Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Number of Bombs",
+            "tier0": "3",
+            "tier1": "+1 Extra Bombs",
+            "tier2": "+2 Extra Bombs",
+            "tier3": "+3 Extra Bombs",
+            "tier4": "+4 Extra Bombs",
+            "tier5": "+5 Extra Bombs",
+            "tier6": "+6 Extra Bombs",
+            "overchargeStats": "+6 Extra Bombs",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Blast Radius",
+            "tier0": "4.5m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "+5 Blast Radius",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage",
+            "tier0": "152301",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Fixer",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": "Per Grade Level : \n+1% Duration"
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+500%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "180s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Healing",
+            "tier0": "17918",
+            "tier1": "+20% Armor Repair",
+            "tier2": "+40% Armor Repair",
+            "tier3": "+60% Armor Repair",
+            "tier4": "+80% Armor Repair",
+            "tier5": "+100% Armor Repair",
+            "tier6": "+120% Armor Repair",
+            "overchargeStats": "+175% Armor Repair",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Healing",
+            "tier0": "8958",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Tactician",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Weakness Exploit\nYou and your allies damage is amplified by 15% to pulsed targets",
+            "expertise": "Per Grade Level : \n+1% Scan Range"
+          },
+          {
+            "stat": "Health",
+            "tier0": "1061796",
+            "tier1": "+70% Health",
+            "tier2": "+140% Health",
+            "tier3": "+210% Health",
+            "tier4": "+280% Health",
+            "tier5": "+350% Health",
+            "tier6": "+420% Health",
+            "overchargeStats": "+560%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "300s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Scan Range",
+            "tier0": "50m",
+            "tier1": "+5m Scan Range",
+            "tier2": "+10m Scan Range",
+            "tier3": "+15m Scan Range",
+            "tier4": "+20m Scan Range",
+            "tier5": "+25m Scan Range",
+            "tier6": "+30m Scan Range",
+            "overchargeStats": "+40m Scan Range",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shield",
+    "variants": [
+      {
+        "name": "Bulwark",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Shield Wall\nYour shield is invulnerable.",
+            "expertise": "Per Grade Level : \n+1% Active Regeneration"
+          },
+          {
+            "stat": "Health",
+            "tier0": "2654490",
+            "tier1": "+67% Shield Health",
+            "tier2": "+133% Shield Health",
+            "tier3": "+200% Shield Health",
+            "tier4": "+266% Shield Health",
+            "tier5": "+333% Shield Health",
+            "tier6": "+400% Shield Health",
+            "overchargeStats": "+400% Shield Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Active\nRegeneration",
+            "tier0": "79,635 HP/s",
+            "tier1": "+20% Active Regeneration",
+            "tier2": "+40% Active Regeneration",
+            "tier3": "+60% Active Regeneration",
+            "tier4": "+80% Active Regeneration",
+            "tier5": "+100% Active Regeneration",
+            "tier6": "+120% Active Regeneration",
+            "overchargeStats": "+500% Active Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Holstered\nRegeneration",
+            "tier0": "132,725 HP/s",
+            "tier1": "+5% Holstered Regeneration",
+            "tier2": "+10% Holstered Regeneration",
+            "tier3": "+15% Holstered Regeneration",
+            "tier4": "+20% Holstered Regeneration",
+            "tier5": "+25% Holstered Regeneration",
+            "tier6": "+40% Holstered Regeneration",
+            "overchargeStats": "+40% Holstered Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage \nTaken Modifier",
+            "tier0": "8x",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Crusader",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Shield Wall\nYour shield is invulnerable.",
+            "expertise": "Per Grade Level : \n+1% Active Regeneration"
+          },
+          {
+            "stat": "Health",
+            "tier0": "1327245",
+            "tier1": "+40% Shield Health",
+            "tier2": "+66% Shield Health",
+            "tier3": "+100% Shield Health",
+            "tier4": "+150% Shield Health",
+            "tier5": "+200% Shield Health",
+            "tier6": "+250% Shield Health",
+            "overchargeStats": "+250% Shield Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Active \nRegeneration",
+            "tier0": "39817",
+            "tier1": "+10% Active Regeneration",
+            "tier2": "+20% Active Regeneration",
+            "tier3": "+30% Active Regeneration",
+            "tier4": "+40% Active Regeneration",
+            "tier5": "+50% Active Regeneration",
+            "tier6": "+60% Active Regeneration",
+            "overchargeStats": "+500% Active Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Holstered \nRegeneration",
+            "tier0": "66362",
+            "tier1": "+5% Holstered Regeneration",
+            "tier2": "+10% Holstered Regeneration",
+            "tier3": "+15% Holstered Regeneration",
+            "tier4": "+20% Holstered Regeneration",
+            "tier5": "+25% Holstered Regeneration",
+            "tier6": "+40% Holstered Regeneration",
+            "overchargeStats": "+40% Holstered Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damge \nTaken Modifier",
+            "tier0": "8x",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Deflector",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": "Shield Wall\nYour shield is invulnerable.",
+            "expertise": "Per Grade Level : \n+1% Active Regeneration"
+          },
+          {
+            "stat": "Health",
+            "tier0": "2123592",
+            "tier1": "+40% Shield Health",
+            "tier2": "+66% Shield Health",
+            "tier3": "+100% Shield Health",
+            "tier4": "+150% Shield Health",
+            "tier5": "+200% Shield Health",
+            "tier6": "+250% Shield Health",
+            "overchargeStats": "+250% Shield Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Active\nRegeneration",
+            "tier0": "63708",
+            "tier1": "+10% Active Regeneration",
+            "tier2": "+20% Active Regeneration",
+            "tier3": "+30% Active Regeneration",
+            "tier4": "+40% Active Regeneration",
+            "tier5": "+50% Active Regeneration",
+            "tier6": "+60% Active Regeneration",
+            "overchargeStats": "+60% Active Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Holstered\nRegeneration",
+            "tier0": "106180",
+            "tier1": "+5% Holstered Regeneration",
+            "tier2": "+10% Holstered Regeneration",
+            "tier3": "+15% Holstered Regeneration",
+            "tier4": "+20% Holstered Regeneration",
+            "tier5": "+25% Holstered Regeneration",
+            "tier6": "+40% Holstered Regeneration",
+            "overchargeStats": "+40% Holstered Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Average Damage",
+            "tier0": "80465",
+            "tier1": "+10% Deflector Damage",
+            "tier2": "+20% Deflector Damage",
+            "tier3": "+30% Deflector Damage",
+            "tier4": "+40% Deflector Damage",
+            "tier5": "+50% Deflector Damage",
+            "tier6": "+60% Deflector Damage",
+            "overchargeStats": "+100% Deflector Damage",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage \nTaken Modifier",
+            "tier0": "8x",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      },
+      {
+        "name": "Striker",
+        "stats": [
+          {
+            "stat": "Damage bonus\n(per enemy)",
+            "tier0": "0.05",
+            "tier1": "+1.0 Buff strength",
+            "tier2": "+1.2 Buff strength",
+            "tier3": "+1.4 Buff strength",
+            "tier4": "+1.6 Buff strength",
+            "tier5": "+1.8 Buff strength",
+            "tier6": "+2.0 Buff strength",
+            "overchargeStats": "+2.5 Buff strength",
+            "overchargeEffects": "Shield Wall\nYour shield is invulnerable.",
+            "expertise": "Per Grade Level : \n+1% Regeneration"
+          },
+          {
+            "stat": "Buff Angle",
+            "tier0": "45",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Buff Range",
+            "tier0": "10m",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Cooldown",
+            "tier0": "20s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "1327245",
+            "tier1": "+40% Shield Health",
+            "tier2": "+66% Shield Health",
+            "tier3": "+100% Shield Health",
+            "tier4": "+150% Shield Health",
+            "tier5": "+200% Shield Health",
+            "tier6": "+250% Shield Health",
+            "overchargeStats": "+400% Shield Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Holstered\nRegeneration",
+            "tier0": "66362",
+            "tier1": "+5% Holstered Regeneration",
+            "tier2": "+10% Holstered Regeneration",
+            "tier3": "+15% Holstered Regeneration",
+            "tier4": "+20% Holstered Regeneration",
+            "tier5": "+25% Holstered Regeneration",
+            "tier6": "+40% Holstered Regeneration",
+            "overchargeStats": "+100% Holstered Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Active\nRegeneration",
+            "tier0": "39817",
+            "tier1": "+10% Active Regeneration",
+            "tier2": "+20% Active Regeneration",
+            "tier3": "+30% Active Regeneration",
+            "tier4": "+40% Active Regeneration",
+            "tier5": "+50% Active Regeneration",
+            "tier6": "+60% Active Regeneration",
+            "overchargeStats": "+60% Active Regeneration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "PvP Damage\nTaken Modifier",
+            "tier0": "8x",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": null,
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Skill",
+    "variants": [
+      {
+        "name": "Variant",
+        "stats": [
+          {
+            "stat": "Stat",
+            "tier0": "Base Stats / Skill Tier 0",
+            "tier1": "Skill Tier 1",
+            "tier2": "Skill Tier 2",
+            "tier3": "Skill Tier 3",
+            "tier4": "Skill Tier 4",
+            "tier5": "Skill Tier 5",
+            "tier6": "Skill Tier 6",
+            "overchargeStats": "Overcharge Stats 🗲",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Decoy",
+    "variants": [
+      {
+        "name": "Holographic Distraction",
+        "stats": [
+          {
+            "stat": "Cooldown",
+            "tier0": "25s",
+            "tier1": null,
+            "tier2": null,
+            "tier3": null,
+            "tier4": null,
+            "tier5": null,
+            "tier6": null,
+            "overchargeStats": "‎+200% Skill Haste",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Duration",
+            "tier0": "15s",
+            "tier1": "+15% Duration",
+            "tier2": "+30% Duration",
+            "tier3": "+45% Duration",
+            "tier4": "+60% Duration",
+            "tier5": "+75% Duration",
+            "tier6": "+90% Duration",
+            "overchargeStats": "+90% Duration",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Health",
+            "tier0": "929072",
+            "tier1": "+50% Health",
+            "tier2": "+100% Health",
+            "tier3": "+150% Health",
+            "tier4": "+200% Health",
+            "tier5": "+250% Health",
+            "tier6": "+300% Health",
+            "overchargeStats": "+600%Health",
+            "overchargeEffects": null,
+            "expertise": null
+          },
+          {
+            "stat": "Threat",
+            "tier0": "1",
+            "tier1": "+15% Threat",
+            "tier2": "+30% Threat",
+            "tier3": "+45% Threat",
+            "tier4": "+60% Threat",
+            "tier5": "+75% Threat",
+            "tier6": "+90% Threat",
+            "overchargeStats": "+250% Threat",
+            "overchargeEffects": null,
+            "expertise": null
+          }
+        ]
+      }
+    ]
+  }
+]

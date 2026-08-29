@@ -1,0 +1,528 @@
+[
+  {
+    "name": "Universal",
+    "passives": [
+      {
+        "name": "Vital Protection",
+        "effect": "50% Pulse Resistance"
+      },
+      {
+        "name": "Signature Weapon Damage",
+        "effect": "40% Increased Signature Weapon damage. Signature weapons scale with each tier, this increase is in addition to that scaling."
+      },
+      {
+        "name": "E.M.I",
+        "effect": "15% Increase Assault Rifle Damage"
+      },
+      {
+        "name": "Onslaught",
+        "effect": "15% LMG Damage"
+      },
+      {
+        "name": "Running the Gun",
+        "effect": "15% Shotgun Damage"
+      },
+      {
+        "name": "Spray and Pray",
+        "effect": "15% SMG Damage"
+      },
+      {
+        "name": "Gunslinger",
+        "effect": "15% Pistol Damage"
+      },
+      {
+        "name": "Depleted Rounds",
+        "effect": "15% Marksman Rifle Damage"
+      },
+      {
+        "name": "This is my Rifle",
+        "effect": "15% Increased Rifle Damage"
+      }
+    ]
+  },
+  {
+    "name": "Sharpshooter",
+    "nodes": [
+      {
+        "category": "Armor Kit",
+        "name": "Emegency Cleanse",
+        "description": "Armor kits repair 100%, remove status effects and increases resistance \nto bleed, posion, and burn for 20s."
+      },
+      {
+        "category": "Talents",
+        "name": "Sharpshooter Tactical Link",
+        "description": "All group members that are closer to enemies than you get +10% headshot damage."
+      },
+      {
+        "category": null,
+        "name": "Round After Round",
+        "description": "After 20 sedconds in cover, you start generating 5 marksman and 5 rifle ammo, every 10 seconds."
+      },
+      {
+        "category": null,
+        "name": "My Home is My Castle",
+        "description": "Extra [Bonus] armor gained while in cover."
+      },
+      {
+        "category": "Passsives",
+        "name": "One in the Head",
+        "description": "15% increased headshot damage with Rifles and Marksman Rifles, allows for precision kills."
+      },
+      {
+        "category": null,
+        "name": "Breath Control",
+        "description": "15% increased weapon stability, reduced recoil, and faster reacquisition of targets."
+      },
+      {
+        "category": null,
+        "name": ".50 Caliber Ammo Acquisition",
+        "description": "Killing enemies with headshots adds 2 to the ammo bar. Except from signature weapons."
+      },
+      {
+        "category": null,
+        "name": "Group Siganture Ammo Supply",
+        "description": "Killing enemies with headshots adds 1 to your groups ammo bar. Except from signature weapons."
+      },
+      {
+        "category": "Skill & Skill Mods",
+        "name": "Tactician",
+        "description": "The Tactician scouts and marks hostile targets, feeding them to the agent and other allies' HUD."
+      },
+      {
+        "category": null,
+        "name": "Graphene Battery (Upgrade)",
+        "description": "Mod to increase the drone's duration Requirements: Tactician Drone\n\n(+15.0% Duration)"
+      },
+      {
+        "category": null,
+        "name": "Carbon Fiber Frame (Upgrade)",
+        "description": "Mod to decrease the drone's cooldown Requirements: Graphene Battery\n\n(+20.0% Scan Range)"
+      },
+      {
+        "category": "Weapon Mod",
+        "name": "Digital Scope (Mod)",
+        "description": "Digital aiming device for long top rails. Required: This is my Rifle (Rifle)\n\n(+45.0% Headshot Damage -5.0% Critical Hit Damage)"
+      },
+      {
+        "category": "Grenade",
+        "name": "Flashbang Grenade",
+        "description": "The flashbang grenade applies blind to all targets within a large area of effect"
+      },
+      {
+        "category": "Sidearm",
+        "name": "Sharpshooter's 93R",
+        "description": "a 3-round burst fire weapon for hectic close encounters. The ideal companion for when the situation calls for rapid fire and high mobility (Perfect Unwavering talent)"
+      },
+      {
+        "category": "Specialization Weapon",
+        "name": "TAC-50 C Rifle",
+        "description": null
+      }
+    ]
+  },
+  {
+    "name": "Survivalist",
+    "nodes": [
+      {
+        "category": "Armor Kit",
+        "name": "Distributed Repair",
+        "description": "Armor kits now repair over 5 seconds instead of instantly, but also applies to group members within 20 meters."
+      },
+      {
+        "category": "Talents",
+        "name": "Survivalist Tactical Link",
+        "description": "Group members get 10% bonus damage to targets with status effects."
+      },
+      {
+        "category": null,
+        "name": "Scraping By",
+        "description": "Gain 5 ammo per second for your current weapon, while performing a cover-to-cover in combat."
+      },
+      {
+        "category": null,
+        "name": "Crunch Time",
+        "description": "While in cover, gain 10% skill haste."
+      },
+      {
+        "category": "Passsives",
+        "name": "Triage Specialist",
+        "description": "15% Increased Outgoing Healing."
+      },
+      {
+        "category": null,
+        "name": "Elite Defense",
+        "description": "10% Increased Protection from Elites."
+      },
+      {
+        "category": null,
+        "name": "Explosive Bolt Aqusition",
+        "description": "Killing enemies with status effects adds 3 the ammo bar. Except from signature weapons."
+      },
+      {
+        "category": null,
+        "name": "Group Siganture Ammo Supply",
+        "description": "Killing enemies with status effects adds 3 to your groups ammo bar. Except from signature weapons."
+      },
+      {
+        "category": "Skill & Skill Mods",
+        "name": "Mender",
+        "description": "The mender seeker mine follows allies, repairing their armor."
+      },
+      {
+        "category": null,
+        "name": "Magnetic Disc (Upgrade)",
+        "description": "Mod to decrease the seeker mine's health. Requirements: Mender\n\n(+15.0% Health)"
+      },
+      {
+        "category": null,
+        "name": "Larrea tridentata Infusion (Upgrade)",
+        "description": "Mod to increase the seeker mine's healing Requirements: Magnetic Disc\n\n(+15.0% Healing)"
+      },
+      {
+        "category": "Weapon Mod",
+        "name": "Infantry 5.56 Mag",
+        "description": "Custom magazine for 5.56 assault style weapons. Required: E.M.I (Assault Rifle)\n\n(+70.0% Optimal Range)"
+      },
+      {
+        "category": "Grenade",
+        "name": "Incendiary Grenade",
+        "description": "The Incendiary grenade applies burn to targets within the radius"
+      },
+      {
+        "category": "Sidearm",
+        "name": "Survivalist D50",
+        "description": "A hard-hitting but precise pistol. the D50 features .44 Magnum rounds and an optic slot for added customization (Perfect Sadist talent)"
+      },
+      {
+        "category": "Specialization Weapon",
+        "name": "Crossbow",
+        "description": null
+      }
+    ]
+  },
+  {
+    "name": "Technician",
+    "nodes": [
+      {
+        "category": "Armor Kit",
+        "name": "Emergency Patch",
+        "description": "Armor kit also applies to all friendly skill proxies within 10m."
+      },
+      {
+        "category": "Talents",
+        "name": "Faraday Field",
+        "description": "Party members within 5m of your deployed and un-disrupted skills are immune to shock and disruption."
+      },
+      {
+        "category": null,
+        "name": "Technomancy",
+        "description": "Gain 15% bonus armor while aiming a skill."
+      },
+      {
+        "category": "Passives",
+        "name": "Overclocked CPU",
+        "description": "+10% Skill Damage (Cannot be used if Enhanced Diagnostics is activated)"
+      },
+      {
+        "category": null,
+        "name": "Enhanced Diagnostics",
+        "description": "+10% Skill Healing (Cannot be used if Overclocked CPU is activated)"
+      },
+      {
+        "category": null,
+        "name": "Amped",
+        "description": "+1 Skill Tier"
+      },
+      {
+        "category": null,
+        "name": "Dismantling",
+        "description": "+12% damage to drones, skill proxies, and robotics"
+      },
+      {
+        "category": null,
+        "name": "Micro-Missile Ammo Acquisition",
+        "description": "Destroying hostile skill proxies, drones and robotics adds 3 to the ammo bar."
+      },
+      {
+        "category": null,
+        "name": "Group Signature Ammo Acquisition",
+        "description": "Destroying hostile skill proxies, drones and robotics adds 1 to the ammo bar of your group."
+      },
+      {
+        "category": "Skill & Skill Mods",
+        "name": "Artificer",
+        "description": "The Artificer sends out micro electro-booster drones that expend themselves to increase allied skills efficiency and refresh their duration. periodically releases a drone whilst holstered, this drone affects only your skills."
+      },
+      {
+        "category": null,
+        "name": "Upgraded Sensor Package (Upgrade)",
+        "description": "Mod to increase the raiduis of the hive skill. Required: Artificer\n\n(+10.0% Range)"
+      },
+      {
+        "category": null,
+        "name": "Liquid Cooling (Upgrade)",
+        "description": "Mod to increase the recovery rate of the hive skill. Required: Upgraded Sensor Package\n\n(+10.0% Duration)"
+      },
+      {
+        "category": "Weapon Mod",
+        "name": "Linked Laser Pointer",
+        "description": "Technician Laser Pointer that pulses targets at which it's aimed. Underbarrel attachment for long rails. Required: This is my Rifle (Rifle)"
+      },
+      {
+        "category": "Grenade",
+        "name": "EMP Grenade",
+        "description": "The EMP Grenade applies disrupt to all electrical abilities within the affected area."
+      },
+      {
+        "category": "Sidearm",
+        "name": "Maxim 9",
+        "description": "Integrally suppressed 9mm pistol for when you don't want to compromise between performance and suppression. A lergae magazine and added barrel weight from the suppressor minimizes recoil for a very precise weapon. (Perfect Spike)"
+      },
+      {
+        "category": "Specialization Weapon",
+        "name": "P-017 Launcher",
+        "description": null
+      }
+    ]
+  },
+  {
+    "name": "Gunner",
+    "nodes": [
+      {
+        "category": "Armor Kit",
+        "name": "Hardened Armor Kits",
+        "description": "Armor kits repair 100% armor and grant 30% bonus armor for 10s."
+      },
+      {
+        "category": "Talents",
+        "name": "Supply Line",
+        "description": "Generate 10% of total ammo capacity, every 60s. Party members recover 5%."
+      },
+      {
+        "category": null,
+        "name": "Emplacement",
+        "description": "10% weapon handling while not moving, need to be motionless for 1 second(s)."
+      },
+      {
+        "category": null,
+        "name": "Barrage",
+        "description": "Rate of fire increases by 5% on kill for 5s."
+      },
+      {
+        "category": "Passives",
+        "name": "Incessant",
+        "description": "Killing enemies grants 10% armor"
+      },
+      {
+        "category": null,
+        "name": "Coupler",
+        "description": "Every 3rd reload is 50% faster"
+      },
+      {
+        "category": null,
+        "name": "7.62 Minigun Ammo Acquisition",
+        "description": "Killing Multiple enemies without releasing the trigger adds 3 to the ammo bar, excluding the specialization weapon."
+      },
+      {
+        "category": null,
+        "name": "Group Signature Ammo Acquisition",
+        "description": "Killing Multiple enemies without releasing the trigger adds 1 to group members' ammo bar, excluding the specialization weapon."
+      },
+      {
+        "category": "Skill & Skill Mods",
+        "name": "Banshee",
+        "description": "The Banshee launches a forward arc of pulse energy that disorients enemies caught in the wave. Penetrate cover."
+      },
+      {
+        "category": null,
+        "name": "Microwave Amplifier (Upgrade)",
+        "description": "Mod to increase the duration of the banshee confuse [disorient] effect. Required: Banshee\n\n\n(+15.0% Effect Duration)"
+      },
+      {
+        "category": null,
+        "name": "Directional Transmitter (Upgrade)",
+        "description": "Mod to increase the banshee range of effect. Required: Microwave Amplifier\n\n(+15.0% Radius)"
+      },
+      {
+        "category": "Weapon Mod",
+        "name": "Large Pouch (LMGs)",
+        "description": "Bigger than standard pouch that fits on any belt fed weapon. Required: Onslaught (LMG)\n\n(+50 Rounds)"
+      },
+      {
+        "category": "Grenade",
+        "name": "Riot Foam Grenade",
+        "description": "The Riot Foam Grenade ensares enemies."
+      },
+      {
+        "category": "Sidearm",
+        "name": "P320 XCompact",
+        "description": "9mm service pistol of the US military, its compact ergonomic design masks its impressive stopping power. (Perfect Preservation)"
+      },
+      {
+        "category": "Specialization Weapon",
+        "name": "Minigun",
+        "description": null
+      }
+    ]
+  },
+  {
+    "name": "Demolitionist",
+    "nodes": [
+      {
+        "category": "Armor Kit",
+        "name": "Stimulant patch",
+        "description": "Armor kits repair 100% damage and boost weapon handling by 30% for 15s."
+      },
+      {
+        "category": "Talents",
+        "name": "Demolitionist Tactical Link",
+        "description": "[Sub-]Group members gain 5% damage to targets out of cover."
+      },
+      {
+        "category": null,
+        "name": "Braced for Impact",
+        "description": "Ignore explosions. Can only trigger once every 60s."
+      },
+      {
+        "category": null,
+        "name": "Crisis Response",
+        "description": "When armor is reduced to zero, refills all main weapon clip ammo."
+      },
+      {
+        "category": "Passives",
+        "name": "Explosive Ordnance",
+        "description": "10% increased explosives damage. Affects explosive grenades, skills, and effects."
+      },
+      {
+        "category": null,
+        "name": "Incombustible",
+        "description": "Increase burn resistance by 20%."
+      },
+      {
+        "category": null,
+        "name": "40mm Ammo Acquisition",
+        "description": "Killing enemies with explosives adds 3 to the ammo bar. Except from signature weapons."
+      },
+      {
+        "category": null,
+        "name": "Group Signature Ammo Supply",
+        "description": "Killing multiple enemies with explosions adds 2 to your group ammo bar. Except from signature weapons."
+      },
+      {
+        "category": "Skill & Skill Mods",
+        "name": "Artillery Turret",
+        "description": "The artillery turret launches ordinance at nearby targeted locations."
+      },
+      {
+        "category": null,
+        "name": "Cyclone Magazine (Upgrade)",
+        "description": "Mod to increase the turret's ammunition count. Required: Artillery Turret\n\n(+1 Extra Mortar Ammo)"
+      },
+      {
+        "category": null,
+        "name": "SHD CPU V.2 (Upgrade)",
+        "description": "Mod to increase the turret's damage. Required: Cyclone Magazine\n\n(+10.0% Damage)"
+      },
+      {
+        "category": "Weapon Mod",
+        "name": "Small Laser Pointer",
+        "description": "Underbarrel attachment for short and long rails. Required: Spray and Pray (SMG)\n\n(+7.0% Critical Hit Chance)"
+      },
+      {
+        "category": "Grenade",
+        "name": "Fragmentation Grenade",
+        "description": "The fragmentation grenade deals damage and causes targets to bleed."
+      },
+      {
+        "category": "Sidearm",
+        "name": "Diceros Special",
+        "description": "A hard hitting .357 Magnum revolver. The unusual low barrel design firing from the bottom of the cylinder makes for a balance rarely seen in this category of weapon. (Perfect Optimist)"
+      },
+      {
+        "category": "Specialization Weapon",
+        "name": "M32A1 Multi-shot Grenade Launcher",
+        "description": null
+      }
+    ]
+  },
+  {
+    "name": "Firewall",
+    "nodes": [
+      {
+        "category": "Armor Kit",
+        "name": "Extracellular Matrix Mesh",
+        "description": "Your armor kit recovers 200% armor and 200% health over 10 seconds."
+      },
+      {
+        "category": "Talents",
+        "name": "Firewall Tactical Link",
+        "description": "Allies deal +10% more damage to enemies within 10 meters of you."
+      },
+      {
+        "category": null,
+        "name": "Fiery Response",
+        "description": "On armor break, apply burn to enemies within 5m.\n\n(Disabled in PvP)"
+      },
+      {
+        "category": "Passives",
+        "name": "Bull Rush",
+        "description": "+30% Bonus Armor during cover to cover moves"
+      },
+      {
+        "category": null,
+        "name": "Enriched Magnesium Formula",
+        "description": "+20% Burn Duration"
+      },
+      {
+        "category": null,
+        "name": "Frontline Recovery",
+        "description": "+30% Health on Kill"
+      },
+      {
+        "category": null,
+        "name": "Firewall Ammo Acquisition",
+        "description": "Killing enemies within 10 meters, adds 3 to the ammo bar, excluding the specialization weapon."
+      },
+      {
+        "category": null,
+        "name": "Group Signature Ammo Acquisition",
+        "description": "Killing enemies within 10 meters, adds 1 to your groups ammo bar, excluding the specialization weapon."
+      },
+      {
+        "category": "Skill & Skill Mods",
+        "name": "Striker Shield",
+        "description": "The striker shield is a modified version of the crusader shield, allowing the K8-JetStream Flamethrower signature weapon to be used while equipped.\nIn addition, the striker shield boosts the damage of the user and all allies behind them based on the number of enemies in front of the shield."
+      },
+      {
+        "category": null,
+        "name": "Shock Hardened Frame (Upgrade)",
+        "description": "Mod to increase the health of the shield skill Required: Striker Shield\n\n(+8.0% Shield Health)"
+      },
+      {
+        "category": null,
+        "name": "Macromolecular Coverings (Upgrade)",
+        "description": "Mod to increase the regeneration rate of shield skill (while active) Required: Shock Hardened Frame\n\n(+8.0% Active Regeneration)"
+      },
+      {
+        "category": "Weapon Mod",
+        "name": "Tactical Short Grip",
+        "description": "Lightweight short grip forunderbarrel longer rails Required: Running the Gun (Shotgun)\n\n(+15.0% Critical Hit Damage)"
+      },
+      {
+        "category": "Grenade",
+        "name": "Cluster Grenade",
+        "description": "The cluster grenade launches mini grenades which detonate in a large area of effect. Use is expressly prohibited by the CCM, though the United States is not a signatory party."
+      },
+      {
+        "category": "Sidearm",
+        "name": "Firestarter Sawed-Off Shotgun",
+        "description": "Chambered Shots contain a fine powder that increase flammability of targets hit by the shotgun. (Firestarter)"
+      },
+      {
+        "category": "Specialization Weapon",
+        "name": "K8-JetStream Flamethrower",
+        "description": null
+      }
+    ]
+  }
+]

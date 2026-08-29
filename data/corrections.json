@@ -1,0 +1,240 @@
+{
+  "patch": "Y8S3 / TU30 / 2.34",
+  "patchDate": "2026-08-28",
+  "brandCorrections": [
+    {
+      "brand": "Lengmo",
+      "slot": "1pc",
+      "originalValue": "30% Reload Speed",
+      "correctedValue": "15% Reload Speed",
+      "parsed": {
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Reload Speed"
+      },
+      "confidence": "[PDF]",
+      "reason": "Value was doubled in community sheet (30% -> 15%)"
+    },
+    {
+      "brand": "China Light Industries",
+      "slot": "2pc",
+      "originalValue": "25% Status Effects",
+      "correctedValue": "20% Status Effects",
+      "parsed": {
+        "value": 0.20,
+        "unit": "%",
+        "attribute": "Status Effects"
+      },
+      "confidence": "[PDF]",
+      "reason": "Old Y8S2 3pc value carried into the new 2pc slot (25% -> 20%)"
+    },
+    {
+      "brand": "Electrique",
+      "slot": "2pc",
+      "originalValue": "20% Electricity Protection",
+      "correctedValue": "20% Hazard Protection",
+      "parsed": {
+        "value": 0.20,
+        "unit": "%",
+        "attribute": "Hazard Protection"
+      },
+      "confidence": "[PDF]",
+      "reason": "'Electricity Protection' is not a real bonus type; corrected to Hazard Protection"
+    },
+    {
+      "brand": "5.11 Tactical",
+      "slot": "1pc",
+      "originalValue": "10% Protection from Elites",
+      "correctedValue": "12% Protection from Elites",
+      "parsed": {
+        "value": 0.12,
+        "unit": "%",
+        "attribute": "Protection from Elites"
+      },
+      "confidence": "[PDF]",
+      "reason": "10% was PvP-normalised value; PvE baseline is 12%"
+    }
+  ],
+  "gearSetCorrections": [
+    {
+      "name": "Ember Engine",
+      "coreAttribute": "Skill Tier",
+      "bonuses2pc": [
+        {
+          "raw": "8% Skill Efficiency",
+          "value": 0.08,
+          "unit": "%",
+          "attribute": "Skill Efficiency"
+        }
+      ],
+      "bonuses3pc": [
+        {
+          "raw": "30% Status Effects",
+          "value": 0.30,
+          "unit": "%",
+          "attribute": "Status Effects"
+        }
+      ],
+      "talent4pc": "Spontaneous Combustion: Every Status Effect you apply has a 40% chance to also apply Burn. If the effect applied was already Burn, the enemy takes +25% Burn Damage for its duration.",
+      "chestTalent": "Flashpoint: Chance to apply Burn increases from 40% to 60%.",
+      "backpackTalent": "White Hot: Increases duration of the Burn Damage debuff by +50%.",
+      "multiplierGroup": "Skill Damage / Status Effects",
+      "confidence": "[UBI]",
+      "notes": "Red Horizon addition. Core attribute presumed yellow [?]. PvE only (PvP heavily reduced)."
+    }
+  ],
+  "namedGearAdditions": [
+    {
+      "name": "Trick Shot",
+      "slot": "Chest",
+      "brand": "Imminence Armaments",
+      "isExotic": false,
+      "talent": "Perfect Reassigned",
+      "talentDesc": "Killing an enemy adds 1 round of a random special ammo to your sidearm. Cooldown: 8s.",
+      "coreAttribute": "Weapon Damage",
+      "minor1": "Any Basic",
+      "minor2": "Any Basic",
+      "minor3": "Mod Slot",
+      "confidence": "[UBI]",
+      "source": "LZ / Targeted Loot"
+    },
+    {
+      "name": "Rushdown",
+      "slot": "Chest",
+      "brand": "Richter & Kaiser GmbH",
+      "isExotic": false,
+      "talent": "Tag Team",
+      "talentDesc": "The last enemy damaged by a skill is marked. Dealing weapon damage to that enemy consumes the mark and reduces active skill cooldowns by 12s. Cooldown: 4s.",
+      "coreAttribute": "Skill Tier",
+      "minor1": "Any Basic",
+      "minor2": "Any Basic",
+      "minor3": "Mod Slot",
+      "confidence": "[UBI]",
+      "source": "LZ / Targeted Loot"
+    },
+    {
+      "name": "Melon Baller",
+      "slot": "Backpack",
+      "brand": "Airaldi Holdings",
+      "isExotic": false,
+      "talent": "Perfect Concussion",
+      "talentDesc": "Headshots increase total weapon damage by 20% for 1.5s (5s with Marksman Rifles). Headshot kills increase total weapon damage by 15% for 10s.",
+      "coreAttribute": "Weapon Damage",
+      "minor1": "Any Basic",
+      "minor2": "Any Basic",
+      "minor3": "Mod Slot",
+      "confidence": "[UBI]",
+      "source": "LZ / Targeted Loot"
+    },
+    {
+      "name": "Keeper",
+      "slot": "Backpack",
+      "brand": "5.11 Tactical",
+      "isExotic": false,
+      "talent": "Perfect Protector",
+      "talentDesc": "When your shield is damaged, gain +25% of your armor as bonus armor, and all other allies gain +35% of your armor as bonus armor for 3s. Cooldown: 3s.",
+      "coreAttribute": "Armor",
+      "minor1": "Any Basic",
+      "minor2": "Any Basic",
+      "minor3": "Mod Slot",
+      "confidence": "[UBI]",
+      "source": "LZ / Targeted Loot"
+    }
+  ],
+  "exoticGearAdditions": [
+    {
+      "name": "Iron Will",
+      "slot": "Chest",
+      "isExotic": true,
+      "brand": null,
+      "talent": "Resolved",
+      "talentDesc": "Your next body shot counts as a headshot. PvE cooldown 2s, PvP cooldown 3s. Requires MMR, Rifle, or Pistol equipped.",
+      "coreAttribute": "Weapon Damage",
+      "minor1": "Headshot Damage\n10%",
+      "minor2": "Critical Hit Damage\n12%",
+      "minor3": "Mod Slot",
+      "confidence": "[UBI]",
+      "source": "Free Season Track"
+    }
+  ],
+  "exoticWeaponAdditions": [
+    {
+      "name": "Fafnir",
+      "category": "Shotgun",
+      "family": "Custom Double Barrel",
+      "isExotic": true,
+      "talentOrPerk": "Dragon's Breath: Fires Dragon's Breath shells. Each shot has a 40% chance of applying Burn. Weapon Damage is amplified by 50% of your Status Effect bonus.",
+      "exoticMods": "Optics: +15% Critical Hit Chance\nMagazine: +5 Rounds\nUnderbarrel: +10% Weapon Handling",
+      "confidence": "[UBI]",
+      "notes": "Amplifier interaction flagged [?]. Subject to status-effect diminishing returns.",
+      "source": "Free Season Track"
+    }
+  ],
+  "namedWeaponAdditions": [
+    {
+      "name": "Teapot",
+      "category": "Rifle",
+      "family": "Military MK17",
+      "isExotic": false,
+      "talentOrPerk": "Perfect Boiling Point: The first 48% of your magazine has -100% Critical Hit Chance, the remaining 52% has +100% Critical Hit Chance.",
+      "confidence": "[UBI]",
+      "source": "LZ / Season Track"
+    },
+    {
+      "name": "Steamer",
+      "category": "Marksman Rifle",
+      "family": "SR-1",
+      "isExotic": false,
+      "talentOrPerk": "Perfect Boiling Point: The first 48% of your magazine has -100% Critical Hit Chance, the remaining 52% has +100% Critical Hit Chance.",
+      "confidence": "[UBI]",
+      "source": "LZ / Season Track"
+    }
+  ],
+  "talentAdditions": [
+    {
+      "type": "weapon",
+      "name": "Boiling Point",
+      "perfectName": "Perfect Boiling Point",
+      "description": "The first 53% of your magazine has -100% Critical Hit Chance, the remaining 47% has +100% Critical Hit Chance.",
+      "multiplierGroup": "Critical Hit Chance",
+      "confidence": "[UBI]"
+    }
+  ],
+  "talentCorrections": [
+    {
+      "type": "weapon",
+      "name": "Determined",
+      "field": "description",
+      "oldValue": "Landing a headshot kill grants a guaranteed headshot on your next shot, chaining endlessly on headshot kills.",
+      "newValue": "Landing a headshot kill grants a guaranteed headshot on your next hit. Converted headshots no longer chain guaranteed headshots (functions like old Perfect Determined).",
+      "multiplierGroup": "Headshot Damage",
+      "confidence": "[UBI]",
+      "reason": "Y8S3 Determined rework: chaining moved to Iron Will's Resolved talent"
+    }
+  ],
+  "weaponBuffs": [
+    {
+      "name": "Steel & Sons ACR",
+      "changes": "Base stability increased. Max stacks increased from 3 to 4. Destroying a weak point now grants +30% amplified damage for 5s (was 10%).",
+      "confidence": "[UBI]"
+    }
+  ],
+  "seasonalModifiers": [
+    {
+      "name": "Under Pressure",
+      "description": "Pressure Gauge builds from kills, headshots, multikills, skill kills, status effect kills, fire kills, and group members' kills.",
+      "defaultPrimaryBonus": "Status Effects",
+      "activeModifiers": [
+        { "name": "Fiery Aura", "secondary": "Armor Regen", "effect": "Increased armor regen and damage resistance, extra protection sprinting, sets nearby enemies alight on entry." },
+        { "name": "Vicarious Combustion", "secondary": "Headshot Damage", "effect": "Headshots on burning enemies spread Burn nearby; at max gauge headshots apply Burn directly." },
+        { "name": "Signed, Shield, Delivered", "secondary": "Skill Efficiency", "effect": "Improves signature weapon, shield health and regen; kills refill mag without consuming reserve." }
+      ],
+      "hostileModifiers": [
+        { "name": "Draining Presence", "counter": "Burn", "effect": "Within 5m: drains ~10% mag and 1% gauge/s." },
+        { "name": "Achilles' Heal", "counter": "Burn", "effect": "Heals enemy and allies when breaking weak points/armor, cuts Pressure." },
+        { "name": "Thousand Cuts", "counter": "Burn", "effect": "Cuts Pressure on hit, stacking damage-reduction debuff." }
+      ],
+      "confidence": "[UBI]"
+    }
+  ]
+}

@@ -1,0 +1,459 @@
+{
+  "weaponCore": [
+    {
+      "name": "All weapons:\nWeapon damage",
+      "max": 0.15,
+      "protoMax": 0.225,
+      "rawMax": "15%"
+    },
+    {
+      "name": "Assault Rifle:\nHealth Damage",
+      "max": 0.21,
+      "protoMax": 0.315,
+      "rawMax": "21%"
+    },
+    {
+      "name": "LMG:\nDMG to target out of cover",
+      "max": 0.12,
+      "protoMax": 0.17,
+      "rawMax": "12%"
+    },
+    {
+      "name": "SMG:\nCritical Hit Chance",
+      "max": 0.21,
+      "protoMax": 0.315,
+      "rawMax": "21%"
+    },
+    {
+      "name": "Shotgun:\nDamage to Armor",
+      "max": 0.12,
+      "protoMax": 0.17,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Rifle:\nCritical Hit Damage",
+      "max": 0.17,
+      "protoMax": null,
+      "rawMax": "17%"
+    },
+    {
+      "name": "MMR:\nHeadshot Damage",
+      "max": 1.11,
+      "protoMax": null,
+      "rawMax": "111%"
+    },
+    {
+      "name": "Pistol:\nNA",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    }
+  ],
+  "weaponSecondaryFixed": [],
+  "weaponMinors": [
+    {
+      "name": "Damage to Armor",
+      "max": 0.06,
+      "protoMax": 0.09,
+      "rawMax": "6%"
+    },
+    {
+      "name": "Critical Hit Chance",
+      "max": 0.095,
+      "protoMax": 0.145,
+      "rawMax": "9.5%"
+    },
+    {
+      "name": "Health Damage",
+      "max": 0.095,
+      "protoMax": null,
+      "rawMax": "9.5%"
+    },
+    {
+      "name": "DMG to target out of cover",
+      "max": 0.1,
+      "protoMax": 0.15,
+      "rawMax": "10%"
+    },
+    {
+      "name": "Headshot Damage",
+      "max": 0.1,
+      "protoMax": 0.15,
+      "rawMax": "10%"
+    },
+    {
+      "name": "Critical Hit Damage",
+      "max": 0.1,
+      "protoMax": null,
+      "rawMax": "10%"
+    },
+    {
+      "name": "Reload Speed",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Stability",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Accuracy",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Optimal Range",
+      "max": 0.24,
+      "protoMax": null,
+      "rawMax": "24%"
+    },
+    {
+      "name": "Magazine Size",
+      "max": 0.125,
+      "protoMax": null,
+      "rawMax": "12.5%"
+    },
+    {
+      "name": "Rate of Fire",
+      "max": 0.05,
+      "protoMax": null,
+      "rawMax": "5%"
+    },
+    {
+      "name": "Swap Speed",
+      "max": 0.15,
+      "protoMax": null,
+      "rawMax": "15%"
+    }
+  ],
+  "gearCore": [
+    {
+      "name": "Armor",
+      "max": 170000,
+      "protoMax": 255001,
+      "rawMax": "170,000"
+    },
+    {
+      "name": "Weapon Damage",
+      "max": 0.15,
+      "protoMax": 0.225,
+      "rawMax": "15%"
+    },
+    {
+      "name": "Skill Tier",
+      "max": 1,
+      "protoMax": 1.5,
+      "rawMax": "1"
+    }
+  ],
+  "gearMinorsOffensive": [
+    {
+      "name": "Weapon Handling",
+      "max": 0.08,
+      "protoMax": null,
+      "rawMax": "8%"
+    },
+    {
+      "name": "Critical Hit Chance",
+      "max": 0.06,
+      "protoMax": 0.09,
+      "rawMax": "6%"
+    },
+    {
+      "name": "Critical Hit Damage",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Headshot Damage",
+      "max": 0.1,
+      "protoMax": 0.15,
+      "rawMax": "10%"
+    }
+  ],
+  "gearMinorsDefensive": [
+    {
+      "name": "Armor Regeneration",
+      "max": 4925,
+      "protoMax": null,
+      "rawMax": "4925/s"
+    },
+    {
+      "name": "Hazard Protection",
+      "max": 0.1,
+      "protoMax": 0.15,
+      "rawMax": "10%"
+    },
+    {
+      "name": "Health",
+      "max": 18935,
+      "protoMax": null,
+      "rawMax": "18,935"
+    },
+    {
+      "name": "Explosive Resistance",
+      "max": 0.1,
+      "protoMax": 0.15,
+      "rawMax": "10%"
+    }
+  ],
+  "gearMinorsSkill": [
+    {
+      "name": "Skill Haste",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Skill Damage",
+      "max": 0.1,
+      "protoMax": 0.15,
+      "rawMax": "10%"
+    },
+    {
+      "name": "Repair Skills",
+      "max": 0.2,
+      "protoMax": 0.3,
+      "rawMax": "20%"
+    },
+    {
+      "name": "Status Effects",
+      "max": 0.1,
+      "protoMax": null,
+      "rawMax": "10%"
+    }
+  ],
+  "gearModsOffensive": [
+    {
+      "name": "Critlcal Hit Chance",
+      "max": 0.06,
+      "protoMax": null,
+      "rawMax": "6%"
+    },
+    {
+      "name": "Critical Hit Damage",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Headshot Damage",
+      "max": 0.1,
+      "protoMax": null,
+      "rawMax": "10%"
+    }
+  ],
+  "gearModsDefensive": [
+    {
+      "name": "Protection from Elites",
+      "max": 0.13,
+      "protoMax": null,
+      "rawMax": "0.13"
+    },
+    {
+      "name": "Armour on Kill",
+      "max": 18935,
+      "protoMax": null,
+      "rawMax": "18935"
+    },
+    {
+      "name": "Status Effect Resistance",
+      "max": 0.1,
+      "protoMax": null,
+      "rawMax": "0.1"
+    },
+    {
+      "name": "Pulse Resistance",
+      "max": 0.1,
+      "protoMax": null,
+      "rawMax": "0.1"
+    },
+    {
+      "name": "Incoming Repairs",
+      "max": 0.2,
+      "protoMax": null,
+      "rawMax": "0.2"
+    }
+  ],
+  "gearModsSkill": [
+    {
+      "name": "Skill Haste",
+      "max": 0.12,
+      "protoMax": null,
+      "rawMax": "12%"
+    },
+    {
+      "name": "Skill Duration",
+      "max": 0.1,
+      "protoMax": null,
+      "rawMax": "10%"
+    },
+    {
+      "name": "Repair Skiills",
+      "max": 0.2,
+      "protoMax": null,
+      "rawMax": "20%"
+    }
+  ],
+  "watchMaxima": [
+    {
+      "group": "Offensive\nAttributes",
+      "name": "Weapon damage",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Offensive\nAttributes",
+      "name": "Headshot damage",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Offensive\nAttributes",
+      "name": "Critlcal Hit Chance",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Offensive\nAttributes",
+      "name": "Critical Hit Damage",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Defensive\nAttributes",
+      "name": "Armor",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Defensive\nAttributes",
+      "name": "Health",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Defensive\nAttributes",
+      "name": "Hazard Protection",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Defensive\nAttributes",
+      "name": "Explosive Resistance",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Skill\nAttributes",
+      "name": "Skill damage",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Skill\nAttributes",
+      "name": "Skill Repair",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Skill\nAttributes",
+      "name": "Skill Haste",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Skill\nAttributes",
+      "name": "Skill Duration",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Utility\nAttributes",
+      "name": "Reload speed",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Utility\nAttributes",
+      "name": "Accuracy",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Utility\nAttributes",
+      "name": "Ammo",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    },
+    {
+      "group": "Utility\nAttributes",
+      "name": "Stability",
+      "max": null,
+      "protoMax": null,
+      "rawMax": null
+    }
+  ],
+  "statusImmunities": [
+    {
+      "status": "Bleed",
+      "thresholdPct": 93.8
+    },
+    {
+      "status": "Blind/Deaf",
+      "thresholdPct": 91
+    },
+    {
+      "status": "Burn",
+      "thresholdPct": 91.4
+    },
+    {
+      "status": "Disorient",
+      "thresholdPct": 93.8
+    },
+    {
+      "status": "Disrupt",
+      "thresholdPct": 95.8
+    },
+    {
+      "status": "Ensnare",
+      "thresholdPct": 93.8
+    },
+    {
+      "status": "Poison",
+      "thresholdPct": 89.2
+    },
+    {
+      "status": "Shock",
+      "thresholdPct": 86
+    },
+    {
+      "status": "Pulse",
+      "thresholdPct": 100
+    },
+    {
+      "status": "Napalm (cleaners)",
+      "thresholdPct": 88.9
+    }
+  ]
+}

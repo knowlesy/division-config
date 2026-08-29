@@ -1,0 +1,1038 @@
+[
+  {
+    "id": "5-11-tactical",
+    "name": "5.11 Tactical",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "Protection from Elites"
+    },
+    "bonus2pc": {
+      "raw": "100% Increased Threat",
+      "value": 1,
+      "unit": "%",
+      "attribute": "Increased Threat"
+    },
+    "bonus3pc": {
+      "raw": "30% Hazard Protection",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Hazard Protection"
+    },
+    "bonus1pcRaw": "12% Protection from Elites",
+    "bonus2pcRaw": "100% Increased Threat",
+    "bonus3pcRaw": "30% Hazard Protection",
+    "released": "Release",
+    "confidence": "[PDF]",
+    "correctionNote": "10% was PvP-normalised value; PvE baseline is 12%"
+  },
+  {
+    "id": "badger-tuff",
+    "name": "Badger Tuff",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "12% Shotgun Damage",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "Shotgun Damage"
+    },
+    "bonus2pc": {
+      "raw": "10% Armor on Kill",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Armor on Kill"
+    },
+    "bonus3pc": {
+      "raw": "15% Total Armor",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Total Armor"
+    },
+    "bonus1pcRaw": "12% Shotgun Damage",
+    "bonus2pcRaw": "10% Armor on Kill",
+    "bonus3pcRaw": "15% Total Armor",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "belstone-armory",
+    "name": "Belstone Armory",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "1% Armor Regen",
+      "value": 0.01,
+      "unit": "%",
+      "attribute": "Armor Regen"
+    },
+    "bonus2pc": {
+      "raw": "100% Increased Threat",
+      "value": 1,
+      "unit": "%",
+      "attribute": "Increased Threat"
+    },
+    "bonus3pc": {
+      "raw": "36% Protection from Elites",
+      "value": 0.36,
+      "unit": "%",
+      "attribute": "Protection from Elites"
+    },
+    "bonus1pcRaw": "1% Armor Regen",
+    "bonus2pcRaw": "100% Increased Threat",
+    "bonus3pcRaw": "36% Protection from Elites",
+    "released": "TU 11",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "brazos-de-arcabuz",
+    "name": "Brazos de Arcabuz",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "10% Skill Haste",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Skill Haste"
+    },
+    "bonus2pc": {
+      "raw": "1 Skill Tier",
+      "value": 1,
+      "unit": "",
+      "attribute": "Skill Tier"
+    },
+    "bonus3pc": {
+      "raw": "50% Magazine Size",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Magazine Size"
+    },
+    "bonus1pcRaw": "10% Skill Haste",
+    "bonus2pcRaw": "1 Skill Tier",
+    "bonus3pcRaw": "50% Magazine Size",
+    "released": "TU 16",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "gila-guard",
+    "name": "Gila Guard",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "5% Total Armor",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Total Armor"
+    },
+    "bonus2pc": {
+      "raw": "20% Hazard Protection",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Hazard Protection"
+    },
+    "bonus3pc": {
+      "raw": "2% Armor Regen",
+      "value": 0.02,
+      "unit": "%",
+      "attribute": "Armor Regen"
+    },
+    "bonus1pcRaw": "5% Total Armor",
+    "bonus2pcRaw": "20% Hazard Protection",
+    "bonus3pcRaw": "2% Armor Regen",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "golan-gear-ltd",
+    "name": "Golan Gear Ltd",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "20% Explosive Resistance",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Explosive Resistance"
+    },
+    "bonus2pc": {
+      "raw": "1.5% Armor Regen",
+      "value": 0.015,
+      "unit": "%",
+      "attribute": "Armor Regen"
+    },
+    "bonus3pc": {
+      "raw": "150% Increased Threat",
+      "value": 1.5,
+      "unit": "%",
+      "attribute": "Increased Threat"
+    },
+    "bonus1pcRaw": "20% Explosive Resistance",
+    "bonus2pcRaw": "1.5% Armor Regen",
+    "bonus3pcRaw": "150% Increased Threat",
+    "released": "TU 8",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "habsburg-guard",
+    "name": "Habsburg Guard",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "13% Headshot Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "bonus2pc": {
+      "raw": "24% Marksman Rifle Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Marksman Rifle Damage"
+    },
+    "bonus3pc": {
+      "raw": "25% Status Effects",
+      "value": 0.25,
+      "unit": "%",
+      "attribute": "Status Effects"
+    },
+    "bonus1pcRaw": "13% Headshot Damage",
+    "bonus2pcRaw": "24% Marksman Rifle Damage",
+    "bonus3pcRaw": "25% Status Effects",
+    "released": "TU 17",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "lengmo",
+    "name": "Lengmo",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Reload Speed"
+    },
+    "bonus2pc": {
+      "raw": "24% LMG Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "LMG Damage"
+    },
+    "bonus3pc": {
+      "raw": "30% Weapon Handling",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Weapon Handling"
+    },
+    "bonus1pcRaw": "15% Reload Speed",
+    "bonus2pcRaw": "24% LMG Damage",
+    "bonus3pcRaw": "30% Weapon Handling",
+    "released": "TU 19",
+    "confidence": "[PDF]",
+    "correctionNote": "Value was doubled in community sheet (30% -> 15%)"
+  },
+  {
+    "id": "palisade-steelworks",
+    "name": "Palisade Steelworks",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "10% Armor on Kill",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Armor on Kill"
+    },
+    "bonus2pc": {
+      "raw": "24% Protection from Elites",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Protection from Elites"
+    },
+    "bonus3pc": {
+      "raw": "1+ Skill Tier",
+      "value": 1,
+      "unit": "+",
+      "attribute": "Skill Tier"
+    },
+    "bonus1pcRaw": "10% Armor on Kill",
+    "bonus2pcRaw": "24% Protection from Elites",
+    "bonus3pcRaw": "1+ Skill Tier",
+    "released": "TU 20",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "uzina-getica",
+    "name": "Uzina Getica",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "5% Total Armor",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Total Armor"
+    },
+    "bonus2pc": {
+      "raw": "10% Armor on Kill",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Armor on Kill"
+    },
+    "bonus3pc": {
+      "raw": "30% Hazard Protection",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Hazard Protection"
+    },
+    "bonus1pcRaw": "5% Total Armor",
+    "bonus2pcRaw": "10% Armor on Kill",
+    "bonus3pcRaw": "30% Hazard Protection",
+    "released": "TU 15",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "yaahl-gear",
+    "name": "Yaahl Gear",
+    "coreAttribute": "Armor",
+    "bonus1pc": {
+      "raw": "10% Hazard Protection",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Hazard Protection"
+    },
+    "bonus2pc": {
+      "raw": "10% Weapon Damage",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Weapon Damage"
+    },
+    "bonus3pc": {
+      "raw": "40% Pulse Resistance",
+      "value": 0.4,
+      "unit": "%",
+      "attribute": "Pulse Resistance"
+    },
+    "bonus1pcRaw": "10% Hazard Protection",
+    "bonus2pcRaw": "10% Weapon Damage",
+    "bonus3pcRaw": "40% Pulse Resistance",
+    "released": "Release",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "alps-summit-armaments",
+    "name": "Alps Summit Armaments",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "18% Repair Skills",
+      "value": 0.18,
+      "unit": "%",
+      "attribute": "Repair Skills"
+    },
+    "bonus2pc": {
+      "raw": "30% Skill Duration",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Skill Duration"
+    },
+    "bonus3pc": {
+      "raw": "30% Skill Haste",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Skill Haste"
+    },
+    "bonus1pcRaw": "18% Repair Skills",
+    "bonus2pcRaw": "30% Skill Duration",
+    "bonus3pcRaw": "30% Skill Haste",
+    "released": "Release",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "china-light-industries",
+    "name": "China Light Industries",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "15% Explosive Damage",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Explosive Damage"
+    },
+    "bonus2pc": {
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Status Effects"
+    },
+    "bonus3pc": {
+      "raw": "30% Skill Haste",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Skill Haste"
+    },
+    "bonus1pcRaw": "15% Explosive Damage",
+    "bonus2pcRaw": "20% Status Effects",
+    "bonus3pcRaw": "30% Skill Haste",
+    "released": "Release",
+    "confidence": "[PDF]",
+    "correctionNote": "Old Y8S2 3pc value carried into the new 2pc slot (25% -> 20%)"
+  },
+  {
+    "id": "electrique",
+    "name": "Electrique",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "10% Status effect",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Status effect"
+    },
+    "bonus2pc": {
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Hazard Protection"
+    },
+    "bonus3pc": {
+      "raw": "8% Skill Efficiency",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Skill Efficiency"
+    },
+    "bonus1pcRaw": "10% Status effect",
+    "bonus2pcRaw": "20% Hazard Protection",
+    "bonus3pcRaw": "8% Skill Efficiency",
+    "released": "TU 18",
+    "confidence": "[PDF]",
+    "correctionNote": "'Electricity Protection' is not a real bonus type; corrected to Hazard Protection"
+  },
+  {
+    "id": "empress-international",
+    "name": "Empress International",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "10% Skill Health",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Skill Health"
+    },
+    "bonus2pc": {
+      "raw": "13% Skill Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Skill Damage"
+    },
+    "bonus3pc": {
+      "raw": "8% Skill Efficiency",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Skill Efficiency"
+    },
+    "bonus1pcRaw": "10% Skill Health",
+    "bonus2pcRaw": "13% Skill Damage",
+    "bonus3pcRaw": "8% Skill Efficiency",
+    "released": "TU 12",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "hana-u-corporation",
+    "name": "Hana-U Corporation",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "10% Skill Haste",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Skill Haste"
+    },
+    "bonus2pc": {
+      "raw": "13% Skill Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Skill Damage"
+    },
+    "bonus3pc": {
+      "raw": "18% Weapon Damage",
+      "value": 0.18,
+      "unit": "%",
+      "attribute": "Weapon Damage"
+    },
+    "bonus1pcRaw": "10% Skill Haste",
+    "bonus2pcRaw": "13% Skill Damage",
+    "bonus3pcRaw": "18% Weapon Damage",
+    "released": "TU 8",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "murakami-industries",
+    "name": "Murakami Industries",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "15% Skill Duration",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Skill Duration"
+    },
+    "bonus2pc": {
+      "raw": "35% Repair Skills",
+      "value": 0.35,
+      "unit": "%",
+      "attribute": "Repair Skills"
+    },
+    "bonus3pc": {
+      "raw": "18% Skill Damage",
+      "value": 0.18,
+      "unit": "%",
+      "attribute": "Skill Damage"
+    },
+    "bonus1pcRaw": "15% Skill Duration",
+    "bonus2pcRaw": "35% Repair Skills",
+    "bonus3pcRaw": "18% Skill Damage",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "richter-kaiser-gmbh",
+    "name": "Richter & Kaiser GmbH",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "10% Skill Haste",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Skill Haste"
+    },
+    "bonus2pc": {
+      "raw": "40% Explosive Resistance",
+      "value": 0.4,
+      "unit": "%",
+      "attribute": "Explosive Resistance"
+    },
+    "bonus3pc": {
+      "raw": "52% Repair Skills",
+      "value": 0.52,
+      "unit": "%",
+      "attribute": "Repair Skills"
+    },
+    "bonus1pcRaw": "10% Skill Haste",
+    "bonus2pcRaw": "40% Explosive Resistance",
+    "bonus3pcRaw": "52% Repair Skills",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "shiny-monkey",
+    "name": "Shiny Monkey",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "15% Skill Duration",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Skill Duration"
+    },
+    "bonus2pc": {
+      "raw": "5% Skill Efficiency",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Skill Efficiency"
+    },
+    "bonus3pc": {
+      "raw": "52% Repair Skills",
+      "value": 0.52,
+      "unit": "%",
+      "attribute": "Repair Skills"
+    },
+    "bonus1pcRaw": "15% Skill Duration",
+    "bonus2pcRaw": "5% Skill Efficiency",
+    "bonus3pcRaw": "52% Repair Skills",
+    "released": "TU 23",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "edelweiss-gpz",
+    "name": "Edelweiss GPz",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "18% Repair Skills",
+      "value": 0.18,
+      "unit": "%",
+      "attribute": "Repair Skills"
+    },
+    "bonus2pc": {
+      "raw": "20% Skill Haste",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Skill Haste"
+    },
+    "bonus3pc": {
+      "raw": "8% Skill Efficiency",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Skill Efficiency"
+    },
+    "bonus1pcRaw": "18% Repair Skills",
+    "bonus2pcRaw": "20% Skill Haste",
+    "bonus3pcRaw": "8% Skill Efficiency",
+    "released": "TU 28",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "wyvern-wear",
+    "name": "Wyvern Wear",
+    "coreAttribute": "Skill Tier",
+    "bonus1pc": {
+      "raw": "8% Skill Damage",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Skill Damage"
+    },
+    "bonus2pc": {
+      "raw": "20% Status Effects",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Status Effects"
+    },
+    "bonus3pc": {
+      "raw": "45% Skill Duration",
+      "value": 0.45,
+      "unit": "%",
+      "attribute": "Skill Duration"
+    },
+    "bonus1pcRaw": "8% Skill Damage",
+    "bonus2pcRaw": "20% Status Effects",
+    "bonus3pcRaw": "45% Skill Duration",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "airaldi-holdings",
+    "name": "Airaldi Holdings",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "12% Marksman Rifle Damage",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "Marksman Rifle Damage"
+    },
+    "bonus2pc": {
+      "raw": "26% Headshot Damage",
+      "value": 0.26,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "bonus3pc": {
+      "raw": "5% Damage to Armor",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Damage to Armor"
+    },
+    "bonus1pcRaw": "12% Marksman Rifle Damage",
+    "bonus2pcRaw": "26% Headshot Damage",
+    "bonus3pcRaw": "5% Damage to Armor",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "unit-alloys",
+    "name": "Unit Alloys",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "5% Rate of Fire",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Rate of Fire"
+    },
+    "bonus2pc": {
+      "raw": "24% Assault Rifle Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Assault Rifle Damage"
+    },
+    "bonus3pc": {
+      "raw": "50% Magazine Size",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Magazine Size"
+    },
+    "bonus1pcRaw": "5% Rate of Fire",
+    "bonus2pcRaw": "24% Assault Rifle Damage",
+    "bonus3pcRaw": "50% Magazine Size",
+    "released": "TU 26",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "-esk-v-roba-s-r-o-",
+    "name": "Česká Výroba s.r.o.",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "8% Critical Hit Chance",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "bonus2pc": {
+      "raw": "24% Shotgun Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Shotgun Damage"
+    },
+    "bonus3pc": {
+      "raw": "30% Hazard Protection",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Hazard Protection"
+    },
+    "bonus1pcRaw": "8% Critical Hit Chance",
+    "bonus2pcRaw": "24% Shotgun Damage",
+    "bonus3pcRaw": "30% Hazard Protection",
+    "released": "TU 8",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "douglas-harding",
+    "name": "Douglas & Harding",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "24% Pistol Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Pistol Damage"
+    },
+    "bonus2pc": {
+      "raw": "20% Skill Health",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Skill Health"
+    },
+    "bonus3pc": {
+      "raw": "50% Accuracy",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "bonus1pcRaw": "24% Pistol Damage",
+    "bonus2pcRaw": "20% Skill Health",
+    "bonus3pcRaw": "50% Accuracy",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "fenris-group-ab",
+    "name": "Fenris Group AB",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "12% Assault Rifle Damage",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "Assault Rifle Damage"
+    },
+    "bonus2pc": {
+      "raw": "32% Magazine Size",
+      "value": 0.32,
+      "unit": "%",
+      "attribute": "Magazine Size"
+    },
+    "bonus3pc": {
+      "raw": "50% Stability",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Stability"
+    },
+    "bonus1pcRaw": "12% Assault Rifle Damage",
+    "bonus2pcRaw": "32% Magazine Size",
+    "bonus3pcRaw": "50% Stability",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "grupo-sombra-s-a-",
+    "name": "Grupo Sombra S.A.",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "13% Critical Hit Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "bonus2pc": {
+      "raw": "20% Explosive Damage",
+      "value": 0.2,
+      "unit": "%",
+      "attribute": "Explosive Damage"
+    },
+    "bonus3pc": {
+      "raw": "39% Headshot Damage",
+      "value": 0.39,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "bonus1pcRaw": "13% Critical Hit Damage",
+    "bonus2pcRaw": "20% Explosive Damage",
+    "bonus3pcRaw": "39% Headshot Damage",
+    "released": "TU 8",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "imminence-armaments",
+    "name": "Imminence Armaments",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "6% Weapon Damage",
+      "value": 0.06,
+      "unit": "%",
+      "attribute": "Weapon Damage"
+    },
+    "bonus2pc": {
+      "raw": "48% Pistol Damage",
+      "value": 0.48,
+      "unit": "%",
+      "attribute": "Pistol Damage"
+    },
+    "bonus3pc": {
+      "raw": "30% Skill Health",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Skill Health"
+    },
+    "bonus1pcRaw": "6% Weapon Damage",
+    "bonus2pcRaw": "48% Pistol Damage",
+    "bonus3pcRaw": "30% Skill Health",
+    "released": "TU 24",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "legatus-s-p-a",
+    "name": "Legatus S.p.A",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "15% Magazine size",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Magazine size"
+    },
+    "bonus2pc": {
+      "raw": "24% SMG Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "SMG Damage"
+    },
+    "bonus3pc": {
+      "raw": "105% Optimal Range",
+      "value": 1.05,
+      "unit": "%",
+      "attribute": "Optimal Range"
+    },
+    "bonus1pcRaw": "15% Magazine size",
+    "bonus2pcRaw": "24% SMG Damage",
+    "bonus3pcRaw": "105% Optimal Range",
+    "released": "TU 22",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "overlord-armaments",
+    "name": "Overlord Armaments",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "12% Rifle Damage",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "Rifle Damage"
+    },
+    "bonus2pc": {
+      "raw": "30% Accuracy",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "bonus3pc": {
+      "raw": "30% Weapon Handling",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Weapon Handling"
+    },
+    "bonus1pcRaw": "12% Rifle Damage",
+    "bonus2pcRaw": "30% Accuracy",
+    "bonus3pcRaw": "30% Weapon Handling",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "petrov-defense-group",
+    "name": "Petrov Defense Group",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "12% LMG Damage",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "LMG Damage"
+    },
+    "bonus2pc": {
+      "raw": "15% Weapon Handling",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Weapon Handling"
+    },
+    "bonus3pc": {
+      "raw": "50% Ammo Capacity",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Ammo Capacity"
+    },
+    "bonus1pcRaw": "12% LMG Damage",
+    "bonus2pcRaw": "15% Weapon Handling",
+    "bonus3pcRaw": "50% Ammo Capacity",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "providence-defense",
+    "name": "Providence Defense",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "13% Headshot Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Headshot Damage"
+    },
+    "bonus2pc": {
+      "raw": "8% Critical Hit Chance",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "bonus3pc": {
+      "raw": "13% Critical Hit Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "bonus1pcRaw": "13% Headshot Damage",
+    "bonus2pcRaw": "8% Critical Hit Chance",
+    "bonus3pcRaw": "13% Critical Hit Damage",
+    "released": "Release",
+    "confidence": "[SHEET]"
+  },
+  {
+    "id": "royal-works",
+    "name": "Royal Works",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "5% Weapon Handling",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Weapon Handling"
+    },
+    "bonus2pc": {
+      "raw": "24% LMG damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "LMG damage"
+    },
+    "bonus3pc": {
+      "raw": "50% Accuracy",
+      "value": 0.5,
+      "unit": "%",
+      "attribute": "Accuracy"
+    },
+    "bonus1pcRaw": "5% Weapon Handling",
+    "bonus2pcRaw": "24% LMG damage",
+    "bonus3pcRaw": "50% Accuracy",
+    "released": "TU 27",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "sokolov-concern",
+    "name": "Sokolov Concern",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "12% SMG Damage",
+      "value": 0.12,
+      "unit": "%",
+      "attribute": "SMG Damage"
+    },
+    "bonus2pc": {
+      "raw": "13% Critical Hit Damage",
+      "value": 0.13,
+      "unit": "%",
+      "attribute": "Critical Hit Damage"
+    },
+    "bonus3pc": {
+      "raw": "8% Critical Hit Chance",
+      "value": 0.08,
+      "unit": "%",
+      "attribute": "Critical Hit Chance"
+    },
+    "bonus1pcRaw": "12% SMG Damage",
+    "bonus2pcRaw": "13% Critical Hit Damage",
+    "bonus3pcRaw": "8% Critical Hit Chance",
+    "released": "Release",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "urban-lookout",
+    "name": "Urban Lookout",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "5% weapon handling",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "weapon handling"
+    },
+    "bonus2pc": {
+      "raw": "24% Marksman Rifle Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Marksman Rifle Damage"
+    },
+    "bonus3pc": {
+      "raw": "45% Skill Duration",
+      "value": 0.45,
+      "unit": "%",
+      "attribute": "Skill Duration"
+    },
+    "bonus1pcRaw": "5% weapon handling",
+    "bonus2pcRaw": "24% Marksman Rifle Damage",
+    "bonus3pcRaw": "45% Skill Duration",
+    "released": "TU 25",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "walker-harris-co-",
+    "name": "Walker, Harris & Co.",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "6% Weapon Damage",
+      "value": 0.06,
+      "unit": "%",
+      "attribute": "Weapon Damage"
+    },
+    "bonus2pc": {
+      "raw": "5% Damage to Armor",
+      "value": 0.05,
+      "unit": "%",
+      "attribute": "Damage to Armor"
+    },
+    "bonus3pc": {
+      "raw": "10% Damage to Health",
+      "value": 0.1,
+      "unit": "%",
+      "attribute": "Damage to Health"
+    },
+    "bonus1pcRaw": "6% Weapon Damage",
+    "bonus2pcRaw": "5% Damage to Armor",
+    "bonus3pcRaw": "10% Damage to Health",
+    "released": "TU 10",
+    "confidence": "[PDF]"
+  },
+  {
+    "id": "zwiadowka-sp-z-o-o-",
+    "name": "Zwiadowka Sp. z o.o.",
+    "coreAttribute": "Weapon Damage",
+    "bonus1pc": {
+      "raw": "15% Magazine size",
+      "value": 0.15,
+      "unit": "%",
+      "attribute": "Magazine size"
+    },
+    "bonus2pc": {
+      "raw": "24% Rifle Damage",
+      "value": 0.24,
+      "unit": "%",
+      "attribute": "Rifle Damage"
+    },
+    "bonus3pc": {
+      "raw": "30% Weapon Handling",
+      "value": 0.3,
+      "unit": "%",
+      "attribute": "Weapon Handling"
+    },
+    "bonus1pcRaw": "15% Magazine size",
+    "bonus2pcRaw": "24% Rifle Damage",
+    "bonus3pcRaw": "30% Weapon Handling",
+    "released": "TU 21",
+    "confidence": "[PDF]"
+  }
+]

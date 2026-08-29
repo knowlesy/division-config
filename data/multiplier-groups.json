@@ -1,0 +1,75 @@
+[
+  {
+    "id": "weapon-damage",
+    "name": "Weapon Damage",
+    "type": "additive",
+    "description": "Increases all weapon damage or weapon-type specific damage. Additive within group."
+  },
+  {
+    "id": "total-weapon-damage",
+    "name": "Total Weapon Damage",
+    "type": "additive",
+    "description": "Increases total weapon damage. Additive with other Total Weapon Damage bonuses, multiplicative with Weapon Damage."
+  },
+  {
+    "id": "critical-hit-chance",
+    "name": "Critical Hit Chance",
+    "type": "stat",
+    "cap": 0.6,
+    "description": "Probability of landing a critical hit. Hard capped at 60%."
+  },
+  {
+    "id": "critical-hit-damage",
+    "name": "Critical Hit Damage",
+    "type": "additive",
+    "description": "Multiplier applied on critical hits. Additive with other CHD bonuses."
+  },
+  {
+    "id": "headshot-damage",
+    "name": "Headshot Damage",
+    "type": "additive",
+    "description": "Multiplier applied on headshots. Additive with weapon innate HSD and other HSD bonuses."
+  },
+  {
+    "id": "skill-damage",
+    "name": "Skill Damage",
+    "type": "additive",
+    "description": "Increases base skill damage. Additive within group."
+  },
+  {
+    "id": "total-skill-damage",
+    "name": "Total Skill Damage",
+    "type": "additive",
+    "description": "Increases total skill damage. Multiplicative with Skill Damage."
+  },
+  {
+    "id": "skill-repair",
+    "name": "Skill Repair",
+    "type": "additive",
+    "description": "Increases healing and repair skill effectiveness."
+  },
+  {
+    "id": "status-effects",
+    "name": "Status Effects",
+    "type": "additive",
+    "description": "Increases status effect duration and tick damage."
+  },
+  {
+    "id": "rate-of-fire",
+    "name": "Rate of Fire",
+    "type": "multiplicative_stat",
+    "description": "Increases weapon rounds per minute (RPM)."
+  },
+  {
+    "id": "amplifier",
+    "name": "Amplifier",
+    "type": "multiplicative_independent",
+    "description": "NEVER additive with anything, including other amplifiers. Each amplifier is an independent multiplicative term."
+  },
+  {
+    "id": "utility",
+    "name": "Utility",
+    "type": "utility",
+    "description": "Provides non-damage utility such as cooldown reduction, armor repair, or ammo management."
+  }
+]

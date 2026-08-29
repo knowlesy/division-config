@@ -1,0 +1,1028 @@
+[
+  {
+    "id": "aces-eights",
+    "name": "Aces & Eights",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "30%\nMMR Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "MMR Damage"
+      },
+      {
+        "raw": "30%\nRifle damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Rifle damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nHeadshot Damage \n30% \nweapon handling",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Headshot Damage 30% weapon handling"
+      }
+    ],
+    "bonus2pcRaw": "30%\nMMR Damage\n\n30%\nRifle damage",
+    "bonus3pcRaw": "30%\nHeadshot Damage \n30% \nweapon handling",
+    "talent4pc": "Dead Man's Hand\n\nFlip a card when landing shots with a Rifle or Marksman rifle. \n\nAfter 5 cards are flipped, the damage of your next shot is amplified by 75%. \nMore shots are enhanced the better the hand revealed. \n\nFour of a Kind: 4 shots\nFull House: 3 shots\nAces and Eights: 2 shots. \n\nFlip an additional card on headshots.",
+    "chestTalent": "No Limit\n\nIncreases Dead Man's Hand damage bonus \nfrom 75% to 100%.",
+    "backpackTalent": "Ace in the Sleeve\n\nAmplifies 1 extra shot when revealing your hand",
+    "multiplierGroup": "Amplifier",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier"
+  },
+  {
+    "id": "aegis",
+    "name": "Aegis",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Armor",
+    "bonuses2pc": [
+      {
+        "raw": "70%\nHealth",
+        "value": 0.7,
+        "unit": "%",
+        "attribute": "Health"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nTotal Armor",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Total Armor"
+      }
+    ],
+    "bonus2pcRaw": "70%\nHealth",
+    "bonus3pcRaw": "15%\nTotal Armor",
+    "talent4pc": "Stoic\n\nGet +4% Damage Resistance for every enemy that is targeting you.\n\nThe bonus is multiplied by 1.X, where X is the number of agents in your group.",
+    "chestTalent": "Deceit\n\nEnemies targeting your Decoy also count towards the Stoic Damage Reduction bonus.",
+    "backpackTalent": "Polyethylene Plating\n\nIncrease Stoic Damage Resistance bonus from 4% to 5%.",
+    "multiplierGroup": "Utility",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "breaking-point",
+    "name": "Breaking Point",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "30%\nRifle Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Rifle Damage"
+      },
+      {
+        "raw": "30%\nMMR Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "MMR Damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nHeadshot Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Headshot Damage"
+      },
+      {
+        "raw": "30%\nWeapon Handling",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonus2pcRaw": "30%\nRifle Damage\n\n30%\nMMR Damage",
+    "bonus3pcRaw": "30%\nHeadshot Damage\n\n 30%\nWeapon Handling",
+    "talent4pc": "On Point\n\nHitting a shot with a rifle or MMR grants 1 stack, max stack equal to magazine size. \nReloading grants 2% handling and 4% WD per stack for 20s. No stacks gained while bonuses are active. \nOnce timer runs out magazine is refilled. Reloading will stop effect. \nReloading with stacks while inactive will remove all stacks and refill magazine",
+    "chestTalent": "Point of no Return\n\nIncrease on point bonuses timer from 20s - 40s",
+    "backpackTalent": "Point of honor \n\nIncreases On Point Weapon Damage bonus from 4 to 9.",
+    "multiplierGroup": "Additive to \nAll Weapon Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Weapon Damage"
+  },
+  {
+    "id": "cavalier",
+    "name": "Cavalier",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Armor",
+    "bonuses2pc": [
+      {
+        "raw": "30%\nHazard Protection",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Hazard Protection"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "40%\nRepair Skills",
+        "value": 0.4,
+        "unit": "%",
+        "attribute": "Repair Skills"
+      }
+    ],
+    "bonus2pcRaw": "30%\nHazard Protection",
+    "bonus3pcRaw": "40%\nRepair Skills",
+    "talent4pc": "Charging\n\nFor each second spent out of cover during combat, Agents will get 5% reduced incoming skill damage. Max 50%\n\nCharged\n\nWhile fully charged, gain immunity to any movement speed debuff and share this with all of the agents hazard protection and the incoming skill damage with all allies for 10 seconds.\n\nAfter Charged is consumed, Charging buff will resume if still in combat and out of cover!",
+    "chestTalent": "Overcharging:\n\nIncreases Charger max incoming damage protection to 70%",
+    "backpackTalent": "Safe Charging:\n\nCharging gives 10% protection per second.",
+    "multiplierGroup": "Utility",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "concentrated-company",
+    "name": "Concentrated Company",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "10% Weapon Damage",
+        "value": 0.1,
+        "unit": "%",
+        "attribute": "Weapon Damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30% Weapon Handling",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonus2pcRaw": "10% Weapon Damage",
+    "bonus3pcRaw": "30% Weapon Handling",
+    "talent4pc": "Camaraderie\n\nShooting an enemy marks them for 10 seconds.\n\nWhen a marked enemy dies, receive one stack of 3% Weapon Damage and 3% Critical Hit Damage for each Ally or Skill that has contributed to killing that enemy.\n\nMax stacks is 35. Stacks decay every 10 seconds.\nMaximum amount of marks that can be placed is 4.",
+    "chestTalent": "All for One\n\nIncrease the amount of marks that can be placed from 4 to 8.",
+    "backpackTalent": "One for All\n\nIncrease the Weapon Damage bonus per stack from 3% to 6%.",
+    "multiplierGroup": "Additive to \nAll Weapon Damage and Critical Hit Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Weapon Damage / Critical Hit Damage"
+  },
+  {
+    "id": "core-strength",
+    "name": "Core Strength",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "10% Weapon Handling",
+        "value": 0.1,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "5% Weapon Damage",
+        "value": 0.05,
+        "unit": "%",
+        "attribute": "Weapon Damage"
+      },
+      {
+        "raw": "5% Armor",
+        "value": 0.05,
+        "unit": "%",
+        "attribute": "Armor"
+      },
+      {
+        "raw": "5% Skill Efficiency",
+        "value": 0.05,
+        "unit": "%",
+        "attribute": "Skill Efficiency"
+      }
+    ],
+    "bonus2pcRaw": "10% Weapon Handling",
+    "bonus3pcRaw": "5% Weapon Damage\n\n5% Armor\n\n5% Skill Efficiency",
+    "talent4pc": "Core Exercise\n\nFor each Core attribute, receive 40% of the other two Core Attributes' bonuses.\n\nSkill Tiers count as 15% Skill Efficiency when these attributes are applied.\n\nAll pieces from this Gear Set, apart from the Backpack, will feature random Core Attributes",
+    "chestTalent": "Inner Core\nIncrease the percentage of the bonuses you receive from the other Cores from 40% to 75%",
+    "backpackTalent": "Outer Core\nThis Talent does not provide a direct change to the Core Exercise Talent.\n\nThis Backpack features three Core Attributes",
+    "multiplierGroup": "Weapon Damage",
+    "dropLocations": "LZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Weapon Damage"
+  },
+  {
+    "id": "eclipse-protocol",
+    "name": "Eclipse Protocol",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nStatus Effects",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Status Effects"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nSkill Haste",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Haste"
+      },
+      {
+        "raw": "30%\nHazard Protection",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Hazard Protection"
+      }
+    ],
+    "bonus2pcRaw": "15%\nStatus Effects",
+    "bonus3pcRaw": "15%\nSkill Haste\n\n30%\nHazard Protection",
+    "talent4pc": "Indirect Transmission\n\nOn kill:\n> Spread status effects of that enemy to all enemies within 10m\n> Refresh 50% of status effect durations",
+    "chestTalent": "Proliferation\n\nIncreases Indirect Transmission range \nfrom 10m to 15m\n\nIncreases refresh percentage from\n50% to 75%.",
+    "backpackTalent": "Symptom Aggravator\n\nAmplifies all damage you deal to \nstatus affected targets by 30%",
+    "multiplierGroup": "Backpack: \nAmplifier to all sources",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier"
+  },
+  {
+    "id": "ember-engine",
+    "name": "Ember Engine",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "8% Skill Efficiency",
+        "value": 0.08,
+        "unit": "%",
+        "attribute": "Skill Efficiency"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30% Status Effects",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Status Effects"
+      }
+    ],
+    "bonus2pcRaw": "8%\nSkill Efficiency",
+    "bonus3pcRaw": "30%\nStatus Effects",
+    "talent4pc": "Spontaneous Combustion: Every Status Effect you apply has a 40% chance to also apply Burn. If the effect applied was already Burn, the enemy takes +25% Burn Damage for its duration.",
+    "chestTalent": "Flashpoint: Chance to apply Burn increases from 40% to 60%.",
+    "backpackTalent": "White Hot: Increases duration of the Burn Damage debuff by +50%.",
+    "multiplierGroup": null,
+    "dropLocations": "LZ and DZ",
+    "notes": "Red Horizon addition. Core attribute presumed yellow [?]. PvE only (PvP heavily reduced).",
+    "confidence": "[UBI]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "foundry-bulwark",
+    "name": "Foundry Bulwark",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Armor",
+    "bonuses2pc": [
+      {
+        "raw": "10%\nTotal Armor",
+        "value": 0.1,
+        "unit": "%",
+        "attribute": "Total Armor"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "1%\nArmor Regen",
+        "value": 0.01,
+        "unit": "%",
+        "attribute": "Armor Regen"
+      },
+      {
+        "raw": "50%\nShield Health",
+        "value": 0.5,
+        "unit": "%",
+        "attribute": "Shield Health"
+      }
+    ],
+    "bonus2pcRaw": "10%\nTotal Armor",
+    "bonus3pcRaw": "1%\nArmor Regen\n\n50%\nShield Health",
+    "talent4pc": "Makeshift Repairs\n\nWhenever you or your shield take damage,\n25% of that amount is repaired to both over 10s.",
+    "chestTalent": "Improved Materials\n\nDecreases time taken for Makeshift Repairs\nfrom 10s to 5s.",
+    "backpackTalent": "Process Refinery\n\nIncreases Makeshift Repairs from 25% over 10s\nto 35% over 10s",
+    "multiplierGroup": "Utility",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "future-initiative",
+    "name": "Future Initiative",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "30%\nRepair-skills",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Repair-skills"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nSkill Duration",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Skill Duration"
+      },
+      {
+        "raw": "15%\nSkill Haste",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Haste"
+      }
+    ],
+    "bonus2pcRaw": "30%\nRepair-skills",
+    "bonus3pcRaw": "30%\nSkill Duration\n\n15%\nSkill Haste",
+    "talent4pc": "Ground Control\n\nIncreases you and your allies' total weapon and skill damage\nby 15% when at full armor.\n\nWhen you repair an ally, you and all allies within 5m of you\nare also repaired for 60% of that amount.",
+    "chestTalent": "Tactical Superiority\n\nIncreases Ground Control damage bonus\nfrom 15% to 25%",
+    "backpackTalent": "Advanced Combat Tactics\n\nIncreases Ground Control proximity repair\nfrom 60% to 120%",
+    "multiplierGroup": "Total weapon/ Skill Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Total Weapon Damage / Skill Damage"
+  },
+  {
+    "id": "hard-wired",
+    "name": "Hard Wired",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "15% \nSkill Haste",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Haste"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nSkill Damage",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Damage"
+      },
+      {
+        "raw": "30%\nRepair Skills",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Repair Skills"
+      }
+    ],
+    "bonus2pcRaw": "15% \nSkill Haste",
+    "bonus3pcRaw": "15%\nSkill Damage\n\n30%\nRepair Skills",
+    "talent4pc": "Feedback Loop\n\nWhenever you use or cancel a skill, \n> your other skill's cooldown is reduced by 30s \n> total skill repair is increased by 10% for 20s.\n> total skill damage is increased by 10% for 20s.\n\nCooldown: 10s.",
+    "chestTalent": "Positive Reinforcement\n\nIncreases Feedback Loop skill damage \nand repair bonus from +10% to +25%",
+    "backpackTalent": "Short Circuit\n\nDecreases Feedback Loop cooldown from 10s to 5s.",
+    "multiplierGroup": "Total Skill Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Total Skill Damage"
+  },
+  {
+    "id": "heartbreaker",
+    "name": "Heartbreaker",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Armor",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nAssault Rifle Damage",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Assault Rifle Damage"
+      },
+      {
+        "raw": "15%\nLMG Damage",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "LMG Damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nWeapon Handling",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonus2pcRaw": "15%\nAssault Rifle Damage\n\n15%\nLMG Damage",
+    "bonus3pcRaw": "15%\nWeapon Handling",
+    "talent4pc": "Heartstopper\n\nHeadshots apply pulse 5s.\nWeapon hits on pulsed enemies add and refreshes a stack of +1% bonus armor and +1.1% weapon damage to pulsed enemies for 5s. Max stack is 50.\n\nTwo stacks are lost per second.",
+    "chestTalent": "Max BPM\n\nMax stack is now 100.",
+    "backpackTalent": "Cold\n\nStacks now supply +2% bonus armor",
+    "multiplierGroup": "Separate Multiplier, stacks additively\n\n(1 + 0.011 * n), n being number of stacks\n\nn max is 50 without chest\nn max is 100 with chest",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Separate Multiplier"
+  },
+  {
+    "id": "hotshot",
+    "name": "Hotshot",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "30%\nMarksman Rifle Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Marksman Rifle Damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nHeadshot Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Headshot Damage"
+      },
+      {
+        "raw": "30%\nWeapon Handling",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonus2pcRaw": "30%\nMarksman Rifle Damage",
+    "bonus3pcRaw": "30%\nHeadshot Damage\n\n30%\nWeapon Handling",
+    "talent4pc": "Headache\n\nFirst Headshot with a Marksman Rifle will increase next headshot by 80%, second consecutive headshot with a Marksman Rifle will give +10% armor (if at full armor it will give bonus armor max +50% of current armor value), third consecutive headshot will refill magazine. \n\nFrom the fourth headshot forward agents will get all 3 bonuses for each consecutive headshot kill. Missing a headshot will reset the cycle",
+    "chestTalent": "Stand Tall \n\nIncreases bonus Armor from 50% to 100%",
+    "backpackTalent": "Lucky\n\nAgents can miss a headshot before resetting the cycle",
+    "multiplierGroup": "Amplifier",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier"
+  },
+  {
+    "id": "hunter-s-fury",
+    "name": "Hunter's Fury",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nShotgun Damage",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Shotgun Damage"
+      },
+      {
+        "raw": "15%\nSMG Damage",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "SMG Damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "20%\nArmor on kill",
+        "value": 0.2,
+        "unit": "%",
+        "attribute": "Armor on kill"
+      },
+      {
+        "raw": "50%\nHealth on Kill",
+        "value": 0.5,
+        "unit": "%",
+        "attribute": "Health on Kill"
+      }
+    ],
+    "bonus2pcRaw": "15%\nShotgun Damage\n\n15%\nSMG Damage",
+    "bonus3pcRaw": "20%\nArmor on kill\n\n50%\nHealth on Kill",
+    "talent4pc": "Apex Predator\n\nEnemies within 15m receive a debuff, amplifying your weapon damage against them by +20%. \n\nKilling a debuffed enemy with your weapon disorients other enemies within 5m, and amplifies weapon damage by 5% for 10s, \nstacking up to 5 times.",
+    "chestTalent": "Endless Hunger\n\nIncreases the duration of Apex Predator stacks from 10s to 30s.",
+    "backpackTalent": "Overwhelming Force\n\n Increases the radius of disorient on Apex Predator kills from 5m to 10m.",
+    "multiplierGroup": "Weapon damage amplifier towards enemies within 15m\n\nOn kill stacking buff is self multiplicative weapon damage amplifier\n1.05 ^ n\nn ranges from 0 to 5",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier"
+  },
+  {
+    "id": "measured-assembly",
+    "name": "Measured Assembly",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nSkill Haste",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Haste"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "60%\nRepair Skills",
+        "value": 0.6,
+        "unit": "%",
+        "attribute": "Repair Skills"
+      },
+      {
+        "raw": "40%\nExplosive Resistance",
+        "value": 0.4,
+        "unit": "%",
+        "attribute": "Explosive Resistance"
+      }
+    ],
+    "bonus2pcRaw": "15%\nSkill Haste",
+    "bonus3pcRaw": "60%\nRepair Skills\n\n40%\nExplosive Resistance",
+    "talent4pc": "Huddle\n\nRecieve +1 Skill Tier for each ally Agent that is within the range of the hive or Smart Cover. While at Skill Tier 6, having at least one ally Agent in the range of your Hive or Smart Cover for 4s will grant Overcharge for 15s Cooldown: 40s\n\nMortars and enemy Skills that enter the range of your Hive or Smart Cover will be destroyed. cooldown 10s. The cooldown is 20% faster for each ally agent within the range of your hive or smart cover.",
+    "chestTalent": "Hivemind\n\n Decrease the Overcharge cooldown from 40 to 25.",
+    "backpackTalent": "Smart Cooperation\n\nDecrease the cooldown for destroying Mortars and enemy skills from 10 to 1",
+    "multiplierGroup": "Utility",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "negotiator-s-dilemma",
+    "name": "Negotiator's Dilemma",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nCritical Hit Chance",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Critical Hit Chance"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "20%\nCritical Hit Damage",
+        "value": 0.2,
+        "unit": "%",
+        "attribute": "Critical Hit Damage"
+      }
+    ],
+    "bonus2pcRaw": "15%\nCritical Hit Chance",
+    "bonus3pcRaw": "20%\nCritical Hit Damage",
+    "talent4pc": "Crowd Control\n\nCritical hits mark enemies for 20s, up to 3 marks total. \n\nWhen you critically hit a marked enemy, all other marked enemies\ntake 60% of the damage dealt. \n\nWhenever a marked enemy dies, gain +10% critical hit damage,\nstacking up to 10 times, or until combat ends.",
+    "chestTalent": "Target Rich Environment\n\nIncreases Crowd Control mark count \nfrom 3 to 5.",
+    "backpackTalent": "Critical Measures\n\nIncreases Crowd Control damage to \nadditional marked enemies from 60% to 112%.",
+    "multiplierGroup": "Critical Hit Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Critical Hit Damage"
+  },
+  {
+    "id": "ongoing-directive",
+    "name": "Ongoing Directive",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nStatus Effects",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Status Effects"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nReload Speed",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Reload Speed"
+      }
+    ],
+    "bonus2pcRaw": "15%\nStatus Effects",
+    "bonus3pcRaw": "30%\nReload Speed",
+    "talent4pc": "Rules of Engagement\n\nShooting a status affected enemy will apply a mark.\n\nKilling a marked enemy grants a full clip of Hollow-Point Ammo for your active weapon, and half a clip of the agent's active weapon to the rest of the party.\n\nMarklast for 10 Seconds.\n\nHollow-Point Ammo amplifies weapon damage by 40% and applies bleed on hit.",
+    "chestTalent": "Parabellum Rounds\n\nIncreases Hollow-Point Ammo weapon damage amplification to 60%\n\nDoes not effect party ammo.",
+    "backpackTalent": "Trauma Specialist\n\nIncreases duration of bleed status effects by 50% all bleed damage done by 100%",
+    "multiplierGroup": "Bullet Amplifier",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier (Bullet)"
+  },
+  {
+    "id": "ortiz-exuro",
+    "name": "Ortiz: Exuro",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "20%\nBurn Duration",
+        "value": 0.2,
+        "unit": "%",
+        "attribute": "Burn Duration"
+      },
+      {
+        "raw": "15%\nSkill Health",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Health"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "40%\nBurn Damage",
+        "value": 0.4,
+        "unit": "%",
+        "attribute": "Burn Damage"
+      }
+    ],
+    "bonus2pcRaw": "20%\nBurn Duration\n \n15%\nSkill Health",
+    "bonus3pcRaw": "40%\nBurn Damage",
+    "talent4pc": "Ortiz Incinerator Turret Prototype\n\nThe Incinerator Turret spins 360°. You are immune to your own Incinerator Turret's fire. The Incinerator Turret explodes when disabled.",
+    "chestTalent": "Chain Combustion\n\nEnemies set ablaze by the Ortiz Incinerator Turret Prototype ignite other enemies within 10m.",
+    "backpackTalent": "Heatstroke\n\n+40% Weapon Damage to enemies set on fire by the Ortiz Incinerator Turret Prototype.\n\n+25% Ortiz Incinerator Turret Prototype Range.",
+    "multiplierGroup": "Backpack: \nAmplifier, not WD",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier"
+  },
+  {
+    "id": "ortiz-reficere",
+    "name": "Ortiz: Reficere",
+    "isPTS": true,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "+8.0% Skill Efficiency",
+        "value": 0.08,
+        "unit": "%",
+        "attribute": "Skill Efficiency"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "+60.0% Repair Skills",
+        "value": 0.6,
+        "unit": "%",
+        "attribute": "Repair Skills"
+      }
+    ],
+    "bonus2pcRaw": "+8.0% Skill Efficiency",
+    "bonus3pcRaw": "+60.0% Repair Skills",
+    "talent4pc": "Ortiz Rapid Application Nanite Prototype\n\nHealing Skills' Duration and Range are decreased by 75%, but their Healing Efficiency is increased by 100%.\n\nHealing an Ally with a Skill will provide them 30% Hazard Protection for 10s. Cooldown per ally: 10s.",
+    "chestTalent": "Overcharged Nanites\n\n\nIncrease the Healing Efficiency bonus from 100% to 150%.",
+    "backpackTalent": "Improved Dampeners\n\nDecrease the Duration and Range reduction from 75% to 25%.",
+    "multiplierGroup": "Utility",
+    "dropLocations": "LZ and DZ",
+    "notes": "TU 28",
+    "confidence": "[SHEET]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "refactor",
+    "name": "Refactor",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Mask Chest Holster",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nStatus Effects",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Status Effects"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "25% Skill Damage",
+        "value": 0.25,
+        "unit": "%",
+        "attribute": "Skill Damage"
+      }
+    ],
+    "bonus2pcRaw": "15%\nStatus Effects",
+    "bonus3pcRaw": "25% Skill Damage",
+    "talent4pc": "Return to Sender\n\nFor PvE: Receive repairs of 10% of the damage dealt by your Skills. Your allies will receive repairs of 20% of the damage dealt by your Skills.\n\nFor PvP: Receive repairs of 5% of the damage dealt by your Skills. Your allies will receive repairs of 10% of the damage dealt by your Skills.",
+    "chestTalent": "Increased Interest\n\nFor PvE: Increase the repairs received from Return to Sender from 10% to 25%, and from 20% to 35%\n\nFor PvP: Increase the repairs received from Return to Sender from 5% to 15%, and from 10% to 20%",
+    "backpackTalent": "Over-engineered\n\nWhile at full Armor, repairs received from Return to Sender will provide Bonus Armor, up to 80% of your Total Armor. Does not apply to allies.",
+    "multiplierGroup": "Utility",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Utility"
+  },
+  {
+    "id": "rigger",
+    "name": "Rigger",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Skill Tier",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nSkill Haste",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Haste"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nSkill Duration",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Skill Duration"
+      }
+    ],
+    "bonus2pcRaw": "15%\nSkill Haste",
+    "bonus3pcRaw": "15%\nSkill Duration",
+    "talent4pc": "Tend and Befriend\n\nInteracting with your deployed skills grants the skill 25% skill damage for 10s. This buff cannot be refreshed.\n\nInteractions include:\nUsing / Deploying the Skill\nChanging the skills target\nHealing the skill",
+    "chestTalent": "Best Buds\n\nIncrease the damage buff from 25% to 50%",
+    "backpackTalent": "Complete Uptime\n\nCancelling your skills will reset their cooldown.",
+    "multiplierGroup": "Skill damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Skill Damage"
+  },
+  {
+    "id": "striker-s-battlegear",
+    "name": "Striker's Battlegear",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nWeapon Handling",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nRate of Fire",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Rate of Fire"
+      }
+    ],
+    "bonus2pcRaw": "15%\nWeapon Handling",
+    "bonus3pcRaw": "15%\nRate of Fire",
+    "talent4pc": "Striker's Gamble\n\nWeapon hits increase total weapon damage by 0.65%, \nstacking up to 100 times. \n\n1 stacks lost per second between 0 to 50 stacks; \n2 stacks lost per second between 51 and 100 stacks.",
+    "chestTalent": "Press the Advantage\n\nIncreases max stacks for Striker’s Gamble from 100 to 200.\n \n3 stacks lost per second between 101 and 200 stacks.",
+    "backpackTalent": "Risk Management\n\nIncreases total weapon damage gained per stack of Striker’s Gamble from 0.65% to 0.9%.",
+    "multiplierGroup": "\"TWD\" is actually Amplifier\n\nAmplifier, stacks additively\n\n(1 + 0.0065 * n) without backpack\n(1 + 0.0090 * n) with backpack\n\nn ranges from 1 to 100, or 1 to 200 with chest",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier"
+  },
+  {
+    "id": "system-corruption",
+    "name": "System Corruption",
+    "isPTS": false,
+    "isDZ": true,
+    "coreAttribute": "Mask Gloves Holster",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nArmor on Kill",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Armor on Kill"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "40%\nDisrupt Resistance",
+        "value": 0.4,
+        "unit": "%",
+        "attribute": "Disrupt Resistance"
+      },
+      {
+        "raw": "40%\nPulse Resistance",
+        "value": 0.4,
+        "unit": "%",
+        "attribute": "Pulse Resistance"
+      }
+    ],
+    "bonus2pcRaw": "15%\nArmor on Kill",
+    "bonus3pcRaw": "40%\nDisrupt Resistance\n\n40%\nPulse Resistance",
+    "talent4pc": "Hackstep Protocol\n\nReplaces armor kits with an instant, infinite-use ability.\n\n> Grants 50% bonus armor for 5s\n> Hides your nameplate for 5s. \n> Repairs 20% of your armor\n> Increases total weapon damage by 2% per 5% \nbonus armor gained, up to 20% \n\nAbility cooldown: 20s",
+    "chestTalent": "Compiler Optimization\n\nDecreases Hackstep Protocol cooldown \nfrom 20s to 15s.",
+    "backpackTalent": "Multithreaded Execution\n\nIncreases Hackstep Protocol bonus armor\nfrom 50% to 100%.",
+    "multiplierGroup": "Functions as an amp.applies to skills, melee and grenades, bullets.",
+    "dropLocations": "DZ only, Seasonal Caches",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier (Bullet)"
+  },
+  {
+    "id": "tip-of-the-spear",
+    "name": "Tip of the Spear",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "20%\nSignature Weapon Damage",
+        "value": 0.2,
+        "unit": "%",
+        "attribute": "Signature Weapon Damage"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "10%\nWeapon Damage",
+        "value": 0.1,
+        "unit": "%",
+        "attribute": "Weapon Damage"
+      }
+    ],
+    "bonus2pcRaw": "20%\nSignature Weapon Damage",
+    "bonus3pcRaw": "10%\nWeapon Damage",
+    "talent4pc": "Aggressive Recon\n\nGetting a Signature Weapon kill gives +15%. Signature Weapon Damage for 10s and +25% Reload Speed for the next reload of the weapon (the bonuses do not stack).\n\nAutomatically regenerate Signature Weapon Ammo every 60s.",
+    "chestTalent": "Specialized Destruction\n\nIncrease Aggressive Recon Signature Weapon Damage bonus from 15% to 30%. \nEvery 3rd Signature Weapon kill generates Signature Weapon ammo.",
+    "backpackTalent": "Signature Moves\n\n+50% Weapon Damage for 15s after fully depleting the Signature Weapon of ammo.\n\nDoubles the amount of ammo generated by Aggressive Recon.",
+    "multiplierGroup": "Total Weapon damage\n\nSpec Weapon Amplifier",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Total Weapon Damage / Amplifier"
+  },
+  {
+    "id": "tipping-scales",
+    "name": "Tipping Scales",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "30%\nMag Size",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Mag Size"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nLMG Damage",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "LMG Damage"
+      }
+    ],
+    "bonus2pcRaw": "30%\nMag Size",
+    "bonus3pcRaw": "30%\nLMG Damage",
+    "talent4pc": "Throttle Control\n\n    Shooting builds stacks to a max of 50. Each stack provides +0.5% Weapon Handling and +5% Critical Hit Damage.\n\n    Lose 6 stacks per second while not shooting. No stacks are lost if an enemy is Suppressed.",
+    "chestTalent": "Sustainability\n\nIncrease the maximum number of stacks from 50 to 75.",
+    "backpackTalent": "Snowball\n\nIncrease the Critical Hit Damage received per stack from 5% to 8%.",
+    "multiplierGroup": "Critical Hit Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Critical Hit Damage"
+  },
+  {
+    "id": "true-patriot",
+    "name": "True Patriot",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Armor",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nWeapon Handling",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nMagazine Size",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Magazine Size"
+      }
+    ],
+    "bonus2pcRaw": "15%\nWeapon Handling",
+    "bonus3pcRaw": "30%\nMagazine Size",
+    "talent4pc": "Red, White and Blue\n\nEnemies you shoot receive stacking debuffs of Red/White/Blue.\nChanges every 2 seconds.\n\nRed: Amplifies the enemy's damage taken by 15%. \nWhite: Hitting the enemy restores you and your allies' armor by 2%\nonce every second\nBlue: Decreases enemy damage dealt by 10%.\n\nFull Flag: Enemies that die while under the effect of all three debuffs\ncreate a 5m explosion, dealing damage equal to their total health and armor. \nExplosion strength is reduced on Named enemy deaths.",
+    "chestTalent": "Waving the Flag\n\nIncreases Red, White, and Blue rotation speed \nto 1 second.",
+    "backpackTalent": "Patriotic Boost\n\nIncreases Red, White, and Blue debuff strength. \n\nRed: From 15% to 30%\nWhite: From 2% to 5%\nBlue: From 10% to 20%.",
+    "multiplierGroup": "Red: Amplifier\n\n\n\n\nFull Flag: Explosion is scaled off of the True Patriot player's HP/Armor",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Amplifier (Red Flag)"
+  },
+  {
+    "id": "umbra-initiative",
+    "name": "Umbra Initiative",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nCritical Chance",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Critical Chance"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "30%\nReload Speed",
+        "value": 0.3,
+        "unit": "%",
+        "attribute": "Reload Speed"
+      }
+    ],
+    "bonus2pcRaw": "15%\nCritical Chance",
+    "bonus3pcRaw": "30%\nReload Speed",
+    "talent4pc": "From the Shadows Into the Light\n\nFrom the Shadows: While out of cover and in combat, gain 10 Stacks per second up to 50. Each stack will give 0.8% Armor regen when it is consumed. Stacks consume, 10 stacks per second, only in cover.\n\nInto the Light: While in cover, gain 10 Stacks per second up to 50. Each stack will give 1.2% Critical damage increase and 0.4% RPM. Buff does not apply while shooting from cover. While out of cover Agents lose 2 stacks per second at normal speed and 1 stack per second if sprinting.",
+    "chestTalent": "From the Shadows\n\nIncreases Max stacks For Into the Light from 50 to 100, stack gain from 10 to 20 and stack consumption from 10 to 20. \n(buffs the damage talent)",
+    "backpackTalent": "Into the Light\n\nIncreases Max stacks From the Shadows from 50 to 100, stack gain from 10 to 20.\n(buffs the armor regen talent)",
+    "multiplierGroup": "Critical Hit Damage \nand\nRate of Fire",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Critical Hit Damage / Rate of Fire"
+  },
+  {
+    "id": "virtuoso",
+    "name": "Virtuoso",
+    "isPTS": false,
+    "isDZ": false,
+    "coreAttribute": "Weapon Damage",
+    "bonuses2pc": [
+      {
+        "raw": "15%\nWeapon Handling",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Weapon Handling"
+      },
+      {
+        "raw": "15%\nMagazine Size",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Magazine Size"
+      }
+    ],
+    "bonuses3pc": [
+      {
+        "raw": "15%\nWeapon Damage",
+        "value": 0.15,
+        "unit": "%",
+        "attribute": "Weapon Damage"
+      }
+    ],
+    "bonus2pcRaw": "15%\nWeapon Handling\n\n15%\nMagazine Size",
+    "bonus3pcRaw": "15%\nWeapon Damage",
+    "talent4pc": "Symphony\n\nKills Beyond 25 Meters: +40% Weapon Damage to Shotguns, SMGs, and Pistols; +20% Weapon Damage to Assault Rifles and LMGs; and +25% Bonus Armor for 15s.\n\nKills Within 25 Meters: +40% Weapon Damage to Marksman Rifles and Rifles; +20% Weapon Damage to Assault Rifles and LMGs; and +30% Headshot Damage for 15s.\n\nIntermittently killing enemies from both ranges builds up stacks. At 4 stacks, all bonuses are multiplied by 1.5 and triggered simultaneously for 15s. No stacks gained while talent is active.",
+    "chestTalent": "Fortissimo\n\nDouble the weapon dmg bonus from symphony",
+    "backpackTalent": "Accelerando \n\ndecreases the number of stacks needed to proc the symphony double buffs from 4 to 3.",
+    "multiplierGroup": "All Weapon Damage",
+    "dropLocations": "LZ and DZ",
+    "notes": null,
+    "confidence": "[PDF]",
+    "normalizedMultiplierGroup": "Weapon Damage"
+  }
+]
