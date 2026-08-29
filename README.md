@@ -1,5 +1,7 @@
 # Division Config — Division 2 Build Optimiser
 
+> 🚀 **Live Web App**: [https://knowlesy.github.io/division-config/](https://knowlesy.github.io/division-config/)
+
 A mathematically rigorous build optimiser and damage calculator for **Tom Clancy's The Division 2**, updated and verified for **Year 8 Season 3: "Red Horizon" (TU30 / Patch 2.34)**.
 
 Built with React 19, TypeScript, Vite 6, and TailwindCSS. Deployed automatically to GitHub Pages.
