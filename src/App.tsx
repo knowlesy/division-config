@@ -185,7 +185,8 @@ export default function App() {
     const urlParams = new URLSearchParams(window.location.search);
     const oauthCode = urlParams.get('code');
     if (oauthCode) {
-      const exchangeUrl = import.meta.env.VITE_TOKEN_EXCHANGE_URL || 'https://division-config.pknowlesuk.workers.dev';
+      const exchangeUrl = import.meta.env.VITE_TOKEN_EXCHANGE_URL || '';
+      if (!exchangeUrl) return;
       fetch(exchangeUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

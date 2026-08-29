@@ -76,7 +76,7 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated })
             Option A: 1-Click GitHub Authorization
           </label>
           <p className="text-[11px] font-mono text-shd-textMonoMuted">
-            Uses your Cloudflare Worker token exchange at <code className="text-shd-orange">division-config.pknowlesuk.workers.dev</code>
+            Uses your configured Cloudflare Worker token exchange endpoint
           </p>
 
           <div className="flex gap-2">
