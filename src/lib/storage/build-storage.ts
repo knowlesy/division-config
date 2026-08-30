@@ -8,8 +8,10 @@ export interface SavedBuild {
   updatedAt: string;
   gear: Record<GearSlot, GearPieceInstance>;
   weapon: WeaponInstance;
+  primaryWeapon?: WeaponInstance;
   secondaryWeapon?: WeaponInstance;
   sidearm?: WeaponInstance;
+  activeWeaponSlot?: 'primary' | 'secondary' | 'sidearm';
   watch: WatchStats;
   specialization: string;
   context: CombatContext;

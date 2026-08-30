@@ -7,10 +7,14 @@ import { CandidateBuild } from '../lib/optimizer/types';
 import { ConfidenceBadge } from './ConfidenceBadge';
 
 import { calculateLoadout } from '../lib/calc/loadout-calculator';
+import weaponsData from '../../data/weapons.json';
+import weaponsNamedData from '../../data/weapons-named.json';
 
 interface Props {
   currentGear: Record<GearSlot, GearPieceInstance>;
   activeWeapon: WeaponInstance;
+  secondaryWeapon?: WeaponInstance;
+  sidearm?: WeaponInstance;
   watch: WatchStats;
   specialization: string;
   context: CombatContext;
@@ -19,9 +23,42 @@ interface Props {
   onSwitchToComparison?: () => void;
 }
 
+function shoppingItemToWeaponInstance(
+  w: WeaponShoppingItem | undefined,
+  defaultSlot: 'primary' | 'secondary' | 'sidearm',
+  fallback: WeaponInstance
+): WeaponInstance {
+  if (!w) return fallback;
+  const namedItem = (weaponsNamedData as any[]).find(nw => nw.name.toLowerCase() === w.name.toLowerCase());
+  const stdItem = (weaponsData as any[]).find(sw => sw.name.toLowerCase() === w.name.toLowerCase());
+  const base = namedItem || stdItem;
+
+  const baseStats = (weaponsData as any[]).find(sw => sw.family && base?.family && sw.family.toLowerCase() === base.family.toLowerCase())
+    || (weaponsData as any[]).find(sw => sw.category && base?.category && sw.category.toLowerCase() === base.category.toLowerCase())
+    || fallback;
+
+  return {
+    slot: defaultSlot,
+    name: w.name,
+    category: w.category || baseStats.category || fallback.category,
+    baseDamage: baseStats.baseDamage || fallback.baseDamage,
+    rpm: baseStats.rpm || fallback.rpm,
+    magSize: baseStats.baseMagSize || baseStats.magSize || fallback.magSize,
+    reloadTime: baseStats.emptyReloadSecs || baseStats.reloadTime || fallback.reloadTime,
+    innateHsd: fallback.innateHsd,
+    coreAttribute: { type: 'Weapon Damage', value: 0.15 },
+    secondaryCoreAttribute: fallback.secondaryCoreAttribute || { type: 'Damage to Target Out of Cover', value: 0.10 },
+    minorAttribute: { attribute: 'Damage to Target Out of Cover', value: 0.10, unit: '%' },
+    talent: w.talent || fallback.talent,
+    isExotic: !!w.isExotic
+  };
+}
+
 export const OptimizerView: React.FC<Props> = ({
   currentGear,
   activeWeapon,
+  secondaryWeapon,
+  sidearm,
   watch,
   specialization,
   context,
@@ -43,13 +80,19 @@ export const OptimizerView: React.FC<Props> = ({
   const archetypeList = Object.values(ARCHETYPES);
   const currentArchetype = ARCHETYPES[selectedArchetypeId] || ARCHETYPES['sustained_dps'];
 
-  // Initialize floors when archetype changes
+  // Set default floors when archetype changes
   useEffect(() => {
-    if (currentArchetype.defaultFloors) {
-      setCustomMinArmor(currentArchetype.defaultFloors.minArmor || 0);
-      setCustomMinSkillTier(currentArchetype.defaultFloors.minSkillTier || 0);
-      setCustomMinSkillHaste(currentArchetype.defaultFloors.minSkillHaste ? currentArchetype.defaultFloors.minSkillHaste * 100 : 0);
-      setCustomMinHazardProtection(currentArchetype.defaultFloors.minHazardProtection ? currentArchetype.defaultFloors.minHazardProtection * 100 : 0);
+    const arch = ARCHETYPES[selectedArchetypeId];
+    if (arch && arch.defaultFloors) {
+      setCustomMinArmor(arch.defaultFloors.minArmor || 0);
+      setCustomMinSkillTier(arch.defaultFloors.minSkillTier || 0);
+      setCustomMinSkillHaste(arch.defaultFloors.minSkillHaste || 0);
+      setCustomMinHazardProtection(arch.defaultFloors.minHazardProtection || 0);
+    } else {
+      setCustomMinArmor(0);
+      setCustomMinSkillTier(0);
+      setCustomMinSkillHaste(0);
+      setCustomMinHazardProtection(0);
     }
   }, [selectedArchetypeId]);
 
@@ -66,8 +109,8 @@ export const OptimizerView: React.FC<Props> = ({
       const customFloors: ArchetypeFloors = {};
       if (customMinArmor > 0) customFloors.minArmor = customMinArmor;
       if (customMinSkillTier > 0) customFloors.minSkillTier = customMinSkillTier;
-      if (customMinSkillHaste > 0) customFloors.minSkillHaste = customMinSkillHaste / 100;
-      if (customMinHazardProtection > 0) customFloors.minHazardProtection = customMinHazardProtection / 100;
+      if (customMinSkillHaste > 0) customFloors.minSkillHaste = customMinSkillHaste;
+      if (customMinHazardProtection > 0) customFloors.minHazardProtection = customMinHazardProtection;
 
       const optContext: CombatContext = {
         ...context,
@@ -90,11 +133,21 @@ export const OptimizerView: React.FC<Props> = ({
   const handleEquipTier = (tierKey: 'practical' | 'ceiling') => {
     if (!result) return;
     const tierData = result[tierKey];
+    const recPrimary = tierData.weapons.find(w => w.slot === 'primary') || tierData.weapons[0];
+    const recSecondary = tierData.weapons.find(w => w.slot === 'secondary') || tierData.weapons[1];
+    const recSidearm = tierData.weapons.find(w => w.slot === 'sidearm') || tierData.weapons[2];
+
+    const candWeapon = shoppingItemToWeaponInstance(recPrimary, 'primary', activeWeapon);
+    const candSecondary = shoppingItemToWeaponInstance(recSecondary, 'secondary', secondaryWeapon || activeWeapon);
+    const candSidearm = shoppingItemToWeaponInstance(recSidearm, 'sidearm', sidearm || activeWeapon);
+
     const candidate: CandidateBuild = {
       id: `${result.archetype.id}-${tierKey}`,
       name: `${result.archetype.name} (${tierKey.toUpperCase()})`,
       gear: tierData.gear,
-      weapon: activeWeapon,
+      weapon: candWeapon,
+      secondaryWeapon: candSecondary,
+      sidearm: candSidearm,
       score: tierData.score,
       stats: tierData.stats,
       tradeoffAnalysis: [
@@ -109,11 +162,21 @@ export const OptimizerView: React.FC<Props> = ({
   const handleCompareTier = (tierKey: 'practical' | 'ceiling') => {
     if (!result) return;
     const tierData = result[tierKey];
+    const recPrimary = tierData.weapons.find(w => w.slot === 'primary') || tierData.weapons[0];
+    const recSecondary = tierData.weapons.find(w => w.slot === 'secondary') || tierData.weapons[1];
+    const recSidearm = tierData.weapons.find(w => w.slot === 'sidearm') || tierData.weapons[2];
+
+    const candWeapon = shoppingItemToWeaponInstance(recPrimary, 'primary', activeWeapon);
+    const candSecondary = shoppingItemToWeaponInstance(recSecondary, 'secondary', secondaryWeapon || activeWeapon);
+    const candSidearm = shoppingItemToWeaponInstance(recSidearm, 'sidearm', sidearm || activeWeapon);
+
     const candidate: CandidateBuild = {
       id: `${result.archetype.id}-${tierKey}`,
       name: `${result.archetype.name} (${tierKey.toUpperCase()})`,
       gear: tierData.gear,
-      weapon: activeWeapon,
+      weapon: candWeapon,
+      secondaryWeapon: candSecondary,
+      sidearm: candSidearm,
       score: tierData.score,
       stats: tierData.stats,
       tradeoffAnalysis: [

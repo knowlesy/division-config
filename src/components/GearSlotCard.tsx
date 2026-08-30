@@ -46,6 +46,15 @@ interface Props {
   onAlignSet?: (setId: string, setName: string) => void;
 }
 
+function isMatchingSlot(itemSlot?: string, targetSlot?: string): boolean {
+  if (!itemSlot || !targetSlot) return false;
+  const i = itemSlot.toLowerCase().trim();
+  const t = targetSlot.toLowerCase().trim();
+  if (i === t) return true;
+  if ((t === 'kneepads' || t === 'knees') && (i === 'kneepads' || i === 'knees')) return true;
+  return i.includes(t) || t.includes(i);
+}
+
 function getNativeCore(piece: GearPieceInstance): CoreType | null {
   if (piece.kind === 'gear-set') {
     const set = gearSets.find(s => s.id === piece.brandOrSetId);
@@ -58,7 +67,7 @@ function getNativeCore(piece: GearPieceInstance): CoreType | null {
     return brand.coreAttribute?.includes('Armor') ? 'Armor' : (brand.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
   }
   if (piece.kind === 'named') {
-    const item = namedGear.find(i => i.name === piece.name);
+    const item = namedGear.find(i => i.name.toLowerCase() === piece.name.toLowerCase());
     if (!item) return null;
     return item.coreAttribute?.includes('Armor') ? 'Armor' : (item.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
   }
@@ -72,7 +81,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
 
   // Available named items / exotics for this slot, sorted A-Z
   const slotNamedItems = namedGear
-    .filter(g => g.slot?.toLowerCase().includes(slot.toLowerCase()))
+    .filter(g => isMatchingSlot(g.slot, slot))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const availableChestTalents = gearTalents
@@ -226,6 +235,11 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
             onChange={(e) => handleBrandOrSetChange(e.target.value)}
             className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
+            {!brandSets.some(b => b.id === piece.brandOrSetId) && piece.brandOrSetId && (
+              <option key={piece.brandOrSetId} value={piece.brandOrSetId}>
+                {piece.name || piece.brandOrSetId}
+              </option>
+            )}
             {brandSets.map(b => (
               <option key={b.id} value={b.id}>
                 {b.name} ({b.bonus1pcRaw?.replace(/\n/g, ' ')})
@@ -240,6 +254,11 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
             onChange={(e) => handleBrandOrSetChange(e.target.value)}
             className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
+            {!gearSets.some(s => s.id === piece.brandOrSetId) && piece.brandOrSetId && (
+              <option key={piece.brandOrSetId} value={piece.brandOrSetId}>
+                {piece.name || piece.brandOrSetId}
+              </option>
+            )}
             {gearSets.map(s => (
               <option key={s.id} value={s.id}>
                 {s.name} ({s.coreAttribute})
@@ -252,7 +271,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
           <select
             value={piece.name}
             onChange={(e) => {
-              const item = slotNamedItems.find(i => i.name === e.target.value);
+              const item = slotNamedItems.find(i => i.name.toLowerCase() === e.target.value.toLowerCase());
               if (item) {
                 onChange({
                   ...piece,
@@ -264,6 +283,11 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
             }}
             className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-named focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
+            {!slotNamedItems.some(i => !i.isExotic && i.name.toLowerCase() === piece.name.toLowerCase()) && (
+              <option key={piece.name} value={piece.name}>
+                {piece.name} (Named)
+              </option>
+            )}
             {slotNamedItems.filter(i => !i.isExotic).map(i => (
               <option key={i.id} value={i.name}>
                 {i.name} ({i.brand || 'Named'})
@@ -276,7 +300,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
           <select
             value={piece.name}
             onChange={(e) => {
-              const item = slotNamedItems.find(i => i.name === e.target.value);
+              const item = slotNamedItems.find(i => i.name.toLowerCase() === e.target.value.toLowerCase());
               if (item) {
                 onChange({
                   ...piece,
@@ -287,13 +311,14 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
             }}
             className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-exotic font-semibold focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
           >
-            {slotNamedItems.filter(i => i.isExotic).length > 0 ? (
-              slotNamedItems.filter(i => i.isExotic).map(i => (
-                <option key={i.id} value={i.name}>{i.name} [Exotic]</option>
-              ))
-            ) : (
-              <option value={piece.name}>{piece.name} [Exotic]</option>
+            {!slotNamedItems.some(i => i.isExotic && i.name.toLowerCase() === piece.name.toLowerCase()) && (
+              <option key={piece.name} value={piece.name}>
+                ★ {piece.name}
+              </option>
             )}
+            {slotNamedItems.filter(i => i.isExotic).map(i => (
+              <option key={i.id} value={i.name}>{i.name} [Exotic]</option>
+            ))}
           </select>
         )}
       </div>

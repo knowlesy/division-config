@@ -42,13 +42,16 @@ function normalizeCategory(cat: string): string {
   return 'Other';
 }
 
-const CATEGORY_ORDER = [
+const PRIMARY_SECONDARY_CATEGORIES = [
   'Assault Rifles',
   'Submachine Guns',
   'Light Machine Guns',
   'Rifles',
   'Marksman Rifles',
-  'Shotguns',
+  'Shotguns'
+];
+
+const SIDEARM_CATEGORIES = [
   'Pistols'
 ];
 
@@ -132,19 +135,17 @@ export const WeaponSlotCard: React.FC<Props> = ({
     }
   };
 
-  // 1. Exotics at the top, sorted A-Z
+  // 1. Exotics at the top, sorted A-Z (strict separation between sidearm and primary/secondary)
   const exoticWeapons = namedWeapons
     .filter(w => {
       if (!w.isExotic) return false;
-      if (isSidearmSlot) {
-        return normalizeCategory(w.category) === 'Pistols';
-      }
-      return true;
+      const isPistol = normalizeCategory(w.category) === 'Pistols';
+      return isSidearmSlot ? isPistol : !isPistol;
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  // 2. Categories to display (Sidearm restricted to Pistols only)
-  const activeCategories = isSidearmSlot ? ['Pistols'] : CATEGORY_ORDER;
+  // 2. Categories to display (Sidearm restricted to Pistols only, Prim/Sec restricted to long guns)
+  const activeCategories = isSidearmSlot ? SIDEARM_CATEGORIES : PRIMARY_SECONDARY_CATEGORIES;
 
   return (
     <div

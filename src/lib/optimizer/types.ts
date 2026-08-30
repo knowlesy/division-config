@@ -23,6 +23,8 @@ export interface CandidateBuild {
   name: string;
   gear: Record<GearSlot, GearPieceInstance>;
   weapon: WeaponInstance;
+  secondaryWeapon?: WeaponInstance;
+  sidearm?: WeaponInstance;
   score: number;
   stats: ComputedLoadoutStats;
   tradeoffAnalysis: string[];

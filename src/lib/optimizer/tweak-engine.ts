@@ -420,6 +420,58 @@ export function generateLoadoutTweaks(
     );
   }
 
+  // 7. WEAPON ATTRIBUTE & TALENT TUNING
+  if (weapon && !weapon.isExotic) {
+    // 7A. Weapon 3rd Minor Attribute -> DtOOC (+10%)
+    if (weapon.minorAttribute?.attribute !== 'Damage to Target Out of Cover') {
+      const copyWeapon: WeaponInstance = {
+        ...weapon,
+        minorAttribute: { attribute: 'Damage to Target Out of Cover', value: 0.10, unit: '%' }
+      };
+      evaluateDelta(
+        'weapon-dtooc-minor',
+        'dps',
+        '🎯 WEAPON OPTIMISATION',
+        'orange',
+        `Roll Weapon 3rd Attribute to +10% DtOOC`,
+        `Change 3rd Minor on ${weapon.name} to Damage to Target Out of Cover (+10%)`,
+        `Damage to Target Out of Cover acts as a multiplicative Group 4 damage amplifier.`,
+        gear,
+        copyWeapon
+      );
+    }
+
+    // 7B. Weapon Talents
+    const candidateWeaponTalents = [
+      { name: 'Flatline', desc: '+15% Amplified damage to pulsed enemies' },
+      { name: 'Strained', desc: 'Up to +50% Critical Hit Damage over firing duration' },
+      { name: 'Fast Hands', desc: 'Crits reduce reload time by up to 80%' },
+      { name: 'Optimist', desc: 'Up to +30% Weapon Damage as magazine empties' },
+      { name: 'In Sync', desc: '+15% Weapon & Skill Damage upon skill/weapon hit' },
+      { name: 'Killer', desc: 'Killing with a crit gives +40% CHD for 10s' }
+    ];
+
+    candidateWeaponTalents.forEach(t => {
+      if (weapon.talent !== t.name) {
+        const copyWeapon: WeaponInstance = {
+          ...weapon,
+          talent: t.name
+        };
+        evaluateDelta(
+          `weapon-talent-${t.name.toLowerCase()}`,
+          'dps',
+          '⚡ WEAPON TALENT',
+          'orange',
+          `Equip '${t.name}' Talent on ${weapon.name}`,
+          `Roll Weapon Talent on ${weapon.name} to '${t.name}' (${t.desc})`,
+          `Applies '${t.name}' weapon perk to test performance gain over your current perk.`,
+          gear,
+          copyWeapon
+        );
+      }
+    });
+  }
+
   // Sort: Cap fixes first, then highest DPS gains, then Survivability
   return suggestions.sort((a, b) => {
     // Cap fixes first

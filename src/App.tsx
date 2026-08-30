@@ -238,9 +238,11 @@ export default function App() {
 
   const loadSavedBuild = (b: SavedBuild) => {
     if (b.gear) setGear(b.gear);
-    if (b.weapon) setPrimaryWeapon(b.weapon);
+    const prim = b.primaryWeapon || b.weapon;
+    if (prim) setPrimaryWeapon(prim);
     if (b.secondaryWeapon) setSecondaryWeapon(b.secondaryWeapon);
     if (b.sidearm) setSidearm(b.sidearm);
+    if (b.activeWeaponSlot) setActiveWeaponSlot(b.activeWeaponSlot);
     if (b.watch) setWatch(b.watch);
     if (b.specialization) setSpecialization(b.specialization);
     if (b.context) setContext(b.context);
@@ -255,8 +257,10 @@ export default function App() {
       updatedAt: new Date().toISOString(),
       gear,
       weapon: primaryWeapon,
+      primaryWeapon,
       secondaryWeapon,
       sidearm,
+      activeWeaponSlot,
       watch,
       specialization,
       context
@@ -321,8 +325,10 @@ export default function App() {
       updatedAt: new Date().toISOString(),
       gear,
       weapon: primaryWeapon,
+      primaryWeapon,
       secondaryWeapon,
       sidearm,
+      activeWeaponSlot,
       watch,
       specialization,
       context
@@ -368,9 +374,15 @@ export default function App() {
   const handleApplyTweak = (modifiedGear: Record<GearSlot, GearPieceInstance>, modifiedWeapon?: WeaponInstance, title?: string) => {
     setGear(modifiedGear);
     if (modifiedWeapon) {
-      setPrimaryWeapon(modifiedWeapon);
+      if (activeWeaponSlot === 'primary') {
+        setPrimaryWeapon(modifiedWeapon);
+      } else if (activeWeaponSlot === 'secondary') {
+        setSecondaryWeapon(modifiedWeapon);
+      } else {
+        setSidearm(modifiedWeapon);
+      }
     }
-    showToast(`Applied tweak: "${title || 'Loadout Update'}"!`);
+    showToast(`Applied optimisation: "${title || 'Loadout Update'}"!`);
   };
 
   const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD' | 'buildE') => {
@@ -465,7 +477,17 @@ export default function App() {
 
   const handleEquipCandidate = (cand: CandidateBuild) => {
     setGear(cand.gear);
+    if (cand.weapon) {
+      setPrimaryWeapon(cand.weapon);
+    }
+    if (cand.secondaryWeapon) {
+      setSecondaryWeapon(cand.secondaryWeapon);
+    }
+    if (cand.sidearm) {
+      setSidearm(cand.sidearm);
+    }
     setActiveTab('editor');
+    showToast(`Equipped "${cand.name}" build & weapons!`);
   };
 
   const handleAddToComparison = (cand: CandidateBuild) => {
@@ -666,6 +688,8 @@ export default function App() {
           <OptimizerView
             currentGear={gear}
             activeWeapon={activeWeapon}
+            secondaryWeapon={secondaryWeapon}
+            sidearm={sidearm}
             watch={watch}
             specialization={specialization}
             context={context}

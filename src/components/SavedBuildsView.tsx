@@ -47,6 +47,7 @@ export const SavedBuildsView: React.FC<Props> = ({
 
   const handleSaveCurrent = () => {
     const name = saveName.trim() || `${activeWeapon.name} Custom Build`;
+    const prim = activeWeapon.slot === 'primary' ? activeWeapon : (activeWeapon || secondaryWeapon);
     const newBuild: SavedBuild = {
       id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now().toString(36),
       name,
@@ -54,7 +55,8 @@ export const SavedBuildsView: React.FC<Props> = ({
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       gear: currentGear,
-      weapon: activeWeapon,
+      weapon: prim,
+      primaryWeapon: prim,
       secondaryWeapon,
       sidearm,
       watch,
@@ -191,7 +193,9 @@ export const SavedBuildsView: React.FC<Props> = ({
 
                   {/* Summary row */}
                   <div className="mt-2 text-xs font-mono text-shd-textMonoMuted flex flex-wrap gap-x-3 gap-y-1">
-                    <span>🔫 {build.weapon?.name}</span>
+                    <span>🔫 Prim: {build.primaryWeapon?.name || build.weapon?.name}</span>
+                    {build.secondaryWeapon && <span>🔫 Sec: {build.secondaryWeapon.name}</span>}
+                    {build.sidearm && <span>🔫 Side: {build.sidearm.name}</span>}
                     <span>🛡️ {Object.values(build.gear || {}).map(g => g.name.split(' ')[0]).slice(0, 4).join(', ')}</span>
                   </div>
                 </div>
