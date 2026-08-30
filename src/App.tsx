@@ -564,26 +564,32 @@ export default function App() {
 
               {/* Gear Slots Section */}
               <div className="flex flex-col gap-2">
-                <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-3 bg-shd-surface1/60 border border-shd-border1 p-2 clip-corner-sm">
+                  {/* Left: Section Title */}
                   <div className="flex items-center gap-2">
-                    <h3 className="font-heading font-bold text-xs uppercase tracking-wider text-shd-textPrimary">
-                      Gear Pieces (6 Slots)
+                    <h3 className="font-heading font-bold text-xs uppercase tracking-wider text-shd-textPrimary flex items-center gap-1.5">
+                      <span>🛡️</span>
+                      <span>Gear Pieces (6 Slots)</span>
                     </h3>
-                    <button
-                      type="button"
-                      onClick={() => setAlignModalState({ isOpen: true })}
-                      className="px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-shd-surface1 hover:bg-shd-orange hover:text-shd-bg text-shd-orange border border-shd-orange clip-corner-sm transition-colors flex items-center gap-1 shadow-sm"
-                      title="Align 4-piece or 6-piece gear set across slots"
-                    >
-                      <span>⚡ Align 4pc Set</span>
-                    </button>
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] font-mono text-shd-textMonoMuted">
-                    <span>Specialization:</span>
+
+                  {/* Center: In Between Gear Sets and Specialisation */}
+                  <button
+                    type="button"
+                    onClick={() => setAlignModalState({ isOpen: true })}
+                    className="px-3.5 py-1 text-xs font-heading font-bold uppercase tracking-wider bg-shd-orange hover:bg-shd-orangeLight text-shd-bg clip-corner-sm transition-colors flex items-center gap-1.5 shadow-md cursor-pointer"
+                    title="Align 4-piece or 6-piece gear set across slots"
+                  >
+                    <span>⚡ Align Gear Set</span>
+                  </button>
+
+                  {/* Right: Specialisation */}
+                  <div className="flex items-center gap-2 text-xs font-mono text-shd-textSecondary">
+                    <span className="text-[11px] text-shd-textMonoMuted font-bold uppercase">Specialisation:</span>
                     <select
                       value={specialization}
                       onChange={(e) => setSpecialization(e.target.value)}
-                      className="bg-shd-surface1 border border-shd-border2 px-2 py-0.5 text-shd-orange outline-none clip-corner-sm"
+                      className="bg-shd-surface2 border border-shd-border3 px-2 py-1 text-xs font-sans text-shd-orange font-bold outline-none focus:border-shd-orange clip-corner-sm"
                     >
                       <option value="Gunner">Gunner</option>
                       <option value="Sharpshooter">Sharpshooter</option>
