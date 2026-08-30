@@ -6,9 +6,10 @@ interface Props {
   stats: ComputedLoadoutStats;
   onSendToAdvisor?: (statSummary: string) => void;
   onOpenOptimizer?: () => void;
+  onOpenTweaks?: () => void;
 }
 
-export const StatsPanel: React.FC<Props> = ({ stats, onOpenOptimizer }) => {
+export const StatsPanel: React.FC<Props> = ({ stats, onOpenOptimizer, onOpenTweaks }) => {
   const { groupBreakdown, warnings, itemisationErrors, activeBrandBonuses, activeSetBonuses } = stats;
 
   return (
@@ -64,18 +65,31 @@ export const StatsPanel: React.FC<Props> = ({ stats, onOpenOptimizer }) => {
         </div>
       </div>
 
-      {/* Direct Optimizer Shortcut */}
-      {onOpenOptimizer && (
-        <button
-          type="button"
-          onClick={onOpenOptimizer}
-          className="w-full py-2.5 px-3 bg-shd-orange text-shd-bg font-heading font-bold text-xs uppercase tracking-wider clip-corner hover:bg-shd-orangeLight transition-colors shadow-md flex items-center justify-center gap-2"
-        >
-          <span>⚡</span>
-          <span>Optimise This Loadout</span>
-          <span className="text-[10px] opacity-80 font-normal font-mono">(Find Higher DPS & Gear Combos)</span>
-        </button>
-      )}
+      {/* Direct Quick Action Buttons */}
+      <div className="flex flex-col gap-2">
+        {onOpenTweaks && (
+          <button
+            type="button"
+            onClick={onOpenTweaks}
+            className="w-full py-2.5 px-3 bg-shd-surface2 border border-shd-orange/80 hover:bg-shd-orange hover:text-shd-bg text-shd-orange font-heading font-bold text-xs uppercase tracking-wider clip-corner transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>💡</span>
+            <span>Tweak This Loadout</span>
+            <span className="text-[10px] opacity-80 font-normal font-mono">(Micro-Gains & Cap Fixes)</span>
+          </button>
+        )}
+
+        {onOpenOptimizer && (
+          <button
+            type="button"
+            onClick={onOpenOptimizer}
+            className="w-full py-2 px-3 bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white font-heading font-semibold text-xs uppercase tracking-wider clip-corner transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>⚡</span>
+            <span>Full Two-Tier Optimiser</span>
+          </button>
+        )}
+      </div>
 
       {/* Damage Over Time / Debuff Tick Banner if active */}
       {stats.dotTickDamage && stats.dotTickDamage > 0 && (

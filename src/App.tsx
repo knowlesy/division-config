@@ -12,6 +12,7 @@ import { SavedBuildsView } from './components/SavedBuildsView';
 import { AdvisorChat } from './components/AdvisorChat';
 import { AuthModal } from './components/AuthModal';
 import { AlignGearSetModal } from './components/AlignGearSetModal';
+import { TweakAdvisorModal } from './components/TweakAdvisorModal';
 import { CandidateBuild } from './lib/optimizer/types';
 import { SavedBuild, getStoredToken, importBuildFromUrl, saveLocalBuild } from './lib/storage/build-storage';
 import { GitHubClient, GitHubUser } from './lib/github/client';
@@ -170,6 +171,7 @@ export default function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [alignModalState, setAlignModalState] = useState<{ isOpen: boolean; initialSetId?: string }>({ isOpen: false });
+  const [isTweakModalOpen, setIsTweakModalOpen] = useState(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -363,6 +365,14 @@ export default function App() {
     showToast(`Aligned ${selectedSlots.length} item${selectedSlots.length === 1 ? '' : 's'} to ${set.name}!`);
   };
 
+  const handleApplyTweak = (modifiedGear: Record<GearSlot, GearPieceInstance>, modifiedWeapon?: WeaponInstance, title?: string) => {
+    setGear(modifiedGear);
+    if (modifiedWeapon) {
+      setPrimaryWeapon(modifiedWeapon);
+    }
+    showToast(`Applied tweak: "${title || 'Loadout Update'}"!`);
+  };
+
   const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD') => {
     switch (presetKey) {
       case 'buildA':
@@ -481,6 +491,14 @@ export default function App() {
                     className="hidden"
                   />
                 </label>
+
+                <button
+                  onClick={() => setIsTweakModalOpen(true)}
+                  className="px-3 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-surface2 hover:bg-shd-orange hover:text-shd-bg text-amber-400 border border-amber-500/70 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  title="Inspect 1-step and 2-step micro tweaks to improve DPS or survivability"
+                >
+                  <span>💡 Tweak Loadout</span>
+                </button>
 
                 <button
                   onClick={() => setActiveTab('optimizer')}
@@ -608,6 +626,7 @@ export default function App() {
                 <StatsPanel
                   stats={computedStats}
                   onOpenOptimizer={() => setActiveTab('optimizer')}
+                  onOpenTweaks={() => setIsTweakModalOpen(true)}
                 />
               </div>
             </div>
@@ -671,6 +690,19 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Tweak Advisor Modal */}
+      <TweakAdvisorModal
+        isOpen={isTweakModalOpen}
+        gear={gear}
+        weapon={activeWeapon}
+        watch={watch}
+        specialization={specialization}
+        context={context}
+        onClose={() => setIsTweakModalOpen(false)}
+        onApplyTweak={handleApplyTweak}
+        onAddToComparison={handleAddToComparison}
+      />
 
       {/* Align Gear Set Modal */}
       <AlignGearSetModal
