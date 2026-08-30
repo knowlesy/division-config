@@ -14,7 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Ten Item-Agnostic Archetypes**: Pure mathematical scoring functions (*Sustained DPS, Precision DPS, Skill Damage, Glass Medic, Field Medic, Force Multiplier, Bulwark, Lightning Rod, Lockdown, Hardened*) with strict hard floor validators and zero hardcoded item names.
 - **Marginal Assignment Solver**: Two-stage minor attribute and mod allocation solver eliminating combinatorial explosion while guaranteeing legal piece budgets and hard caps.
 - **Recalibration Shopping List & Cost Model**: Explicit per-slot recalibration instructions, headline score delta % (`+X%`), god-roll piece count, and library banking requirements.
-- **Dual-Column UI**: `PRACTICAL` vs `CEILING` side-by-side view with solo/group mode toggle and collapsible floor constraints.
+- **Standalone JSON Calculator Toolbar**: Added `Upload JSON` and `Download JSON` in the Loadout Editor and Saved Builds tab to import, export, and share builds as standalone `.json` files.
+- **Local & Offline Storage**: Shifted default build persistence to browser `localStorage` and client-side JSON files without requiring third-party authentication.
+- **Alphabetical (A–Z) Organization**: Sorted all gear brands, gear sets, named items, exotics, chest/backpack talents, and weapon categories/names A-Z across the application.
 
 ### Fixed
 - **Gear Set Core Recalibration (§2 Correction)**: Corrected rules documentation and calculation layer to recognize gear set core attributes as fully recalibratable across colours (`Weapon Damage` ↔ `Armor` ↔ `Skill Tier`), while maintaining talent and named item perfect attribute locks.

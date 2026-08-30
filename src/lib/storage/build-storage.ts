@@ -14,7 +14,7 @@ export interface SavedBuild {
   specialization: string;
   context: CombatContext;
   tags?: string[];
-  sha?: string; // For GitHub tracking
+  sha?: string;
 }
 
 const LOCAL_STORAGE_KEY = 'division_config_builds';
@@ -69,7 +69,7 @@ export function deleteLocalBuild(id: string): SavedBuild[] {
 }
 
 /**
- * Format a build into Markdown with YAML Frontmatter for readable GitHub storage.
+ * Format a build into Markdown with YAML Frontmatter for human-readable JSON/Markdown export.
  */
 export function formatBuildMarkdown(build: SavedBuild): string {
   const jsonString = JSON.stringify(build, null, 2);

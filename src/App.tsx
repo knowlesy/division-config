@@ -590,8 +590,6 @@ export default function App() {
             specialization={specialization}
             context={context}
             onLoadBuild={loadSavedBuild}
-            user={user}
-            token={token}
           />
         )}
 

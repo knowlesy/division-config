@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GearSlot, GearPieceInstance, WeaponInstance, WatchStats, CombatContext } from '../lib/calc/types';
 import { SavedBuild, loadLocalBuilds, saveLocalBuild, deleteLocalBuild, exportBuildToUrl, parseBuildString } from '../lib/storage/build-storage';
-import { GitHubClient, GitHubUser } from '../lib/github/client';
 
 interface Props {
   currentGear: Record<GearSlot, GearPieceInstance>;
@@ -12,8 +11,6 @@ interface Props {
   specialization: string;
   context: CombatContext;
   onLoadBuild: (build: SavedBuild) => void;
-  user: GitHubUser | null;
-  token: string | null;
 }
 
 export const SavedBuildsView: React.FC<Props> = ({
@@ -24,50 +21,25 @@ export const SavedBuildsView: React.FC<Props> = ({
   watch,
   specialization,
   context,
-  onLoadBuild,
-  user,
-  token
+  onLoadBuild
 }) => {
   const [builds, setBuilds] = useState<SavedBuild[]>([]);
   const [saveName, setSaveName] = useState('');
   const [saveDesc, setSaveDesc] = useState('');
   const [importJson, setImportJson] = useState('');
   const [importError, setImportError] = useState<string | null>(null);
-  const [syncStatus, setSyncStatus] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
     refreshBuilds();
-  }, [user, token]);
+  }, []);
 
-  const refreshBuilds = async () => {
+  const refreshBuilds = () => {
     const local = loadLocalBuilds();
     setBuilds(local);
-
-    if (user && token) {
-      try {
-        setSyncStatus('Syncing with GitHub private repo...');
-        const client = new GitHubClient(token);
-        const remoteFiles = await client.listBuilds(user.login);
-
-        for (const file of remoteFiles) {
-          if (file.name.endsWith('.json')) {
-            const content = await client.getBuildContent(user.login, file.path);
-            const parsed = parseBuildString(content);
-            if (parsed && !local.some(b => b.id === parsed.id)) {
-              local.push({ ...parsed, sha: file.sha });
-            }
-          }
-        }
-        setBuilds([...local]);
-        setSyncStatus('Synced with GitHub my-division-builds');
-      } catch (e: any) {
-        setSyncStatus(`Sync notice: ${e.message}`);
-      }
-    }
   };
 
-  const handleSaveCurrent = async () => {
+  const handleSaveCurrent = () => {
     const name = saveName.trim() || `${activeWeapon.name} Custom Build`;
     const newBuild: SavedBuild = {
       id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now().toString(36),
@@ -87,28 +59,11 @@ export const SavedBuildsView: React.FC<Props> = ({
     saveLocalBuild(newBuild);
     setSaveName('');
     setSaveDesc('');
-
-    if (user && token) {
-      try {
-        const client = new GitHubClient(token);
-        const res = await client.saveBuild(user.login, newBuild.id, newBuild.name, JSON.stringify(newBuild, null, 2));
-        newBuild.sha = res.sha;
-      } catch (e) {
-        console.error('Failed to commit to GitHub:', e);
-      }
-    }
-
     refreshBuilds();
   };
 
-  const handleDelete = async (id: string, sha?: string) => {
+  const handleDelete = (id: string) => {
     deleteLocalBuild(id);
-    if (user && token && sha) {
-      try {
-        const client = new GitHubClient(token);
-        await client.deleteBuild(user.login, `builds/${id}.json`, sha);
-      } catch (e) {}
-    }
     refreshBuilds();
   };
 
@@ -252,7 +207,7 @@ export const SavedBuildsView: React.FC<Props> = ({
                       ⬇ JSON
                     </button>
                     <button
-                      onClick={() => handleDelete(build.id, build.sha)}
+                      onClick={() => handleDelete(build.id)}
                       className="text-xs font-mono px-2 py-1 border border-shd-border3 hover:border-rose-500 text-shd-textMonoMuted hover:text-rose-400 clip-corner-sm"
                     >
                       Delete

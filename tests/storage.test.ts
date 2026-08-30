@@ -50,5 +50,40 @@ describe('Storage and Serialization', () => {
     const rawJson = JSON.stringify(sampleBuild);
     const parsed = parseBuildString(rawJson);
     expect(parsed?.id).toBe('test-build-1');
+    expect(parsed?.gear.mask.name).toBe("Coyote's Mask");
+    expect(parsed?.weapon.name).toBe('Pestilence');
+  });
+
+  it('handles JSON files with secondaryWeapon and sidearm attributes', () => {
+    const fullBuild: SavedBuild = {
+      ...sampleBuild,
+      secondaryWeapon: {
+        slot: 'secondary',
+        name: 'The White Death',
+        category: 'MMR',
+        baseDamage: 120000,
+        rpm: 55,
+        magSize: 5,
+        reloadTime: 3.2,
+        innateHsd: 1.37,
+        coreAttribute: { type: 'Weapon Damage', value: 0.15 }
+      },
+      sidearm: {
+        slot: 'sidearm',
+        name: 'Orbit',
+        category: 'Pistols',
+        baseDamage: 90000,
+        rpm: 150,
+        magSize: 6,
+        reloadTime: 2.1,
+        innateHsd: 1.0,
+        coreAttribute: { type: 'Weapon Damage', value: 0.15 }
+      }
+    };
+
+    const jsonString = JSON.stringify(fullBuild, null, 2);
+    const parsed = parseBuildString(jsonString);
+    expect(parsed?.secondaryWeapon?.name).toBe('The White Death');
+    expect(parsed?.sidearm?.name).toBe('Orbit');
   });
 });
