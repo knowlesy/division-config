@@ -141,4 +141,30 @@ describe('Two-Tier Optimizer Engine', () => {
     expect(modifiedRun.ceiling.score).toBeGreaterThan(baseRun.ceiling.score * 1.5);
     expect(modifiedRun.ceiling.stats.sustainedDps).toBeGreaterThan(baseRun.ceiling.stats.sustainedDps * 1.5);
   });
+
+  it('Falsifier on Sustained DPS with DoT: shifts score with 1:1 rate parity when DoT varies', () => {
+    const standardWeapon: WeaponInstance = {
+      slot: 'primary',
+      name: 'Custom P416 G3',
+      category: 'Assault Rifle',
+      baseDamage: 45000,
+      rpm: 750,
+      magSize: 30,
+      reloadTime: 2.0,
+      innateHsd: 0.55,
+      coreAttribute: { type: 'Weapon Damage', value: 0.15 },
+      minorAttribute: { attribute: 'Damage to Target Out of Cover', value: 0.10, unit: '%' },
+      talent: 'Strained'
+    };
+
+    const bulletOnlyRun = runTwoTierOptimization(standardWeapon, {
+      archetypeId: 'sustained_dps',
+      watch: { weaponDamage: 0.10, critChance: 0.10, critDamage: 0.20, headshotDamage: 0.20 },
+      specialization: 'Gunner',
+      context: { isSolo: true, distanceMeters: 20, isEnemyOutOfCover: true }
+    });
+
+    // Score is exactly sustained DPS with 0 DoT
+    expect(bulletOnlyRun.ceiling.score).toBeCloseTo(bulletOnlyRun.ceiling.stats.sustainedDps, -1);
+  });
 });

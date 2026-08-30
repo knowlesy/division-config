@@ -40,8 +40,8 @@ export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
     description: 'Damage over a long engagement, at steady state — stack build-up, decay, reload and magazine costs included.',
     defaultFloors: {},
     score: (stats: ComputedLoadoutStats) => {
-      // Steady state sustained bullet cycle DPS plus general damage-over-time tick DPS
-      return stats.sustainedDps + (stats.dotTickDamage ? stats.dotTickDamage * 10 : 0);
+      // Steady-state sustained bullet rate (dmg/s) plus damage-over-time tick rate (dmg/s) at 1:1 rate parity
+      return stats.sustainedDps + (stats.dotTickDamage || 0);
     },
     validateFloors: () => ({ satisfied: true })
   },
@@ -210,14 +210,14 @@ export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
     score: (stats: ComputedLoadoutStats) => {
       const haz = stats.hazardProtection || 0;
       let immunityScore = 0;
-      // Discrete cliff evaluation (Reference §7): each threshold cleared awards immunity points
-      if (haz >= STATUS_IMMUNITY_CLIFFS.shock) immunityScore += 1000;
-      if (haz >= STATUS_IMMUNITY_CLIFFS.poison) immunityScore += 1000;
-      if (haz >= STATUS_IMMUNITY_CLIFFS.blind) immunityScore += 1000;
-      if (haz >= STATUS_IMMUNITY_CLIFFS.burn) immunityScore += 1500;
-      if (haz >= STATUS_IMMUNITY_CLIFFS.bleed) immunityScore += 1500; // Bleed, Disorient, Ensnare
-      if (haz >= STATUS_IMMUNITY_CLIFFS.disrupt) immunityScore += 2000;
-      if (haz >= STATUS_IMMUNITY_CLIFFS.pulse) immunityScore += 2000;
+      // Discrete cliff evaluation (Reference §7): points directly derived from threshold difficulty (threshold * 1,000)
+      if (haz >= STATUS_IMMUNITY_CLIFFS.shock) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.shock * 1000); // +860 pts
+      if (haz >= STATUS_IMMUNITY_CLIFFS.poison) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.poison * 1000); // +892 pts
+      if (haz >= STATUS_IMMUNITY_CLIFFS.blind) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.blind * 1000); // +910 pts
+      if (haz >= STATUS_IMMUNITY_CLIFFS.burn) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.burn * 1000); // +914 pts
+      if (haz >= STATUS_IMMUNITY_CLIFFS.bleed) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.bleed * 1000); // +938 pts (Bleed, Disorient, Ensnare)
+      if (haz >= STATUS_IMMUNITY_CLIFFS.disrupt) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.disrupt * 1000); // +958 pts
+      if (haz >= STATUS_IMMUNITY_CLIFFS.pulse) immunityScore += Math.round(STATUS_IMMUNITY_CLIFFS.pulse * 1000); // +1000 pts
 
       // Effective Health differentiator; surplus beyond cleared cliffs awards 0 additional immunity points
       const ehpScore = stats.effectiveHealth / 1000;
