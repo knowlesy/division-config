@@ -154,12 +154,15 @@
 
 ---
 
-## Part 4: Complete Epistemic Disclosure (Approximations & Modeling Limits)
+## Part 4: Complete Epistemic Disclosure (Approximations & Architecture Limits)
 
-1. **Steady-State DoT Assumption**: Damage-Over-Time (Pestilence Plague, Bleed, Burn) is modeled at steady-state rate parity ($1\text{ tick/sec}$ continuous application) added linearly to sustained weapon DPS ($1:1$). It does not simulate target transition dead-time during re-application.
-2. **Discrete Immunity Cliffs**: Status resistance thresholds (e.g. Disrupt $95.8\%$, Bleed $93.8\%$, Burn $91.4\%$) are scored as discrete step boundaries where surplus resistance awards 0 additional points. Transient diminishing returns between 0% and the threshold are excluded by design.
-3. **Weapon Reload Cycle Simplification**: Burst and Sustained DPS formulas use exact mag-size and reload-time cycle math, but do not simulate intermediate weapon swap animation frames or partial empty reloads.
-4. **Uniform Attribute Roll Weighting**: The assignment solver and probability model assume uniform random distribution across minor attributes, without factoring in targeted loot allocation biases that Ubisoft LZ algorithms may apply in-game.
+1. **Main-Thread Computation & `setTimeout` Lifecycle**: Optimization computation is deferred to the next tick via `setTimeout` so that the loading indicator paints first. The computation (~400ms across all 28 core variations) runs synchronously on the main UI thread, during which frame rendering and input response are temporarily paused.
+2. **Main-Thread Headroom & Degradation Risk**: Because computation runs on the main thread rather than in a background Web Worker, expanding the item pool, adding third-tier permutations, or loosening pruning thresholds will directly increase execution time toward the ~3-second budget and cause visible UI hangs. Offloading optimizer runs to a dedicated Web Worker (`Worker`) is prioritized as the primary architecture refactor if runtime increases.
+3. **Floor Shortfall Minimization**: For unmeetable floor constraints, the optimizer selects the legal build configuration that minimizes the deficit against the unmet floor and explicitly states the achievable maximum in the diagnostic banner (e.g. `Armour 1918k achievable vs 2000k required floor`).
+4. **Data-Driven Weapon Selection**: Secondary and sidearm weapons are dynamically queried and scored from `data/weapons-named.json` according to archetype synergy and exotic occupancy rules, rather than hardcoded defaults.
+5. **Steady-State DoT Assumption**: Damage-Over-Time (Pestilence Plague, Bleed, Burn) is modeled at steady-state rate parity ($1\text{ tick/sec}$ continuous application) added linearly to sustained weapon DPS ($1:1$). It does not simulate target transition dead-time during re-application.
+6. **Discrete Immunity Cliffs**: Status resistance thresholds (e.g. Disrupt $95.8\%$, Bleed $93.8\%$, Burn $91.4\%$) are scored as discrete step boundaries where surplus resistance awards 0 additional points. Transient diminishing returns between 0% and the threshold are excluded by design.
+7. **Uniform Attribute Roll Weighting**: The assignment solver and probability model assume uniform random distribution across minor attributes, without factoring in targeted loot allocation biases that Ubisoft LZ algorithms may apply in-game.
 
 ---
 

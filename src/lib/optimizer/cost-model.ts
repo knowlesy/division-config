@@ -136,8 +136,10 @@ export function generateShoppingList(
   return items;
 }
 
+import namedWeaponsData from '../../../data/weapons-named.json';
+
 /**
- * Generates recommended weapons matching the archetype objective and active weapon.
+ * Generates recommended weapons matching the archetype objective and active weapon dynamically from /data/
  */
 export function generateRecommendedWeapons(
   archetype: ArchetypeDefinition,
@@ -145,11 +147,6 @@ export function generateRecommendedWeapons(
   tier: 1 | 2
 ): WeaponShoppingItem[] {
   const dtOocRoll = tier === 2 ? '10.0%' : '8.5%';
-  const dtaRoll = tier === 2 ? '6.0%' : '5.0%';
-
-  const isDps = archetype.id.includes('dps');
-  const isMedicOrSkill = archetype.id.includes('medic') || archetype.id.includes('skill') || archetype.id.includes('lockdown') || archetype.id.includes('force');
-  const isTank = archetype.id.includes('bulwark') || archetype.id.includes('rod') || archetype.id.includes('hardened');
 
   // 1. Primary Weapon
   const primaryItem: WeaponShoppingItem = {
@@ -159,94 +156,103 @@ export function generateRecommendedWeapons(
     source: activeWeapon.isExotic ? 'Exotic Cache / Targeted Loot' : 'Targeted Loot / Crafting Bench',
     coreAttribute: activeWeapon.coreAttribute ? `${activeWeapon.coreAttribute.type} (${tier === 2 ? '15.0%' : '12.5%'})` : 'Weapon Damage (15.0%)',
     minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
-    talent: activeWeapon.talent || (isDps ? 'Fast Hands / Flatline' : (isMedicOrSkill ? 'In Sync / Reformation' : 'Preservation')),
+    talent: activeWeapon.talent || 'Standard Weapon Talent',
     isExotic: activeWeapon.isExotic,
     recalibrationInstruction: activeWeapon.isExotic
       ? 'Optimise all three attributes at the Tinkering Station to maximum rolls.'
       : `Recalibrate 3rd attribute to Damage to Target Out of Cover (${dtOocRoll}); farm or craft desired talent.`
   };
 
-  // 2. Secondary Weapon
-  let secondaryItem: WeaponShoppingItem;
-  if (isMedicOrSkill) {
-    secondaryItem = {
-      slot: 'secondary',
-      name: 'Lefty (or Scorpio)',
-      category: 'Shotgun',
-      source: 'Named Item / Targeted Loot / Countdown',
-      coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Armor Damage (12.0%)`,
-      minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
-      talent: 'Perfect Sledgehammer (Grenade hit applies +40% Armor Damage & +10% DtOOC debuff to target)',
-      isExotic: false,
-      recalibrationInstruction: `Recalibrate 3rd minor attribute to DtOOC (${dtOocRoll}); Perfect Sledgehammer is locked.`
-    };
-  } else if (isTank) {
-    secondaryItem = {
-      slot: 'secondary',
-      name: 'The Mop',
-      category: 'Shotgun',
-      source: 'Named Item / Targeted Loot / Countdown',
-      coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Armor Damage (12.0%)`,
-      minorAttribute: `Armor on Kill (+10.0% Locked)`,
-      talent: 'Preservation (Killing an enemy repairs 10-20% armor over 5s)',
-      isExotic: false,
-      recalibrationInstruction: `Recalibrate talent to Preservation or Close & Personal; 10% AoK is locked.`
-    };
-  } else {
-    if (activeWeapon.isExotic) {
-      secondaryItem = {
-        slot: 'secondary',
-        name: "Rock 'n' Roll (or ACS-12)",
-        category: 'Shotgun',
-        source: 'Named Item / Conflict Cache / DZ',
-        coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
-        minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
-        talent: 'Perfectly Extra (+50% Mag Size: 30 rounds)',
-        isExotic: false,
-        recalibrationInstruction: `Recalibrate 3rd minor attribute to DtOOC (${dtOocRoll}); Perfectly Extra is locked.`
-      };
+  // 2. Dynamic Secondary Weapon Selection from /data/weapons-named.json
+  const allowsExoticSecondary = !activeWeapon.isExotic;
+  const secondaryCandidates = (namedWeaponsData as any[]).filter(w => {
+    if (w.category === 'Pistol') return false;
+    if (w.isExotic && !allowsExoticSecondary) return false;
+    return true;
+  });
+
+  let bestSecondary = secondaryCandidates[0] || { name: 'Standard Shotgun', category: 'Shotgun', isExotic: false, dropLocation: 'Targeted Loot' };
+  let bestSecondaryScore = -1;
+
+  for (const cand of secondaryCandidates) {
+    let score = 0;
+    const text = `${cand.name} ${cand.talentOrPerk || ''} ${cand.category}`.toLowerCase();
+
+    if (archetype.id.includes('medic') || archetype.id.includes('skill') || archetype.id.includes('force')) {
+      if (text.includes('sledgehammer') || text.includes('in sync') || text.includes('skill') || text.includes('repair')) score += 10;
+      if (text.includes('armor damage') || text.includes('shotgun')) score += 3;
+    } else if (archetype.id.includes('bulwark') || archetype.id.includes('rod') || archetype.id.includes('hardened')) {
+      if (text.includes('armor on kill') || text.includes('preservation') || text.includes('repair')) score += 10;
+      if (text.includes('shotgun')) score += 3;
+    } else if (archetype.id.includes('precision')) {
+      if (text.includes('headshot') || text.includes('first blood') || text.includes('ranger') || text.includes('rifle')) score += 10;
     } else {
-      secondaryItem = {
-        slot: 'secondary',
-        name: 'Scorpio',
-        category: 'Shotgun',
-        source: 'Exotic Cache / Targeted Loot',
-        coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
-        minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
-        talent: 'Septic Shock (Applies Poison, Disorient, Shock, and +20% amplified damage from all sources)',
-        isExotic: true,
-        recalibrationInstruction: 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
-      };
+      // Sustained DPS
+      if (cand.isExotic && allowsExoticSecondary && text.includes('septic')) score += 12; // Scorpio
+      if (text.includes('extra') || text.includes('fast hands') || text.includes('flatline') || text.includes('killer')) score += 8;
+      if (cand.category === 'Shotgun' || cand.category === 'SMG') score += 2;
+    }
+
+    if (score > bestSecondaryScore) {
+      bestSecondaryScore = score;
+      bestSecondary = cand;
     }
   }
 
-  // 3. Sidearm
-  let sidearmItem: WeaponShoppingItem;
-  if (isMedicOrSkill || isTank) {
-    sidearmItem = {
-      slot: 'sidearm',
-      name: 'TDI "Kard" Custom',
-      category: 'Pistol',
-      source: 'Named Item / Targeted Loot / DZ Cache',
-      coreAttribute: `Pistol Damage (${tier === 2 ? '15.0%' : '12.5%'})`,
-      minorAttribute: `+1 Skill Tier (Locked while weapon is drawn)`,
-      talent: isMedicOrSkill ? 'Reformation (+30% Skill Repair on headshot)' : 'Preservation',
-      isExotic: false,
-      recalibrationInstruction: `Recalibrate talent to ${isMedicOrSkill ? 'Reformation' : 'Preservation'}; +1 Skill Tier passive is locked.`
-    };
-  } else {
-    sidearmItem = {
-      slot: 'sidearm',
-      name: 'Orbit',
-      category: 'Pistol (Revolver)',
-      source: 'Named Item / Targeted Loot / DZ Cache',
-      coreAttribute: `Pistol Damage (${tier === 2 ? '15.0%' : '12.5%'})`,
-      minorAttribute: `Critical Hit Chance (${tier === 2 ? '10.0%' : '8.5%'})`,
-      talent: 'Perfect Duelist (Killing an enemy grants +35% CHC and +35% CHD for 15s after swapping)',
-      isExotic: false,
-      recalibrationInstruction: `Recalibrate minor attribute to Damage to Target Out of Cover (${dtOocRoll}); Perfect Duelist is locked.`
-    };
+  const isSecExotic = !!bestSecondary.isExotic;
+  const secondaryItem: WeaponShoppingItem = {
+    slot: 'secondary',
+    name: bestSecondary.name,
+    category: bestSecondary.category,
+    source: isSecExotic ? 'Exotic Cache / Targeted Loot' : (bestSecondary.dropLocation || 'Named Item / Targeted Loot'),
+    coreAttribute: `${bestSecondary.category} Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
+    minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
+    talent: bestSecondary.talentOrPerk ? bestSecondary.talentOrPerk.split('\n')[0] : 'Standard Weapon Talent',
+    isExotic: isSecExotic,
+    recalibrationInstruction: isSecExotic
+      ? 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
+      : `Recalibrate 3rd minor attribute to DtOOC (${dtOocRoll}); Perfect talent is locked.`
+  };
+
+  // 3. Dynamic Sidearm Selection from /data/weapons-named.json
+  const allowsExoticSidearm = !activeWeapon.isExotic && !isSecExotic;
+  const sidearmCandidates = (namedWeaponsData as any[]).filter(w => w.category === 'Pistol' && (!w.isExotic || allowsExoticSidearm));
+
+  let bestSidearm = sidearmCandidates[0] || { name: 'Standard Pistol', category: 'Pistol', isExotic: false, dropLocation: 'Targeted Loot' };
+  let bestSidearmScore = -1;
+
+  for (const cand of sidearmCandidates) {
+    let score = 0;
+    const text = `${cand.name} ${cand.talentOrPerk || ''} ${cand.minor || ''}`.toLowerCase();
+
+    if (archetype.id.includes('medic') || archetype.id.includes('skill') || archetype.id.includes('force')) {
+      if (text.includes('skill tier') || text.includes('reformation') || text.includes('in sync')) score += 10;
+    } else if (archetype.id.includes('bulwark') || archetype.id.includes('rod')) {
+      if (text.includes('skill tier') || text.includes('preservation') || text.includes('liberty')) score += 10;
+    } else if (archetype.id.includes('precision') || archetype.id.includes('dps')) {
+      if (text.includes('finisher') || text.includes('duelist') || text.includes('critical') || text.includes('killer')) score += 10;
+    }
+
+    if (score > bestSidearmScore) {
+      bestSidearmScore = score;
+      bestSidearm = cand;
+    }
   }
+
+  const isSideExotic = !!bestSidearm.isExotic;
+  const sidearmItem: WeaponShoppingItem = {
+    slot: 'sidearm',
+    name: bestSidearm.name,
+    category: 'Pistol',
+    source: isSideExotic ? 'Exotic Cache / Targeted Loot' : (bestSidearm.dropLocation || 'Named Item / Targeted Loot'),
+    coreAttribute: `Pistol Damage (${tier === 2 ? '15.0%' : '12.5%'})`,
+    minorAttribute: bestSidearm.minor || `Damage to Target Out of Cover (${dtOocRoll})`,
+    talent: bestSidearm.talentOrPerk ? bestSidearm.talentOrPerk.split('\n')[0] : 'Standard Pistol Talent',
+    isExotic: isSideExotic,
+    recalibrationInstruction: isSideExotic
+      ? 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
+      : `Recalibrate talent or minor attribute; Perfect attributes/talents are locked.`
+  };
 
   return [primaryItem, secondaryItem, sidearmItem];
 }

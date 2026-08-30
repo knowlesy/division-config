@@ -294,15 +294,17 @@ describe('Two-Tier Optimizer Engine', () => {
   it('Item 3: Reports honest failure and shortfall reason when Field Medic floor is set to unreachable 2,000,000 armor', () => {
     const unreachableRun = runTwoTierOptimization(pestilenceWeapon, {
       archetypeId: 'field_medic',
-      customFloors: { minArmor: 2000000, minSkillTier: 6 },
-      watch: {},
+      customFloors: { minArmor: 2000000 },
+      watch: { armor: 0.10 },
       specialization: 'Technician',
       context: { isSolo: false, distanceMeters: 15 }
     });
 
     expect(unreachableRun.floorsSatisfied).toBe(false);
     expect(unreachableRun.shortfallReason).toBeDefined();
-    expect(unreachableRun.shortfallReason).toContain('Armour');
+    expect(unreachableRun.shortfallReason).toContain('achievable vs 2000k required floor');
+    // Verifies the closest candidate minimizes shortfall (> 1.5M armor achieved vs 726k unconstrained baseline)
+    expect(unreachableRun.practical.stats.totalArmor).toBeGreaterThan(1500000);
     expect(unreachableRun.gap.scoreDeltaHeadline).toBe('No legal build met all floors');
   });
 

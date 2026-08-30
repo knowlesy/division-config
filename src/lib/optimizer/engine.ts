@@ -78,14 +78,38 @@ export function runTwoTierOptimization(
     // Validate floors
     const floorCheck = archetype.validateFloors(ceilingStats, floors, context);
     if (!floorCheck.satisfied) {
-      const score = archetype.score(ceilingStats, context);
-      if (!closestRejectedBuild || score > closestRejectedBuild.score) {
+      let deficit = 0;
+      let reason = floorCheck.shortfall || 'Failed archetype floor criteria';
+
+      if (floors.minArmor && ceilingStats.totalArmor < floors.minArmor) {
+        const armorDeficit = (floors.minArmor - ceilingStats.totalArmor) / floors.minArmor;
+        deficit += armorDeficit * 100;
+        reason = `Armour ${Math.round(ceilingStats.totalArmor / 1000)}k achievable vs ${Math.round(floors.minArmor / 1000)}k required floor`;
+      }
+      if (floors.minSkillTier && ceilingStats.skillTier < floors.minSkillTier) {
+        const tierDeficit = (floors.minSkillTier - ceilingStats.skillTier) / floors.minSkillTier;
+        deficit += tierDeficit * 100;
+        reason = `Skill Tier ${ceilingStats.skillTier} achievable vs ST${floors.minSkillTier} required floor`;
+      }
+      if (floors.minSkillHaste && (ceilingStats.skillHasteSum || 0) < floors.minSkillHaste) {
+        const hasteDeficit = (floors.minSkillHaste - (ceilingStats.skillHasteSum || 0)) / floors.minSkillHaste;
+        deficit += hasteDeficit * 100;
+        reason = `Skill Haste ${Math.round((ceilingStats.skillHasteSum || 0) * 100)}% achievable vs ${Math.round(floors.minSkillHaste * 100)}% required floor`;
+      }
+      if (floors.minHazardProtection && ceilingStats.hazardProtection < floors.minHazardProtection) {
+        const hazDeficit = (floors.minHazardProtection - ceilingStats.hazardProtection) / floors.minHazardProtection;
+        deficit += hazDeficit * 100;
+        reason = `Hazard Protection ${Math.round(ceilingStats.hazardProtection * 100)}% achievable vs ${Math.round(floors.minHazardProtection * 100)}% required floor`;
+      }
+
+      if (!closestRejectedBuild || deficit < (closestRejectedBuild as any).deficit) {
         closestRejectedBuild = {
           gear: ceilingGear,
           stats: ceilingStats,
-          score,
-          shortfall: floorCheck.shortfall || 'Failed archetype floor criteria'
-        };
+          score: archetype.score(ceilingStats, context),
+          shortfall: reason,
+          deficit
+        } as any;
       }
       continue;
     }
@@ -156,7 +180,9 @@ export function runTwoTierOptimization(
     };
 
     const emptyPlan = solveMinorAttributes(fallback.gear, archetype, 1, activeWeapon, watch, spec, context);
-    const practicalItems = generateShoppingList(fallback.gear, emptyPlan, dataSourcesMap);
+    const practicalGear = assembleGearWithPlan(fallback.gear, emptyPlan);
+    const practicalStats = calculateLoadout(practicalGear, activeWeapon, watch, spec, context);
+    const practicalItems = generateShoppingList(practicalGear, emptyPlan, dataSourcesMap);
     const recSpec = getRecommendedSpecialization(archetype);
     const practicalWeapons = generateRecommendedWeapons(archetype, activeWeapon, 1);
     const ceilingWeapons = generateRecommendedWeapons(archetype, activeWeapon, 2);
@@ -165,9 +191,9 @@ export function runTwoTierOptimization(
       archetype,
       recommendedSpecialization: recSpec,
       practical: {
-        gear: fallback.gear,
+        gear: practicalGear,
         weapons: practicalWeapons,
-        stats: fallback.stats,
+        stats: practicalStats,
         score: fallback.score,
         shoppingList: practicalItems
       },
