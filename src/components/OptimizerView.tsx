@@ -430,6 +430,9 @@ const TierColumn: React.FC<TierColumnProps> = ({
             <h3 className="font-heading font-bold text-base text-shd-textPrimary uppercase tracking-wider">
               {title}
             </h3>
+            {stats.confidenceFlags && stats.confidenceFlags.map((flag: string) => (
+              <ConfidenceBadge key={flag} tag={flag} />
+            ))}
           </div>
           <p className="text-[11px] font-mono text-shd-textMonoMuted mt-0.5">
             {subtitle}

@@ -208,19 +208,27 @@ export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
       minHazardProtection: DEFAULT_STATUS_IMMUNITY_CLIFF
     },
     score: (stats: ComputedLoadoutStats) => {
-      const hazPct = stats.hazardProtection || 0;
-      const targetCliff = DEFAULT_STATUS_IMMUNITY_CLIFF;
-      // Hard boundary: below cliff is failing; clearing cliff grants baseline 10,000; surplus above cliff gives 0 additional immunity value
-      const cliffCleared = hazPct >= targetCliff ? 10000 : (hazPct / targetCliff) * 5000;
+      const haz = stats.hazardProtection || 0;
+      let immunityScore = 0;
+      // Discrete cliff evaluation (Reference §7): each threshold cleared awards immunity points
+      if (haz >= STATUS_IMMUNITY_CLIFFS.shock) immunityScore += 1000;
+      if (haz >= STATUS_IMMUNITY_CLIFFS.poison) immunityScore += 1000;
+      if (haz >= STATUS_IMMUNITY_CLIFFS.blind) immunityScore += 1000;
+      if (haz >= STATUS_IMMUNITY_CLIFFS.burn) immunityScore += 1500;
+      if (haz >= STATUS_IMMUNITY_CLIFFS.bleed) immunityScore += 1500; // Bleed, Disorient, Ensnare
+      if (haz >= STATUS_IMMUNITY_CLIFFS.disrupt) immunityScore += 2000;
+      if (haz >= STATUS_IMMUNITY_CLIFFS.pulse) immunityScore += 2000;
+
+      // Effective Health differentiator; surplus beyond cleared cliffs awards 0 additional immunity points
       const ehpScore = stats.effectiveHealth / 1000;
-      return cliffCleared + ehpScore;
+      return immunityScore + ehpScore;
     },
     validateFloors: (stats: ComputedLoadoutStats, floors: ArchetypeFloors) => {
       const required = floors.minHazardProtection !== undefined ? floors.minHazardProtection : DEFAULT_STATUS_IMMUNITY_CLIFF;
       if ((stats.hazardProtection || 0) < required) {
         return {
           satisfied: false,
-          shortfall: `Hazard Protection ${( (stats.hazardProtection || 0) * 100).toFixed(1)}% / ${(required * 100).toFixed(1)}% (Immunity Cliff Unmet)`
+          shortfall: `Hazard Protection ${((stats.hazardProtection || 0) * 100).toFixed(1)}% / ${(required * 100).toFixed(1)}% (Immunity Cliff Unmet)`
         };
       }
       return { satisfied: true };
