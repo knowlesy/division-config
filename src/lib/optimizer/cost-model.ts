@@ -1,4 +1,4 @@
-import { GearSlot, GearPieceInstance, ComputedLoadoutStats } from '../calc/types';
+import { GearSlot, GearPieceInstance, WeaponInstance, ComputedLoadoutStats } from '../calc/types';
 import { SolvedMinorPlan } from './minor-assignment';
 import { ArchetypeDefinition } from './archetypes';
 
@@ -14,6 +14,24 @@ export interface ShoppingListItem {
   mod: { attribute: string; valueFormatted: string } | null;
   talent: { name: string; isLocked: boolean; isRecalibrated: boolean } | null;
   recalibrationInstruction: string;
+}
+
+export interface WeaponShoppingItem {
+  slot: 'primary' | 'secondary' | 'sidearm';
+  name: string;
+  category: string;
+  source: string;
+  coreAttribute: string;
+  minorAttribute: string;
+  talent: string;
+  isExotic?: boolean;
+  recalibrationInstruction: string;
+}
+
+export interface SpecializationRecommendation {
+  name: string;
+  perks: string[];
+  rationale: string;
 }
 
 export interface TwoTierGapAnalysis {
@@ -33,14 +51,17 @@ export interface TwoTierGapAnalysis {
 
 export interface TwoTierResult {
   archetype: ArchetypeDefinition;
+  recommendedSpecialization: SpecializationRecommendation;
   practical: {
     gear: Record<GearSlot, GearPieceInstance>;
+    weapons: WeaponShoppingItem[];
     stats: ComputedLoadoutStats;
     score: number;
     shoppingList: ShoppingListItem[];
   };
   ceiling: {
     gear: Record<GearSlot, GearPieceInstance>;
+    weapons: WeaponShoppingItem[];
     stats: ComputedLoadoutStats;
     score: number;
     shoppingList: ShoppingListItem[];
@@ -111,6 +132,162 @@ export function generateShoppingList(
   }
 
   return items;
+}
+
+/**
+ * Generates recommended weapons matching the archetype objective and active weapon.
+ */
+export function generateRecommendedWeapons(
+  archetype: ArchetypeDefinition,
+  activeWeapon: WeaponInstance,
+  tier: 1 | 2
+): WeaponShoppingItem[] {
+  const dtOocRoll = tier === 2 ? '10.0%' : '8.5%';
+  const dtaRoll = tier === 2 ? '6.0%' : '5.0%';
+
+  const isDps = archetype.id.includes('dps');
+  const isMedicOrSkill = archetype.id.includes('medic') || archetype.id.includes('skill') || archetype.id.includes('lockdown') || archetype.id.includes('force');
+  const isTank = archetype.id.includes('bulwark') || archetype.id.includes('rod') || archetype.id.includes('hardened');
+
+  // 1. Primary Weapon
+  const primaryItem: WeaponShoppingItem = {
+    slot: 'primary',
+    name: activeWeapon.name,
+    category: activeWeapon.category,
+    source: activeWeapon.isExotic ? 'Exotic Cache / Targeted Loot' : 'Targeted Loot / Crafting Bench',
+    coreAttribute: activeWeapon.coreAttribute ? `${activeWeapon.coreAttribute.type} (${tier === 2 ? '15.0%' : '12.5%'})` : 'Weapon Damage (15.0%)',
+    minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
+    talent: activeWeapon.talent || (isDps ? 'Fast Hands / Flatline' : (isMedicOrSkill ? 'In Sync / Reformation' : 'Preservation')),
+    isExotic: activeWeapon.isExotic,
+    recalibrationInstruction: activeWeapon.isExotic
+      ? 'Optimise all three attributes at the Tinkering Station to maximum rolls.'
+      : `Recalibrate 3rd attribute to Damage to Target Out of Cover (${dtOocRoll}); farm or craft desired talent.`
+  };
+
+  // 2. Secondary Weapon
+  let secondaryItem: WeaponShoppingItem;
+  if (isMedicOrSkill) {
+    secondaryItem = {
+      slot: 'secondary',
+      name: 'Lefty (or Scorpio)',
+      category: 'Shotgun',
+      source: 'Named Item / Targeted Loot / Countdown',
+      coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Armor Damage (12.0%)`,
+      minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
+      talent: 'Perfect Sledgehammer (Grenade hit applies +40% Armor Damage & +10% DtOOC debuff to target)',
+      isExotic: false,
+      recalibrationInstruction: `Recalibrate 3rd minor attribute to DtOOC (${dtOocRoll}); Perfect Sledgehammer is locked.`
+    };
+  } else if (isTank) {
+    secondaryItem = {
+      slot: 'secondary',
+      name: 'The Mop',
+      category: 'Shotgun',
+      source: 'Named Item / Targeted Loot / Countdown',
+      coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Armor Damage (12.0%)`,
+      minorAttribute: `Armor on Kill (+10.0% Locked)`,
+      talent: 'Preservation (Killing an enemy repairs 10-20% armor over 5s)',
+      isExotic: false,
+      recalibrationInstruction: `Recalibrate talent to Preservation or Close & Personal; 10% AoK is locked.`
+    };
+  } else {
+    secondaryItem = {
+      slot: 'secondary',
+      name: 'Scorpio (or Fafnir)',
+      category: 'Shotgun',
+      source: 'Exotic Cache / Targeted Loot',
+      coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
+      minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
+      talent: 'Septic Shock (Applies Poison, Disorient, Shock, and +20% amplified damage from all sources)',
+      isExotic: true,
+      recalibrationInstruction: 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
+    };
+  }
+
+  // 3. Sidearm
+  let sidearmItem: WeaponShoppingItem;
+  if (isMedicOrSkill || isTank) {
+    sidearmItem = {
+      slot: 'sidearm',
+      name: 'TDI "Kard" Custom',
+      category: 'Pistol',
+      source: 'Named Item / Targeted Loot / DZ Cache',
+      coreAttribute: `Pistol Damage (${tier === 2 ? '15.0%' : '12.5%'})`,
+      minorAttribute: `+1 Skill Tier (Locked while weapon is drawn)`,
+      talent: isMedicOrSkill ? 'Reformation (+30% Skill Repair on headshot)' : 'Preservation',
+      isExotic: false,
+      recalibrationInstruction: `Recalibrate talent to ${isMedicOrSkill ? 'Reformation' : 'Preservation'}; +1 Skill Tier passive is locked.`
+    };
+  } else {
+    sidearmItem = {
+      slot: 'sidearm',
+      name: 'Orbit',
+      category: 'Pistol (Revolver)',
+      source: 'Named Item / Targeted Loot / DZ Cache',
+      coreAttribute: `Pistol Damage (${tier === 2 ? '15.0%' : '12.5%'})`,
+      minorAttribute: `Critical Hit Chance (${tier === 2 ? '10.0%' : '8.5%'})`,
+      talent: 'Perfect Duelist (Killing an enemy grants +35% CHC and +35% CHD for 15s after swapping)',
+      isExotic: false,
+      recalibrationInstruction: `Recalibrate minor attribute to Damage to Target Out of Cover (${dtOocRoll}); Perfect Duelist is locked.`
+    };
+  }
+
+  return [primaryItem, secondaryItem, sidearmItem];
+}
+
+/**
+ * Returns the optimal Specialization recommendation for the chosen archetype.
+ */
+export function getRecommendedSpecialization(archetype: ArchetypeDefinition): SpecializationRecommendation {
+  if (archetype.id === 'sustained_dps') {
+    return {
+      name: 'Gunner',
+      perks: ['+10% Reload Speed', '+50-round Large Pouch (LMG)', '+10% Armor on Kill', 'Banshee Confuse Pulse'],
+      rationale: 'Maximises sustained uptime through fast cycle reloads, high magazine capacities, and ammo generation.'
+    };
+  } else if (archetype.id === 'precision_dps') {
+    return {
+      name: 'Sharpshooter',
+      perks: ['+15% Headshot Damage', '+15% Weapon Handling in Cover', 'Tactical Link (+10% Headshot for team)', 'Flashbang Grenade'],
+      rationale: 'Maximises burst headshot multipliers and provides instant weapon handling stability.'
+    };
+  } else if (archetype.id === 'skill_damage') {
+    return {
+      name: 'Technician',
+      perks: ['+1 Skill Tier (Free Blue/Red core elsewhere)', '+10% Skill Damage', 'Artificer Hive Support', 'EMP Grenade'],
+      rationale: 'Directly scales destructive skill damage and grants a free extra core slot.'
+    };
+  } else if (archetype.id === 'glass_medic' || archetype.id === 'force_multiplier') {
+    return {
+      name: 'Survivalist',
+      perks: ['+15% Outgoing Skill Repair', '+10% Group Damage Amplifier vs Status Targets', 'Incendiary Grenade', 'Crossbow Armor Break'],
+      rationale: 'Highest possible team healing output combined with squad-wide damage amplification.'
+    };
+  } else if (archetype.id === 'field_medic') {
+    return {
+      name: 'Technician',
+      perks: ['+1 Skill Tier (Allows +170k Blue Core without losing ST6)', '+12% Skill Repair', 'Artificer Hive Support'],
+      rationale: 'Provides the free Skill Tier needed to invest an extra core into Armour for field survivability.'
+    };
+  } else if (archetype.id === 'bulwark' || archetype.id === 'lightning_rod') {
+    return {
+      name: 'Gunner (or Firewall)',
+      perks: ['+10% Armor on Kill', 'Banshee Pulse (Crowd Control / Threat)', 'Supply Line Ammo Gen', 'Emergency Bonus Armor'],
+      rationale: 'Sustains huge frontline armor pools with armor-on-kill and heavy crowd control threat.'
+    };
+  } else if (archetype.id === 'lockdown') {
+    return {
+      name: 'Survivalist (or Technician)',
+      perks: ['+10% Group Damage Amp vs Status-Affected Targets', 'Incendiary Grenades (Area Deny)', 'Tactical Link'],
+      rationale: 'Amplifies all team weapon and skill damage against targets caught in your crowd control status effects.'
+    };
+  } else {
+    return {
+      name: 'Demolitionist',
+      perks: ['Crisis Response (Auto-reload on armor break)', 'Ignore 1 explosion/rupture every 60s', '+5% DtOOC to Allies'],
+      rationale: 'Provides explosion resilience and passive team damage amplifiers.'
+    };
+  }
 }
 
 /**

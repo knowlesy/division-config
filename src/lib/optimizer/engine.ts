@@ -10,7 +10,13 @@ import { calculateLoadout } from '../calc/loadout-calculator';
 import { ALL_GEAR_SLOTS } from '../calc/slot-legality';
 import { ARCHETYPES, ArchetypeDefinition, ArchetypeFloors } from './archetypes';
 import { solveMinorAttributes } from './minor-assignment';
-import { computeTwoTierGap, generateShoppingList, TwoTierResult } from './cost-model';
+import {
+  computeTwoTierGap,
+  generateShoppingList,
+  generateRecommendedWeapons,
+  getRecommendedSpecialization,
+  TwoTierResult
+} from './cost-model';
 
 // Load static datasets
 import brandSetsData from '../../../data/brand-sets.json';
@@ -118,17 +124,23 @@ export function runTwoTierOptimization(
 
     const emptyPlan = solveMinorAttributes(fallback.gear, archetype, 1, activeWeapon, watch, spec, context);
     const practicalItems = generateShoppingList(fallback.gear, emptyPlan, dataSourcesMap);
+    const recSpec = getRecommendedSpecialization(archetype);
+    const practicalWeapons = generateRecommendedWeapons(archetype, activeWeapon, 1);
+    const ceilingWeapons = generateRecommendedWeapons(archetype, activeWeapon, 2);
 
     return {
       archetype,
+      recommendedSpecialization: recSpec,
       practical: {
         gear: fallback.gear,
+        weapons: practicalWeapons,
         stats: fallback.stats,
         score: fallback.score,
         shoppingList: practicalItems
       },
       ceiling: {
         gear: fallback.gear,
+        weapons: ceilingWeapons,
         stats: fallback.stats,
         score: fallback.score,
         shoppingList: practicalItems
@@ -151,6 +163,10 @@ export function runTwoTierOptimization(
   // Calculate gap and shopping lists
   const practicalShoppingList = generateShoppingList(bestPracticalBuild!.gear, bestPracticalBuild!.minorPlan, dataSourcesMap);
   const ceilingShoppingList = generateShoppingList(bestCeilingBuild.gear, bestCeilingBuild.minorPlan, dataSourcesMap);
+  const recSpec = getRecommendedSpecialization(archetype);
+  const practicalWeapons = generateRecommendedWeapons(archetype, activeWeapon, 1);
+  const ceilingWeapons = generateRecommendedWeapons(archetype, activeWeapon, 2);
+
   const gap = computeTwoTierGap(
     bestPracticalBuild!.stats,
     bestPracticalBuild!.score,
@@ -163,14 +179,17 @@ export function runTwoTierOptimization(
 
   return {
     archetype,
+    recommendedSpecialization: recSpec,
     practical: {
       gear: bestPracticalBuild!.gear,
+      weapons: practicalWeapons,
       stats: bestPracticalBuild!.stats,
       score: bestPracticalBuild!.score,
       shoppingList: practicalShoppingList
     },
     ceiling: {
       gear: bestCeilingBuild.gear,
+      weapons: ceilingWeapons,
       stats: bestCeilingBuild.stats,
       score: bestCeilingBuild.score,
       shoppingList: ceilingShoppingList

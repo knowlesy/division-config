@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GearSlot, GearPieceInstance, WeaponInstance, WatchStats, CombatContext } from '../lib/calc/types';
 import { ARCHETYPES, ArchetypeDefinition, ArchetypeFloors } from '../lib/optimizer/archetypes';
 import { runTwoTierOptimization } from '../lib/optimizer/engine';
-import { TwoTierResult, ShoppingListItem } from '../lib/optimizer/cost-model';
+import { TwoTierResult, ShoppingListItem, WeaponShoppingItem } from '../lib/optimizer/cost-model';
 import { CandidateBuild } from '../lib/optimizer/types';
 import { ConfidenceBadge } from './ConfidenceBadge';
 
@@ -95,7 +95,8 @@ export const OptimizerView: React.FC<Props> = ({
       stats: tierData.stats,
       tradeoffAnalysis: [
         `${tierKey.toUpperCase()} build for ${result.archetype.name}`,
-        result.gap.scoreDeltaHeadline
+        result.gap.scoreDeltaHeadline,
+        `Recommended Specialization: ${result.recommendedSpecialization.name}`
       ]
     };
     onEquipCandidate(candidate);
@@ -113,7 +114,8 @@ export const OptimizerView: React.FC<Props> = ({
       stats: tierData.stats,
       tradeoffAnalysis: [
         `${tierKey.toUpperCase()} build for ${result.archetype.name}`,
-        result.gap.scoreDeltaHeadline
+        result.gap.scoreDeltaHeadline,
+        `Recommended Specialization: ${result.recommendedSpecialization.name}`
       ]
     };
     onAddToComparison(candidate);
@@ -137,7 +139,7 @@ export const OptimizerView: React.FC<Props> = ({
 
         {/* Configuration Row */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 text-xs font-mono">
-          {/* Archetype Picker (6 cols) */}
+          {/* Archetype Picker (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-2 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
             <label className="text-[10px] text-shd-textMonoMuted uppercase tracking-wider font-bold">
               1. Objective Archetype
@@ -289,7 +291,7 @@ export const OptimizerView: React.FC<Props> = ({
       {result && (
         <div className="flex flex-col gap-4">
           {/* Headline Gap Card */}
-          <div className="bg-shd-surface1 border border-shd-orange/40 p-4 clip-corner shadow-lg flex flex-col gap-2">
+          <div className="bg-shd-surface1 border border-shd-orange/40 p-4 clip-corner shadow-lg flex flex-col gap-3">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-shd-border2 pb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs uppercase font-heading font-bold text-shd-orange px-2 py-0.5 bg-shd-orange/10 border border-shd-orange/30 clip-corner-sm">
@@ -309,6 +311,32 @@ export const OptimizerView: React.FC<Props> = ({
                   <span className="text-shd-textMonoMuted">Recalibrations:</span>{' '}
                   <span className="text-white font-bold">{result.gap.recalibrationsRequired} cores</span>
                 </div>
+              </div>
+            </div>
+
+            {/* Specialization Recommendation Banner */}
+            <div className="bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm flex flex-col md:flex-row md:items-center justify-between gap-3 font-mono text-xs">
+              <div className="flex items-center gap-2.5">
+                <span className="text-[10px] font-heading font-bold px-2 py-0.5 uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 clip-corner-sm">
+                  SPECIALIZATION
+                </span>
+                <span className="font-heading font-bold text-sm text-white">
+                  {result.recommendedSpecialization.name}
+                </span>
+                <span className="text-xs text-shd-textMonoMuted hidden sm:inline">
+                  — {result.recommendedSpecialization.rationale}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-1.5">
+                {result.recommendedSpecialization.perks.map((perk, pi) => (
+                  <span
+                    key={pi}
+                    className="text-[10px] px-2 py-0.5 bg-shd-surface1 border border-shd-border3 text-shd-textSecondary clip-corner-sm"
+                  >
+                    ✓ {perk}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -336,6 +364,7 @@ export const OptimizerView: React.FC<Props> = ({
               stats={result.practical.stats}
               score={result.practical.score}
               shoppingList={result.practical.shoppingList}
+              weapons={result.practical.weapons}
               onEquip={() => handleEquipTier('practical')}
               onCompare={() => handleCompareTier('practical')}
               archetype={result.archetype}
@@ -349,6 +378,7 @@ export const OptimizerView: React.FC<Props> = ({
               stats={result.ceiling.stats}
               score={result.ceiling.score}
               shoppingList={result.ceiling.shoppingList}
+              weapons={result.ceiling.weapons}
               onEquip={() => handleEquipTier('ceiling')}
               onCompare={() => handleCompareTier('ceiling')}
               archetype={result.archetype}
@@ -368,6 +398,7 @@ interface TierColumnProps {
   stats: any;
   score: number;
   shoppingList: ShoppingListItem[];
+  weapons: WeaponShoppingItem[];
   onEquip: () => void;
   onCompare: () => void;
   archetype: ArchetypeDefinition;
@@ -380,6 +411,7 @@ const TierColumn: React.FC<TierColumnProps> = ({
   tag,
   stats,
   shoppingList,
+  weapons,
   onEquip,
   onCompare,
   isCeiling
@@ -446,10 +478,48 @@ const TierColumn: React.FC<TierColumnProps> = ({
         </div>
       </div>
 
-      {/* Shopping List Items */}
-      <div className="flex flex-col gap-2.5">
-        <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-shd-textSecondary border-b border-shd-border3 pb-1">
-          RECALIBRATION SHOPPING LIST
+      {/* Weapons Shopping List (3 Slots) */}
+      <div className="flex flex-col gap-2">
+        <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-shd-orange flex items-center justify-between border-b border-shd-border3 pb-1">
+          <span>🔫 WEAPONS (3 SLOTS)</span>
+          <span className="text-[10px] font-mono text-shd-textMonoMuted font-normal">Primary · Secondary · Sidearm</span>
+        </h4>
+
+        {weapons.map((w) => (
+          <div
+            key={w.slot}
+            className="bg-shd-surface2/80 border border-shd-border2 p-2.5 clip-corner-sm flex flex-col gap-1.5 font-mono text-xs"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] uppercase font-bold text-shd-orange px-1.5 py-0.2 bg-shd-orange/10 clip-corner-sm">
+                  {w.slot}
+                </span>
+                <span className="font-bold text-shd-textPrimary">{w.name}</span>
+                <span className="text-[10px] text-shd-textMonoMuted">({w.category})</span>
+              </div>
+              <span className="text-[10px] text-shd-textMonoMuted">{w.source}</span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2.5 text-[11px] text-shd-textSecondary">
+              <span className="text-shd-redCore font-medium">Core: {w.coreAttribute}</span>
+              <span className="text-shd-textPrimary">3rd Minor: <span className="text-emerald-400 font-semibold">{w.minorAttribute}</span></span>
+              <span className="text-amber-300 font-medium">Talent: {w.talent}</span>
+            </div>
+
+            <div className="bg-shd-surface1 p-1.5 border border-shd-border3/60 clip-corner-sm text-[11px] text-shd-textPrimary flex items-start gap-1.5">
+              <span className="text-shd-orange font-bold">RECAL:</span>
+              <span className="text-white font-medium">{w.recalibrationInstruction}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Armour Shopping List (6 Slots) */}
+      <div className="flex flex-col gap-2">
+        <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-shd-textSecondary flex items-center justify-between border-b border-shd-border3 pb-1">
+          <span>🛡️ ARMOUR GEAR (6 SLOTS)</span>
+          <span className="text-[10px] font-mono text-shd-textMonoMuted font-normal">Mask · BP · Chest · Gloves · Holster · Knees</span>
         </h4>
 
         {shoppingList.map((item) => (
