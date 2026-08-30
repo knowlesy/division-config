@@ -5,9 +5,10 @@ import { ConfidenceBadge } from './ConfidenceBadge';
 interface Props {
   stats: ComputedLoadoutStats;
   onSendToAdvisor?: (statSummary: string) => void;
+  onOpenOptimizer?: () => void;
 }
 
-export const StatsPanel: React.FC<Props> = ({ stats }) => {
+export const StatsPanel: React.FC<Props> = ({ stats, onOpenOptimizer }) => {
   const { groupBreakdown, warnings, itemisationErrors, activeBrandBonuses, activeSetBonuses } = stats;
 
   return (
@@ -62,6 +63,19 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
           </div>
         </div>
       </div>
+
+      {/* Direct Optimizer Shortcut */}
+      {onOpenOptimizer && (
+        <button
+          type="button"
+          onClick={onOpenOptimizer}
+          className="w-full py-2.5 px-3 bg-shd-orange text-shd-bg font-heading font-bold text-xs uppercase tracking-wider clip-corner hover:bg-shd-orangeLight transition-colors shadow-md flex items-center justify-center gap-2"
+        >
+          <span>⚡</span>
+          <span>Optimise This Loadout</span>
+          <span className="text-[10px] opacity-80 font-normal font-mono">(Find Higher DPS & Gear Combos)</span>
+        </button>
+      )}
 
       {/* Damage Over Time / Debuff Tick Banner if active */}
       {stats.dotTickDamage && stats.dotTickDamage > 0 && (

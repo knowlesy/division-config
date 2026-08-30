@@ -487,6 +487,14 @@ export default function App() {
                 </label>
 
                 <button
+                  onClick={() => setActiveTab('optimizer')}
+                  className="px-3 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-surface2 hover:bg-shd-orange hover:text-shd-bg text-shd-orange border border-shd-orange clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Run two-tier optimization to find higher DPS or better synergy"
+                >
+                  <span>🚀 Optimise Build</span>
+                </button>
+
+                <button
                   onClick={() => setAlignModalState({ isOpen: true })}
                   className="px-3 py-1.5 text-xs font-mono border border-shd-orange/70 text-shd-orange hover:bg-shd-orange hover:text-shd-bg bg-shd-surface2 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
                   title="Align 4-piece or 6-piece gear set across slots"
@@ -596,6 +604,7 @@ export default function App() {
               <div className="sticky top-20">
                 <StatsPanel
                   stats={computedStats}
+                  onOpenOptimizer={() => setActiveTab('optimizer')}
                 />
               </div>
             </div>
