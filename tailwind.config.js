@@ -21,7 +21,7 @@ export default {
           textPrimary: '#E8EAED',
           textSecondary: '#C4CCD4',
           textMuted: '#8B96A2',
-          textMonoMuted: '#7C8894',
+          textMonoMuted: '#78838F',
           redCore: '#E53E3E',
           blueCore: '#3182CE',
           yellowCore: '#D69E2E',

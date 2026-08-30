@@ -332,9 +332,10 @@ export const OptimizerView: React.FC<Props> = ({
                 {result.recommendedSpecialization.perks.map((perk, pi) => (
                   <span
                     key={pi}
-                    className="text-[10px] px-2 py-0.5 bg-shd-surface1 border border-shd-border3 text-shd-textSecondary clip-corner-sm"
+                    className="text-[10px] px-2 py-0.5 bg-shd-surface1 border border-shd-border3 text-shd-textSecondary clip-corner-sm flex items-center gap-1"
                   >
-                    ✓ {perk}
+                    <span aria-hidden="true">✓</span>
+                    <span>{perk}</span>
                   </span>
                 ))}
               </div>
@@ -348,8 +349,9 @@ export const OptimizerView: React.FC<Props> = ({
             )}
 
             {!result.floorsSatisfied && (
-              <div className="p-2.5 bg-red-950/40 border border-red-500/40 text-red-300 text-xs font-mono clip-corner-sm mt-1">
-                ⚠️ <span className="font-bold">Floor Shortfall:</span> {result.shortfallReason}. Showing closest achievable legal build.
+              <div className="p-2.5 bg-red-950/40 border border-red-500/40 text-red-300 text-xs font-mono clip-corner-sm mt-1 flex items-start gap-1.5">
+                <span aria-hidden="true">⚠️</span>
+                <span><span className="font-bold">Floor Shortfall:</span> {result.shortfallReason}. Showing closest achievable legal build.</span>
               </div>
             )}
           </div>
@@ -505,10 +507,11 @@ const TierColumn: React.FC<TierColumnProps> = ({
           className="flex items-center justify-between text-shd-textSecondary hover:text-white transition-colors text-left focus-visible:ring-2 focus-visible:ring-shd-orange outline-none"
         >
           <span className="text-[11px] font-heading font-bold uppercase text-shd-orange tracking-wider flex items-center gap-1.5">
-            <span>📊 MULTIPLIER GROUP BREAKDOWN</span>
+            <span aria-hidden="true">📊</span>
+            <span>MULTIPLIER GROUP BREAKDOWN</span>
             <span className="text-[9px] font-normal text-shd-textMonoMuted">(Additive vs Multiplicative Math)</span>
           </span>
-          <span className="text-shd-textMonoMuted text-xs">{isBreakdownOpen ? '▲' : '▼'}</span>
+          <span className="text-shd-textMonoMuted text-xs" aria-hidden="true">{isBreakdownOpen ? '▲' : '▼'}</span>
         </button>
 
         {isBreakdownOpen && (
@@ -589,7 +592,7 @@ const TierColumn: React.FC<TierColumnProps> = ({
               <div className="pt-1.5 flex flex-col gap-1 border-t border-shd-border3/40">
                 {stats.warnings.map((w: string, wi: number) => (
                   <div key={wi} className="text-[10px] text-amber-300 flex items-start gap-1">
-                    <span>⚠️</span>
+                    <span aria-hidden="true">⚠️</span>
                     <span>{w}</span>
                   </div>
                 ))}
@@ -602,7 +605,10 @@ const TierColumn: React.FC<TierColumnProps> = ({
       {/* Weapons Shopping List (3 Slots) */}
       <div className="flex flex-col gap-2">
         <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-shd-orange flex items-center justify-between border-b border-shd-border3 pb-1">
-          <span>🔫 WEAPONS (3 SLOTS)</span>
+          <span className="flex items-center gap-1.5">
+            <span aria-hidden="true">🔫</span>
+            <span>WEAPONS (3 SLOTS)</span>
+          </span>
           <span className="text-[10px] font-mono text-shd-textMonoMuted font-normal">Primary · Secondary · Sidearm</span>
         </h4>
 
@@ -639,59 +645,64 @@ const TierColumn: React.FC<TierColumnProps> = ({
       {/* Armour Shopping List (6 Slots) */}
       <div className="flex flex-col gap-2">
         <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-shd-textSecondary flex items-center justify-between border-b border-shd-border3 pb-1">
-          <span>🛡️ ARMOUR GEAR (6 SLOTS)</span>
+          <span className="flex items-center gap-1.5">
+            <span aria-hidden="true">🛡️</span>
+            <span>ARMOUR GEAR (6 SLOTS)</span>
+          </span>
           <span className="text-[10px] font-mono text-shd-textMonoMuted font-normal">Mask · BP · Chest · Gloves · Holster · Knees</span>
         </h4>
 
-        {shoppingList.map((item) => (
-          <div
-            key={item.slot}
-            className="bg-shd-surface2/70 border border-shd-border2 p-2.5 clip-corner-sm flex flex-col gap-1.5 font-mono text-xs"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-[9px] uppercase font-bold text-shd-orange px-1.5 py-0.2 bg-shd-orange/10 clip-corner-sm">
-                  {item.slot}
-                </span>
-                <span className="font-bold text-shd-textPrimary">{item.itemName}</span>
+        {shoppingList.map((item) => {
+          return (
+            <div
+              key={item.slot}
+              className="bg-shd-surface2/70 border border-shd-border2 p-2.5 clip-corner-sm flex flex-col gap-1.5 font-mono text-xs"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] uppercase font-bold text-shd-orange px-1.5 py-0.2 bg-shd-orange/10 clip-corner-sm">
+                    {item.slot}
+                  </span>
+                  <span className="font-bold text-shd-textPrimary">{item.itemName}</span>
+                </div>
+                <span className="text-[10px] text-shd-textMonoMuted">{item.source}</span>
               </div>
-              <span className="text-[10px] text-shd-textMonoMuted">{item.source}</span>
-            </div>
 
-            {/* Core & Minors */}
-            <div className="flex flex-wrap items-center gap-3 text-[11px] text-shd-textSecondary">
-              <span className={`font-semibold ${
-                item.coreType === 'Armor' ? 'text-shd-blueCore' : (item.coreType === 'Skill Tier' ? 'text-shd-yellowCore' : 'text-shd-redCore')
-              }`}>
-                Core: {item.coreType} {item.isCoreRecalibrated ? '(Recalibrated)' : '(Natural)'}
-              </span>
-
-              {item.minors.map((m, idx) => (
-                <span key={idx} className="text-shd-textPrimary">
-                  {m.attribute}: <span className="font-bold text-shd-orange">{m.valueFormatted}</span> {m.isLocked ? '🔒' : ''}
+              {/* Core & Minors */}
+              <div className="flex flex-wrap items-center gap-3 text-[11px] text-shd-textSecondary">
+                <span className={`font-semibold ${
+                  item.coreType === 'Armor' ? 'text-shd-blueCore' : (item.coreType === 'Skill Tier' ? 'text-shd-yellowCore' : 'text-shd-redCore')
+                }`}>
+                  Core: {item.coreType} {item.isCoreRecalibrated ? '(Recalibrated)' : '(Natural)'}
                 </span>
-              ))}
 
-              {item.mod && (
-                <span className="text-sky-300">
-                  Mod: {item.mod.attribute} ({item.mod.valueFormatted})
-                </span>
-              )}
+                {item.minors.map((m, idx) => (
+                  <span key={idx} className="text-shd-textPrimary">
+                    {m.attribute}: <span className="font-bold text-shd-orange">{m.valueFormatted}</span> {m.isLocked ? <span aria-hidden="true">🔒</span> : ''}
+                  </span>
+                ))}
 
-              {item.talent && (
-                <span className="text-amber-300">
-                  Talent: {item.talent.name} {item.talent.isLocked ? '🔒' : ''}
-                </span>
-              )}
+                {item.mod && (
+                  <span className="text-sky-300">
+                    Mod: {item.mod.attribute} ({item.mod.valueFormatted})
+                  </span>
+                )}
+
+                {item.talent && (
+                  <span className="text-amber-300">
+                    Talent: {item.talent.name} {item.talent.isLocked ? <span aria-hidden="true">🔒</span> : ''}
+                  </span>
+                )}
+              </div>
+
+              {/* Actionable Recalibration Decision */}
+              <div className="bg-shd-surface1 p-1.5 border border-shd-border3/60 clip-corner-sm text-[11px] text-shd-textPrimary flex items-start gap-1.5">
+                <span className="text-shd-orange font-bold">RECAL:</span>
+                <span className="text-white font-medium">{item.recalibrationInstruction}</span>
+              </div>
             </div>
-
-            {/* Actionable Recalibration Decision */}
-            <div className="bg-shd-surface1 p-1.5 border border-shd-border3/60 clip-corner-sm text-[11px] text-shd-textPrimary flex items-start gap-1.5">
-              <span className="text-shd-orange font-bold">RECAL:</span>
-              <span className="text-white font-medium">{item.recalibrationInstruction}</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

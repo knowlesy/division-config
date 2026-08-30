@@ -461,7 +461,26 @@ export function calculateLoadout(
 
   // 13. Warnings & Diminishing Returns Check
   if (breakdown.critChance >= 0.60) {
-    warnings.push('Critical Hit Chance is capped at 60%. Any further CHC rolls provide 0 value.');
+    warnings.push('Critical Hit Chance is capped at 60% [CAP]. Any further CHC rolls provide 0 value.');
+  }
+
+  // Shared multiplier group warning in plain language
+  const groupTermsCount: Record<string, number> = {};
+  for (const b of bonuses) {
+    if (b.value > 0 && !b.isIndependentAmp) {
+      groupTermsCount[b.group] = (groupTermsCount[b.group] || 0) + 1;
+    }
+  }
+  for (const [grp, cnt] of Object.entries(groupTermsCount)) {
+    if (cnt >= 2 && (grp === 'Critical Hit Damage' || grp === 'Total Weapon Damage' || grp === 'Weapon Damage' || grp === 'Skill Damage')) {
+      warnings.push(`Shared multiplier group: Two or more bonuses share the ${grp} group; these add rather than multiply.`);
+    }
+  }
+
+  // Gear set one-minor cost warning
+  const gearSetPieces = Object.values(gear).filter(p => p && p.kind === 'gear-set');
+  if (gearSetPieces.length >= 4) {
+    warnings.push('Gear-set trade-off: 4pc gear set pieces sacrifice 4 minor attribute slots compared to High-End brand pieces (4 vs 8 minors).');
   }
 
   let redCores = 0;

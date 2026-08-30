@@ -67,8 +67,9 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
       {stats.dotTickDamage && stats.dotTickDamage > 0 && (
         <div className="bg-amber-950/30 border border-amber-800/60 p-2.5 clip-corner-sm flex items-center justify-between">
           <div>
-            <div className="text-xs font-heading font-bold text-amber-400">
-              ☠️ DAMAGE OVER TIME / DEBUFF TICK
+            <div className="text-xs font-heading font-bold text-amber-400 flex items-center gap-1.5">
+              <span aria-hidden="true">☠️</span>
+              <span>DAMAGE OVER TIME / DEBUFF TICK</span>
             </div>
             <div className="text-[11px] font-mono text-shd-textSecondary">
               Tick: <span className="text-white font-semibold">{Math.round(stats.dotTickDamage).toLocaleString()}</span> / sec (10s: {Math.round(stats.dotTickDamage * 10).toLocaleString()})
@@ -83,7 +84,7 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
         <div className="bg-shd-surface1/60 p-2 border border-shd-border1 clip-corner-sm">
           <span className="text-shd-textMonoMuted text-[10px] uppercase">Crit Chance:</span>
           <div className={`font-bold text-sm ${groupBreakdown.critChance >= 0.60 ? 'text-amber-400' : 'text-shd-textPrimary'}`}>
-            {(groupBreakdown.critChance * 100).toFixed(1)}% {groupBreakdown.critChance >= 0.60 && '(CAP)'}
+            {(groupBreakdown.critChance * 100).toFixed(1)}% {groupBreakdown.critChance >= 0.60 && '[CAP]'}
           </div>
         </div>
         <div className="bg-shd-surface1/60 p-2 border border-shd-border1 clip-corner-sm">
@@ -140,7 +141,7 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
               </span>
               {groupBreakdown.amplifiers.map((amp, idx) => (
                 <div key={idx} className="flex items-center justify-between pl-2 text-[11px]">
-                  <span className="text-shd-textSecondary truncate max-w-[200px]" title={amp.source}>▸ {amp.source}:</span>
+                  <span className="text-shd-textSecondary truncate max-w-[200px]" title={amp.source}><span aria-hidden="true">▸</span> {amp.source}:</span>
                   <span className="text-amber-400 font-bold ml-2 shrink-0">{amp.factor.toFixed(2)}x amp</span>
                 </div>
               ))}
@@ -164,7 +165,7 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
               </div>
               <div className="text-[11px] font-mono text-shd-textSecondary mt-1 space-y-0.5">
                 {set.bonuses.map((b, bi) => (
-                  <div key={bi}>▸ {b.raw?.replace(/\n/g, ' ')}</div>
+                  <div key={bi}><span aria-hidden="true">▸</span> {b.raw?.replace(/\n/g, ' ')}</div>
                 ))}
                 {set.talent && <div className="text-amber-300 font-semibold mt-1">4pc: {set.talent.split('\n')[0]}</div>}
               </div>
@@ -179,7 +180,7 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
               </div>
               <div className="text-[11px] font-mono text-shd-textSecondary mt-1 space-y-0.5">
                 {brand.bonuses.map((b, bi) => (
-                  <div key={bi}>▸ {b.raw?.replace(/\n/g, ' ')}</div>
+                  <div key={bi}><span aria-hidden="true">▸</span> {b.raw?.replace(/\n/g, ' ')}</div>
                 ))}
               </div>
             </div>
@@ -190,17 +191,20 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
       {/* Warnings & Legality Errors */}
       {(warnings.length > 0 || itemisationErrors.length > 0) && (
         <div className="bg-rose-950/20 border border-rose-800/60 p-3 clip-corner-sm flex flex-col gap-1.5">
-          <div className="font-heading font-bold text-xs text-rose-400 uppercase">
-            ⚠️ Diagnostic Warnings & Itemisation Legality
+          <div className="font-heading font-bold text-xs text-rose-400 uppercase flex items-center gap-1.5">
+            <span aria-hidden="true">⚠️</span>
+            <span>Diagnostic Warnings & Itemisation Legality</span>
           </div>
           {itemisationErrors.map((err, idx) => (
-            <div key={`err-${idx}`} className="text-xs font-mono text-rose-300">
-              ✖ {err}
+            <div key={`err-${idx}`} className="text-xs font-mono text-rose-300 flex items-start gap-1">
+              <span aria-hidden="true">✖</span>
+              <span>{err}</span>
             </div>
           ))}
           {warnings.map((warn, idx) => (
-            <div key={`warn-${idx}`} className="text-xs font-mono text-amber-300">
-              • {warn}
+            <div key={`warn-${idx}`} className="text-xs font-mono text-amber-300 flex items-start gap-1">
+              <span aria-hidden="true">•</span>
+              <span>{warn}</span>
             </div>
           ))}
         </div>
