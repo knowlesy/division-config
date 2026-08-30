@@ -564,10 +564,20 @@ export default function App() {
 
               {/* Gear Slots Section */}
               <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-heading font-bold text-xs uppercase tracking-wider text-shd-textPrimary">
-                    Gear Pieces (6 Slots)
-                  </h3>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-heading font-bold text-xs uppercase tracking-wider text-shd-textPrimary">
+                      Gear Pieces (6 Slots)
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setAlignModalState({ isOpen: true })}
+                      className="px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-shd-surface1 hover:bg-shd-orange hover:text-shd-bg text-shd-orange border border-shd-orange clip-corner-sm transition-colors flex items-center gap-1 shadow-sm"
+                      title="Align 4-piece or 6-piece gear set across slots"
+                    >
+                      <span>⚡ Align 4pc Set</span>
+                    </button>
+                  </div>
                   <div className="flex items-center gap-2 text-[10px] font-mono text-shd-textMonoMuted">
                     <span>Specialization:</span>
                     <select

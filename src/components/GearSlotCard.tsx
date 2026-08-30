@@ -189,11 +189,24 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
     <div className="bg-shd-surface2 border border-shd-border2 p-3 clip-corner relative flex flex-col gap-2.5 shadow-md">
       {/* Header: Slot and Kind */}
       <div className="flex items-center justify-between border-b border-shd-border1 pb-2">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span className="font-heading font-bold text-xs uppercase tracking-wider text-shd-orange">
             {slot}
           </span>
           <ConfidenceBadge tag={piece.kind === 'gear-set' ? '[PDF]' : '[PDF]'} />
+          {onAlignSet && (
+            <button
+              type="button"
+              onClick={() => {
+                const initialId = piece.kind === 'gear-set' ? piece.brandOrSetId : undefined;
+                onAlignSet(initialId || 'striker', 'Gear Set');
+              }}
+              className="text-[9px] font-mono text-shd-textSecondary hover:text-shd-orange border border-shd-border3 hover:border-shd-orange px-1.5 py-0.5 clip-corner-sm transition-colors"
+              title="Align 4-piece gear set across slots"
+            >
+              ⚡ Align Set
+            </button>
+          )}
         </div>
 
         {/* Piece Type Selector */}
@@ -230,11 +243,11 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
         )}
 
         {piece.kind === 'gear-set' && (
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-col gap-1.5">
             <select
               value={piece.brandOrSetId}
               onChange={(e) => handleBrandOrSetChange(e.target.value)}
-              className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate flex-1"
+              className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
             >
               {gearSets.map(s => (
                 <option key={s.id} value={s.id}>
@@ -249,10 +262,10 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
                   const set = gearSets.find(s => s.id === piece.brandOrSetId);
                   onAlignSet(piece.brandOrSetId, set?.name || 'Gear Set');
                 }}
-                className="px-2 py-1.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-shd-surface1 hover:bg-shd-orange hover:text-shd-bg text-shd-orange border border-shd-orange/60 clip-corner-sm transition-colors shrink-0"
+                className="w-full py-1.5 px-2 bg-shd-orange/15 hover:bg-shd-orange text-shd-orange hover:text-shd-bg border border-shd-orange/40 font-heading font-bold text-[11px] uppercase tracking-wider clip-corner-sm transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                 title={`Align 4pc ${gearSets.find(s => s.id === piece.brandOrSetId)?.name || 'Gear Set'} across slots`}
               >
-                ⚡ Align
+                <span>⚡ Align 4-Piece {gearSets.find(s => s.id === piece.brandOrSetId)?.name || 'Set'} Across Slots</span>
               </button>
             )}
           </div>
