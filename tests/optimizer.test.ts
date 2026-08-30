@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { runTwoTierOptimization, getAllCoreVariations } from '../src/lib/optimizer/engine';
+import { computeFarmingProbability } from '../src/lib/optimizer/cost-model';
 import { WeaponInstance } from '../src/lib/calc/types';
 import { ARCHETYPES } from '../src/lib/optimizer/archetypes';
 
@@ -189,5 +190,31 @@ describe('Two-Tier Optimizer Engine', () => {
     expect(uniqueKeys.has('2-0-4')).toBe(true);
     expect(uniqueKeys.has('1-0-5')).toBe(true);
     expect(uniqueKeys.has('2-2-2')).toBe(true);
+  });
+
+  it('correctly calculates exact combinatoric farming probabilities and ratios', () => {
+    // 2 desired minors: Scenario A (1/66, 66 drops) vs Scenario B (21/66, 3.14 drops) -> ~21x ratio
+    const twoMinorsCoreRecal = computeFarmingProbability(2, true);
+    expect(twoMinorsCoreRecal.probability).toBeCloseTo(1 / 66, 5);
+    expect(twoMinorsCoreRecal.expectedDrops).toBe(66);
+
+    const twoMinorsCoreKept = computeFarmingProbability(2, false);
+    expect(twoMinorsCoreKept.probability).toBeCloseTo(21 / 66, 5);
+    expect(twoMinorsCoreKept.expectedDrops).toBeCloseTo(66 / 21, 2);
+
+    const ratio2 = twoMinorsCoreKept.probability / twoMinorsCoreRecal.probability;
+    expect(ratio2).toBeCloseTo(21, 1);
+
+    // 1 desired minor: Scenario A (1/6, 6 drops) vs Scenario B (1.0, 1 drop) -> 6x ratio
+    const oneMinorCoreRecal = computeFarmingProbability(1, true);
+    expect(oneMinorCoreRecal.probability).toBeCloseTo(1 / 6, 5);
+    expect(oneMinorCoreRecal.expectedDrops).toBe(6);
+
+    const oneMinorCoreKept = computeFarmingProbability(1, false);
+    expect(oneMinorCoreKept.probability).toBe(1.0);
+    expect(oneMinorCoreKept.expectedDrops).toBe(1);
+
+    const ratio1 = oneMinorCoreKept.probability / oneMinorCoreRecal.probability;
+    expect(ratio1).toBeCloseTo(6, 1);
   });
 });

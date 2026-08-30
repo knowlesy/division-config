@@ -351,3 +351,42 @@ export function computeTwoTierGap(
     perPieceDiff
   };
 }
+
+/**
+ * Computes exact combinatoric drop probability for High-End gear pieces
+ * with 2 minor slots drawn from a standard pool of N = 12 attributes.
+ *
+ * @param desiredMinorsCount Number of specific minor attributes the build requires (1 or 2).
+ * @param isCoreRecalibrated True if recalibration is committed to the Core; False if Core is kept and recal is free for a Minor.
+ */
+export function computeFarmingProbability(
+  desiredMinorsCount: 1 | 2,
+  isCoreRecalibrated: boolean
+): { probability: number; expectedDrops: number } {
+  // Total distinct unordered pairs drawn from 12 minors = C(12,2) = 66
+  const TOTAL_PAIRS = 66;
+
+  if (desiredMinorsCount === 2) {
+    if (isCoreRecalibrated) {
+      // Both minors must drop correct: exactly 1 qualifying pair out of 66
+      const prob = 1 / TOTAL_PAIRS; // ~1.515%
+      return { probability: prob, expectedDrops: TOTAL_PAIRS }; // 66 drops
+    } else {
+      // Freed recalibration: at least one minor must drop correct
+      // Non-qualifying pairs (neither desired) = C(10,2) = 45
+      // Qualifying pairs = 66 - 45 = 21
+      const prob = 21 / TOTAL_PAIRS; // ~31.818%
+      return { probability: prob, expectedDrops: TOTAL_PAIRS / 21 }; // ~3.14 drops
+    }
+  } else {
+    // 1 desired minor
+    if (isCoreRecalibrated) {
+      // Must drop naturally: 11 pairs out of 66 contain the desired minor
+      const prob = 11 / TOTAL_PAIRS; // 1/6 (~16.667%)
+      return { probability: prob, expectedDrops: 6 }; // 6 drops
+    } else {
+      // Guaranteed via recalibration bench
+      return { probability: 1.0, expectedDrops: 1 }; // 1 drop
+    }
+  }
+}
