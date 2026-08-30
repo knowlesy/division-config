@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GearSlot, GearPieceInstance, WeaponInstance, WatchStats, CombatContext, ComputedLoadoutStats } from './lib/calc/types';
+import { GearSlot, GearPieceInstance, WeaponInstance, WatchStats, CombatContext, ComputedLoadoutStats, CoreType } from './lib/calc/types';
 import { calculateLoadout } from './lib/calc/loadout-calculator';
 import { Header, ActiveTab } from './components/Header';
 import { GearSlotCard } from './components/GearSlotCard';
@@ -11,9 +11,11 @@ import { ComparisonView } from './components/ComparisonView';
 import { SavedBuildsView } from './components/SavedBuildsView';
 import { AdvisorChat } from './components/AdvisorChat';
 import { AuthModal } from './components/AuthModal';
+import { AlignGearSetModal } from './components/AlignGearSetModal';
 import { CandidateBuild } from './lib/optimizer/types';
 import { SavedBuild, getStoredToken, importBuildFromUrl, saveLocalBuild } from './lib/storage/build-storage';
 import { GitHubClient, GitHubUser } from './lib/github/client';
+import gearSetsData from '../data/gear-sets.json';
 
 // Default initial loadout: Build A (Pestilence DPS)
 const INITIAL_GEAR: Record<GearSlot, GearPieceInstance> = {
@@ -167,6 +169,7 @@ export default function App() {
   const [token, setToken] = useState<string | null>(null);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [alignModalState, setAlignModalState] = useState<{ isOpen: boolean; initialSetId?: string }>({ isOpen: false });
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -327,6 +330,43 @@ export default function App() {
     showToast(`Saved "${buildName}" to local browser storage!`);
   };
 
+  const handleAlignGearSet = (setId: string, mode: '4pc' | '6pc') => {
+    const set = (gearSetsData as any[]).find(s => s.id === setId) || (gearSetsData as any[])[0];
+    const coreType: CoreType = set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
+
+    const makeSetPiece = (slot: GearSlot): GearPieceInstance => {
+      const hasModSlot = ['mask', 'chest', 'backpack'].includes(slot);
+      return {
+        slot,
+        kind: 'gear-set',
+        name: `${set.name} ${slot.toUpperCase()}`,
+        brandOrSetId: set.id,
+        core: {
+          type: coreType,
+          value: coreType === 'Armor' ? 170000 : (coreType === 'Skill Tier' ? 1 : 0.15),
+          isRecalibrated: false
+        },
+        minors: [
+          { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }
+        ],
+        modSlot: hasModSlot ? { attribute: 'Critical Hit Chance', value: 0.06, unit: '%' } : null,
+        talent: slot === 'chest' ? set.chestTalent : (slot === 'backpack' ? set.backpackTalent : null)
+      };
+    };
+
+    const newGear = { ...gear };
+    const slotsToReplace: GearSlot[] = mode === '4pc'
+      ? ['mask', 'gloves', 'holster', 'kneepads']
+      : ['mask', 'backpack', 'chest', 'gloves', 'holster', 'kneepads'];
+
+    slotsToReplace.forEach(slot => {
+      newGear[slot] = makeSetPiece(slot);
+    });
+
+    setGear(newGear);
+    showToast(`Aligned ${mode.toUpperCase()} ${set.name} loadout!`);
+  };
+
   const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD') => {
     switch (presetKey) {
       case 'buildA':
@@ -447,6 +487,14 @@ export default function App() {
                 </label>
 
                 <button
+                  onClick={() => setAlignModalState({ isOpen: true })}
+                  className="px-3 py-1.5 text-xs font-mono border border-shd-orange/70 text-shd-orange hover:bg-shd-orange hover:text-shd-bg bg-shd-surface2 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Align 4-piece or 6-piece gear set across slots"
+                >
+                  <span>⚡ Align Set</span>
+                </button>
+
+                <button
                   onClick={handleDownloadBuildJson}
                   className="px-3 py-1.5 text-xs font-mono border border-shd-border2 hover:border-shd-orange text-shd-textSecondary hover:text-white bg-shd-surface2 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
                   title="Download build as local JSON file"
@@ -536,6 +584,7 @@ export default function App() {
                       slot={slot}
                       piece={gear[slot]}
                       onChange={(updated) => setGear({ ...gear, [slot]: updated })}
+                      onAlignSet={(setId) => setAlignModalState({ isOpen: true, initialSetId: setId })}
                     />
                   ))}
                 </div>
@@ -610,6 +659,14 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Align Gear Set Modal */}
+      <AlignGearSetModal
+        isOpen={alignModalState.isOpen}
+        initialSetId={alignModalState.initialSetId}
+        onClose={() => setAlignModalState({ isOpen: false })}
+        onConfirm={handleAlignGearSet}
+      />
 
       {/* Auth Modal */}
       <AuthModal
