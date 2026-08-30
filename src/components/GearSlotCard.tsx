@@ -153,25 +153,30 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
     if (piece.kind === 'brand') {
       const brand = brandSets.find(b => b.id === id);
       if (brand) {
+        const nativeCore = brand.coreAttribute?.includes('Armor') ? 'Armor' : (brand.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
         onChange({
           ...piece,
+          brandOrSetId: id,
           name: `${brand.name} ${slot.toUpperCase()}`,
-          brandOrSetId: brand.id
+          core: {
+            type: nativeCore,
+            value: nativeCore === 'Armor' ? 170000 : (nativeCore === 'Skill Tier' ? 1 : 0.15),
+            isRecalibrated: false
+          }
         });
       }
     } else if (piece.kind === 'gear-set') {
       const set = gearSets.find(s => s.id === id);
       if (set) {
-        const nativeCoreType: CoreType = set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
-        const currentCoreType = piece.core.isRecalibrated ? piece.core.type : nativeCoreType;
+        const nativeCore = set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
         onChange({
           ...piece,
+          brandOrSetId: id,
           name: `${set.name} ${slot.toUpperCase()}`,
-          brandOrSetId: set.id,
           core: {
-            type: currentCoreType,
-            value: currentCoreType === 'Armor' ? 170000 : (currentCoreType === 'Skill Tier' ? 1 : 0.15),
-            isRecalibrated: currentCoreType !== nativeCoreType
+            type: nativeCore,
+            value: nativeCore === 'Armor' ? 170000 : (nativeCore === 'Skill Tier' ? 1 : 0.15),
+            isRecalibrated: false
           },
           talent: isChest ? set.chestTalent : (isBackpack ? set.backpackTalent : null)
         });
@@ -189,24 +194,11 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
     <div className="bg-shd-surface2 border border-shd-border2 p-3 clip-corner relative flex flex-col gap-2.5 shadow-md">
       {/* Header: Slot and Kind */}
       <div className="flex items-center justify-between border-b border-shd-border1 pb-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <span className="font-heading font-bold text-xs uppercase tracking-wider text-shd-orange">
             {slot}
           </span>
           <ConfidenceBadge tag={piece.kind === 'gear-set' ? '[PDF]' : '[PDF]'} />
-          {onAlignSet && (
-            <button
-              type="button"
-              onClick={() => {
-                const initialId = piece.kind === 'gear-set' ? piece.brandOrSetId : undefined;
-                onAlignSet(initialId || 'striker', 'Gear Set');
-              }}
-              className="text-[9px] font-mono text-shd-textSecondary hover:text-shd-orange border border-shd-border3 hover:border-shd-orange px-1.5 py-0.5 clip-corner-sm transition-colors"
-              title="Align 4-piece gear set across slots"
-            >
-              ⚡ Align Set
-            </button>
-          )}
         </div>
 
         {/* Piece Type Selector */}
@@ -243,32 +235,17 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange, onAlignSe
         )}
 
         {piece.kind === 'gear-set' && (
-          <div className="flex flex-col gap-1.5">
-            <select
-              value={piece.brandOrSetId}
-              onChange={(e) => handleBrandOrSetChange(e.target.value)}
-              className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
-            >
-              {gearSets.map(s => (
-                <option key={s.id} value={s.id}>
-                  {s.name} ({s.coreAttribute})
-                </option>
-              ))}
-            </select>
-            {onAlignSet && (
-              <button
-                type="button"
-                onClick={() => {
-                  const set = gearSets.find(s => s.id === piece.brandOrSetId);
-                  onAlignSet(piece.brandOrSetId, set?.name || 'Gear Set');
-                }}
-                className="w-full py-1.5 px-2 bg-shd-orange/15 hover:bg-shd-orange text-shd-orange hover:text-shd-bg border border-shd-orange/40 font-heading font-bold text-[11px] uppercase tracking-wider clip-corner-sm transition-colors flex items-center justify-center gap-1.5 shadow-sm"
-                title={`Align 4pc ${gearSets.find(s => s.id === piece.brandOrSetId)?.name || 'Gear Set'} across slots`}
-              >
-                <span>⚡ Align 4-Piece {gearSets.find(s => s.id === piece.brandOrSetId)?.name || 'Set'} Across Slots</span>
-              </button>
-            )}
-          </div>
+          <select
+            value={piece.brandOrSetId}
+            onChange={(e) => handleBrandOrSetChange(e.target.value)}
+            className="bg-shd-surface1 border border-shd-border3 text-xs font-sans px-2 py-1.5 text-shd-textPrimary focus:border-shd-orange outline-none clip-corner-sm truncate w-full"
+          >
+            {gearSets.map(s => (
+              <option key={s.id} value={s.id}>
+                {s.name} ({s.coreAttribute})
+              </option>
+            ))}
+          </select>
         )}
 
         {piece.kind === 'named' && (

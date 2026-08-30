@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { GearSlot } from '../lib/calc/types';
 import gearSetsData from '../../data/gear-sets.json';
 
 const gearSets = (gearSetsData as any[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+
+const ALL_SLOTS: { slot: GearSlot; label: string }[] = [
+  { slot: 'mask', label: 'Mask' },
+  { slot: 'backpack', label: 'Backpack' },
+  { slot: 'chest', label: 'Chest' },
+  { slot: 'gloves', label: 'Gloves' },
+  { slot: 'holster', label: 'Holster' },
+  { slot: 'kneepads', label: 'Kneepads' }
+];
 
 interface Props {
   isOpen: boolean;
   initialSetId?: string;
   onClose: () => void;
-  onConfirm: (setId: string, mode: '4pc' | '6pc') => void;
+  onConfirm: (setId: string, selectedSlots: GearSlot[]) => void;
 }
 
 export const AlignGearSetModal: React.FC<Props> = ({
@@ -17,7 +27,14 @@ export const AlignGearSetModal: React.FC<Props> = ({
   onConfirm
 }) => {
   const [selectedSetId, setSelectedSetId] = useState(initialSetId || gearSets[0]?.id || 'striker');
-  const [alignMode, setAlignMode] = useState<'4pc' | '6pc'>('4pc');
+  const [selectedSlots, setSelectedSlots] = useState<Record<GearSlot, boolean>>({
+    mask: true,
+    backpack: false,
+    chest: false,
+    gloves: true,
+    holster: true,
+    kneepads: true
+  });
 
   useEffect(() => {
     if (initialSetId) {
@@ -29,14 +46,57 @@ export const AlignGearSetModal: React.FC<Props> = ({
 
   const currentSet = gearSets.find(s => s.id === selectedSetId) || gearSets[0];
 
-  const handleConfirm = () => {
-    onConfirm(selectedSetId, alignMode);
+  const handleToggleSlot = (slot: GearSlot) => {
+    setSelectedSlots(prev => ({
+      ...prev,
+      [slot]: !prev[slot]
+    }));
+  };
+
+  const handleSelect4pc = () => {
+    setSelectedSlots({
+      mask: true,
+      backpack: false,
+      chest: false,
+      gloves: true,
+      holster: true,
+      kneepads: true
+    });
+  };
+
+  const handleSelectAll = () => {
+    setSelectedSlots({
+      mask: true,
+      backpack: true,
+      chest: true,
+      gloves: true,
+      holster: true,
+      kneepads: true
+    });
+  };
+
+  const handleClearAll = () => {
+    setSelectedSlots({
+      mask: false,
+      backpack: false,
+      chest: false,
+      gloves: false,
+      holster: false,
+      kneepads: false
+    });
+  };
+
+  const activeSlots = (Object.keys(selectedSlots) as GearSlot[]).filter(s => selectedSlots[s]);
+
+  const handleApply = () => {
+    if (activeSlots.length === 0) return;
+    onConfirm(selectedSetId, activeSlots);
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="bg-shd-surface1 border border-shd-border2 max-w-lg w-full p-6 clip-corner shadow-2xl flex flex-col gap-4">
+      <div className="bg-shd-surface1 border border-shd-border2 max-w-md w-full p-6 clip-corner shadow-2xl flex flex-col gap-4">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-shd-border1 pb-3">
           <div className="flex items-center gap-2">
@@ -54,15 +114,15 @@ export const AlignGearSetModal: React.FC<Props> = ({
         <div className="bg-amber-950/40 border border-amber-600/70 p-3 clip-corner-sm flex items-start gap-2.5">
           <span className="text-amber-400 text-base shrink-0 mt-0.5">⚠️</span>
           <div className="text-xs font-mono text-amber-200 leading-relaxed">
-            <strong className="text-amber-400 font-bold block mb-1">WARNING: OVERWRITING LOADOUT PIECES</strong>
-            Aligning this gear set will replace your existing gear pieces across the selected slots with <strong>{currentSet?.name}</strong> pieces (resetting their attributes, cores, and brands).
+            <strong className="text-amber-400 font-bold block mb-1">WARNING: OVERWRITING CHECKED SLOTS</strong>
+            Checked items will be replaced with <strong>{currentSet?.name}</strong> pieces (native core and brand bonus).
           </div>
         </div>
 
         {/* Gear Set Selection */}
         <div className="flex flex-col gap-1.5 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
           <label className="text-xs font-heading font-bold text-shd-textPrimary uppercase">
-            Select Gear Set to Align:
+            1. Select Gear Set to Align:
           </label>
           <select
             value={selectedSetId}
@@ -77,47 +137,64 @@ export const AlignGearSetModal: React.FC<Props> = ({
           </select>
         </div>
 
-        {/* Alignment Mode Selection */}
-        <div className="flex flex-col gap-2 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
-          <label className="text-xs font-heading font-bold text-shd-textPrimary uppercase">
-            Choose Alignment Mode:
-          </label>
-
-          <label className="flex items-start gap-2.5 p-2 bg-shd-surface1 border border-shd-border3/60 clip-corner-sm cursor-pointer hover:border-shd-orange/60 transition-colors">
-            <input
-              type="radio"
-              name="alignMode"
-              checked={alignMode === '4pc'}
-              onChange={() => setAlignMode('4pc')}
-              className="mt-0.5 accent-shd-orange"
-            />
-            <div className="text-xs font-mono">
-              <span className="font-bold text-shd-orange block">4-Piece Standard (Mask, Holster, Gloves, Kneepads)</span>
-              <span className="text-[11px] text-shd-textSecondary block mt-0.5">
-                Recommended in Division 2: Activates the 4pc set talent while preserving your Chest & Backpack for brand talents or Exotics.
-              </span>
+        {/* Checkbox Selection for all 6 Gear Items */}
+        <div className="flex flex-col gap-2.5 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-heading font-bold text-shd-textPrimary uppercase">
+              2. Select Items to Update ({activeSlots.length}/6):
+            </label>
+            <div className="flex gap-1.5 text-[10px] font-mono">
+              <button
+                type="button"
+                onClick={handleSelect4pc}
+                className="px-1.5 py-0.5 bg-shd-surface1 border border-shd-border3 hover:border-shd-orange text-shd-orange clip-corner-sm transition-colors"
+              >
+                4pc Standard
+              </button>
+              <button
+                type="button"
+                onClick={handleSelectAll}
+                className="px-1.5 py-0.5 bg-shd-surface1 border border-shd-border3 hover:border-white text-shd-textSecondary hover:text-white clip-corner-sm transition-colors"
+              >
+                All 6
+              </button>
+              <button
+                type="button"
+                onClick={handleClearAll}
+                className="px-1.5 py-0.5 bg-shd-surface1 border border-shd-border3 hover:border-rose-500 text-shd-textMonoMuted hover:text-rose-400 clip-corner-sm transition-colors"
+              >
+                Clear
+              </button>
             </div>
-          </label>
+          </div>
 
-          <label className="flex items-start gap-2.5 p-2 bg-shd-surface1 border border-shd-border3/60 clip-corner-sm cursor-pointer hover:border-shd-orange/60 transition-colors">
-            <input
-              type="radio"
-              name="alignMode"
-              checked={alignMode === '6pc'}
-              onChange={() => setAlignMode('6pc')}
-              className="mt-0.5 accent-shd-orange"
-            />
-            <div className="text-xs font-mono">
-              <span className="font-bold text-white block">Full 6-Piece Set (All 6 Slots)</span>
-              <span className="text-[11px] text-shd-textSecondary block mt-0.5">
-                Replaces all 6 armour slots with {currentSet?.name} pieces (includes Chest & Backpack Set Talents).
-              </span>
-            </div>
-          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1">
+            {ALL_SLOTS.map(({ slot, label }) => {
+              const isChecked = selectedSlots[slot];
+              return (
+                <label
+                  key={slot}
+                  className={`flex items-center gap-2 p-2 clip-corner-sm border cursor-pointer select-none transition-colors ${
+                    isChecked
+                      ? 'bg-shd-surface1 border-shd-orange text-white'
+                      : 'bg-shd-surface1/60 border-shd-border3 text-shd-textMonoMuted hover:border-shd-border2 hover:text-shd-textSecondary'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => handleToggleSlot(slot)}
+                    className="accent-shd-orange h-4 w-4 rounded cursor-pointer"
+                  />
+                  <span className="text-xs font-mono font-bold uppercase">{label}</span>
+                </label>
+              );
+            })}
+          </div>
         </div>
 
         {/* Modal Actions */}
-        <div className="flex items-center justify-end gap-2 pt-2 border-t border-shd-border1">
+        <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-shd-border1">
           <button
             onClick={onClose}
             className="px-4 py-2 text-xs font-mono border border-shd-border3 text-shd-textSecondary hover:text-white clip-corner-sm transition-colors"
@@ -125,10 +202,11 @@ export const AlignGearSetModal: React.FC<Props> = ({
             Cancel
           </button>
           <button
-            onClick={handleConfirm}
-            className="px-5 py-2 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors shadow-lg"
+            onClick={handleApply}
+            disabled={activeSlots.length === 0}
+            className="px-6 py-2 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Confirm & Align Set
+            Apply ({activeSlots.length} items)
           </button>
         </div>
       </div>

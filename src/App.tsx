@@ -330,7 +330,7 @@ export default function App() {
     showToast(`Saved "${buildName}" to local browser storage!`);
   };
 
-  const handleAlignGearSet = (setId: string, mode: '4pc' | '6pc') => {
+  const handleAlignGearSet = (setId: string, selectedSlots: GearSlot[]) => {
     const set = (gearSetsData as any[]).find(s => s.id === setId) || (gearSetsData as any[])[0];
     const coreType: CoreType = set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
 
@@ -355,16 +355,12 @@ export default function App() {
     };
 
     const newGear = { ...gear };
-    const slotsToReplace: GearSlot[] = mode === '4pc'
-      ? ['mask', 'gloves', 'holster', 'kneepads']
-      : ['mask', 'backpack', 'chest', 'gloves', 'holster', 'kneepads'];
-
-    slotsToReplace.forEach(slot => {
+    selectedSlots.forEach(slot => {
       newGear[slot] = makeSetPiece(slot);
     });
 
     setGear(newGear);
-    showToast(`Aligned ${mode.toUpperCase()} ${set.name} loadout!`);
+    showToast(`Aligned ${selectedSlots.length} item${selectedSlots.length === 1 ? '' : 's'} to ${set.name}!`);
   };
 
   const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD') => {
@@ -600,7 +596,6 @@ export default function App() {
                       slot={slot}
                       piece={gear[slot]}
                       onChange={(updated) => setGear({ ...gear, [slot]: updated })}
-                      onAlignSet={(setId) => setAlignModalState({ isOpen: true, initialSetId: setId })}
                     />
                   ))}
                 </div>
