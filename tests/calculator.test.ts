@@ -421,4 +421,21 @@ describe('Calculator Step 2: Worked Builds from Reference §10', () => {
     expect(tpRed.ampValue).toBe(0.30);
     expect(tpRed.factor).toBe(1.30);
   });
+
+  it('Sidearm weapon filtering restricts options to Pistols & Sidearms only', () => {
+    const namedWeapons = require('../data/weapons-named.json');
+    const weapons = require('../data/weapons.json');
+
+    const sidearmExotics = namedWeapons.filter((w: any) => w.isExotic && (w.category || '').toLowerCase().includes('pistol'));
+    const sidearmNamed = namedWeapons.filter((w: any) => !w.isExotic && (w.category || '').toLowerCase().includes('pistol'));
+    const sidearmStandard = weapons.filter((w: any) => (w.category || '').toUpperCase().includes('PISTOL'));
+
+    // Assert that no Rifles, SMGs, ARs, LMGs, or Shotguns are present in pistol lists
+    for (const w of [...sidearmExotics, ...sidearmNamed]) {
+      expect((w.category || '').toLowerCase()).toBe('pistol');
+    }
+    for (const w of sidearmStandard) {
+      expect((w.category || '').toUpperCase()).toBe('PISTOLS');
+    }
+  });
 });

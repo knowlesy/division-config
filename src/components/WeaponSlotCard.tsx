@@ -30,6 +30,46 @@ interface Props {
   onSetActive: () => void;
 }
 
+function normalizeCategory(cat: string): string {
+  const c = (cat || '').toUpperCase().trim();
+  if (c.includes('ASSAULT')) return 'Assault Rifles';
+  if (c.includes('SUBMACHINE') || c === 'SMG' || c.includes('SMG')) return 'Submachine Guns';
+  if (c.includes('LIGHT MACHINE') || c === 'LMG' || c.includes('LMG')) return 'Light Machine Guns';
+  if (c.includes('MARKSMAN')) return 'Marksman Rifles';
+  if (c.includes('RIFLE')) return 'Rifles';
+  if (c.includes('SHOTGUN')) return 'Shotguns';
+  if (c.includes('PISTOL') || c.includes('SIDEARM') || c.includes('REVOLVER')) return 'Pistols';
+  return 'Other';
+}
+
+const CATEGORY_ORDER = [
+  'Assault Rifles',
+  'Submachine Guns',
+  'Light Machine Guns',
+  'Rifles',
+  'Marksman Rifles',
+  'Shotguns',
+  'Pistols'
+];
+
+function isCleanStandardWeapon(w: any): boolean {
+  if (w.name.includes('(') || w.name.includes('Replica')) return false;
+  if (namedWeapons.some(nw => nw.name.toLowerCase() === w.name.toLowerCase())) return false;
+  return true;
+}
+
+function parseInnateHsd(category: string, rawHsd?: number): number {
+  const norm = normalizeCategory(category);
+  if (rawHsd !== undefined && rawHsd !== null && rawHsd > 0) {
+    return rawHsd > 1 ? rawHsd / 100 : rawHsd;
+  }
+  if (norm === 'Marksman Rifles') return 1.37;
+  if (norm === 'Rifles') return 0.60;
+  if (norm === 'Pistols') return 1.00;
+  if (norm === 'Shotguns') return 0.45;
+  return 0.55;
+}
+
 export const WeaponSlotCard: React.FC<Props> = ({
   slot,
   weapon,
@@ -38,26 +78,33 @@ export const WeaponSlotCard: React.FC<Props> = ({
   onSetActive
 }) => {
   const isExotic = !!weapon.isExotic;
+  const isSidearmSlot = slot === 'sidearm';
 
   const handleWeaponSelect = (weaponName: string) => {
     // Check if exotic/named first
     const namedItem = namedWeapons.find(w => w.name === weaponName);
     if (namedItem) {
-      const baseStats = weapons.find(w => w.category === namedItem.category || w.family === namedItem.family) || weapons[0];
+      const normCat = normalizeCategory(namedItem.category);
+      const baseStats = weapons.find(w => w.family && namedItem.family && w.family.toLowerCase() === namedItem.family.toLowerCase())
+        || weapons.find(w => normalizeCategory(w.category) === normCat)
+        || weapons[0];
+
       const isExo = !!namedItem.isExotic;
+      const innateHsd = parseInnateHsd(namedItem.category || baseStats.category, baseStats.innateHsd);
+
       onChange({
         slot,
         name: namedItem.name,
-        category: namedItem.category || baseStats.category || 'Assault Rifle',
-        baseDamage: baseStats.baseDamage || 48300,
-        rpm: baseStats.rpm || 800,
-        magSize: baseStats.baseMagSize || 30,
-        reloadTime: baseStats.emptyReloadSecs || 2.2,
-        innateHsd: baseStats.innateHsd || 0.55,
+        category: namedItem.category || baseStats.category || (isSidearmSlot ? 'Pistol' : 'Assault Rifle'),
+        baseDamage: baseStats.baseDamage || (isSidearmSlot ? 38000 : 48300),
+        rpm: baseStats.rpm || (isSidearmSlot ? 310 : 800),
+        magSize: baseStats.baseMagSize || (isSidearmSlot ? 15 : 30),
+        reloadTime: baseStats.emptyReloadSecs || (isSidearmSlot ? 1.5 : 2.2),
+        innateHsd,
         coreAttribute: { type: 'Weapon Damage', value: 0.15 },
         secondaryCoreAttribute: getSecondaryAttribute(namedItem.category || baseStats.category),
         minorAttribute: { attribute: 'Damage to Target Out of Cover', value: 0.10, unit: '%' },
-        talent: namedItem.talentOrPerk || 'Custom Talent',
+        talent: namedItem.talentOrPerk ? namedItem.talentOrPerk.split('\n')[0] : 'Custom Talent',
         isExotic: isExo
       });
       return;
@@ -66,23 +113,36 @@ export const WeaponSlotCard: React.FC<Props> = ({
     // Standard weapon
     const std = weapons.find(w => w.name === weaponName);
     if (std) {
+      const innateHsd = parseInnateHsd(std.category, std.innateHsd);
       onChange({
         slot,
         name: std.name,
-        category: std.category || 'Assault Rifle',
-        baseDamage: std.baseDamage || 50000,
-        rpm: std.rpm || 750,
-        magSize: std.baseMagSize || 30,
-        reloadTime: std.emptyReloadSecs || 2.0,
-        innateHsd: std.innateHsd || 0.55,
+        category: std.category || (isSidearmSlot ? 'Pistols' : 'Assault Rifles'),
+        baseDamage: std.baseDamage || (isSidearmSlot ? 38000 : 50000),
+        rpm: std.rpm || (isSidearmSlot ? 300 : 750),
+        magSize: std.baseMagSize || (isSidearmSlot ? 15 : 30),
+        reloadTime: std.emptyReloadSecs || (isSidearmSlot ? 1.5 : 2.0),
+        innateHsd,
         coreAttribute: { type: 'Weapon Damage', value: 0.15 },
         secondaryCoreAttribute: getSecondaryAttribute(std.category),
         minorAttribute: { attribute: 'Damage to Target Out of Cover', value: 0.10, unit: '%' },
-        talent: 'Strained',
+        talent: isSidearmSlot ? 'In Sync' : 'Strained',
         isExotic: false
       });
     }
   };
+
+  // 1. Exotics at the top
+  const exoticWeapons = namedWeapons.filter(w => {
+    if (!w.isExotic) return false;
+    if (isSidearmSlot) {
+      return normalizeCategory(w.category) === 'Pistols';
+    }
+    return true;
+  });
+
+  // 2. Categories to display (Sidearm restricted to Pistols only)
+  const activeCategories = isSidearmSlot ? ['Pistols'] : CATEGORY_ORDER;
 
   return (
     <div
@@ -123,21 +183,45 @@ export const WeaponSlotCard: React.FC<Props> = ({
             isExotic ? 'text-shd-exotic font-semibold' : 'text-shd-textPrimary'
           }`}
         >
-          <optgroup label="Exotic Weapons">
-            {namedWeapons.filter(w => w.isExotic).map(w => (
-              <option key={w.name} value={w.name}>★ {w.name} ({w.category || 'Exotic'})</option>
-            ))}
-          </optgroup>
-          <optgroup label="Named Weapons">
-            {namedWeapons.filter(w => !w.isExotic).map(w => (
-              <option key={w.name} value={w.name}>◆ {w.name} ({w.category || 'Named'})</option>
-            ))}
-          </optgroup>
-          <optgroup label="Standard High-End Weapons">
-            {weapons.slice(0, 80).map(w => (
-              <option key={w.name} value={w.name}>{w.name} ({w.category})</option>
-            ))}
-          </optgroup>
+          {exoticWeapons.length > 0 && (
+            <optgroup label={isSidearmSlot ? "★ Exotic Sidearms" : "★ Exotic Weapons"}>
+              {exoticWeapons.map(w => (
+                <option key={w.name} value={w.name}>
+                  ★ {w.name} ({w.category || 'Exotic'})
+                </option>
+              ))}
+            </optgroup>
+          )}
+
+          {activeCategories.map(categoryName => {
+            const namedInCategory = namedWeapons.filter(
+              w => !w.isExotic && normalizeCategory(w.category) === categoryName
+            );
+            const standardInCategory = weapons.filter(
+              w => normalizeCategory(w.category) === categoryName && isCleanStandardWeapon(w)
+            );
+
+            if (namedInCategory.length === 0 && standardInCategory.length === 0) return null;
+
+            const displayLabel = categoryName === 'Pistols' ? 'Pistols & Sidearms' : categoryName;
+
+            return (
+              <optgroup key={categoryName} label={displayLabel}>
+                {/* Named weapons at top of category */}
+                {namedInCategory.map(w => (
+                  <option key={w.name} value={w.name}>
+                    ◆ {w.name} (Named)
+                  </option>
+                ))}
+                {/* Standard High-End weapons in category */}
+                {standardInCategory.map(w => (
+                  <option key={w.name} value={w.name}>
+                    {w.name}
+                  </option>
+                ))}
+              </optgroup>
+            );
+          })}
         </select>
       </div>
 
@@ -235,5 +319,6 @@ function getSecondaryAttribute(category: string): { type: string; value: number 
   if (catLower.includes('shotgun')) return { type: 'Damage to Armor', value: 0.12 };
   if (catLower.includes('rifle') && !catLower.includes('marksman')) return { type: 'Critical Hit Damage', value: 0.17 };
   if (catLower.includes('marksman')) return { type: 'Headshot Damage', value: 1.11 };
+  if (catLower.includes('pistol')) return { type: 'Damage to Armor', value: 0.10 };
   return { type: 'Damage to Target Out of Cover', value: 0.10 };
 }
