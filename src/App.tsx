@@ -495,14 +495,6 @@ export default function App() {
                 </button>
 
                 <button
-                  onClick={() => setAlignModalState({ isOpen: true })}
-                  className="px-3 py-1.5 text-xs font-mono border border-shd-orange/70 text-shd-orange hover:bg-shd-orange hover:text-shd-bg bg-shd-surface2 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
-                  title="Align 4-piece or 6-piece gear set across slots"
-                >
-                  <span>⚡ Align Set</span>
-                </button>
-
-                <button
                   onClick={handleDownloadBuildJson}
                   className="px-3 py-1.5 text-xs font-mono border border-shd-border2 hover:border-shd-orange text-shd-textSecondary hover:text-white bg-shd-surface2 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
                   title="Download build as local JSON file"
