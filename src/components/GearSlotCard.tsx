@@ -45,6 +45,25 @@ interface Props {
   onChange: (updated: GearPieceInstance) => void;
 }
 
+function getNativeCore(piece: GearPieceInstance): CoreType | null {
+  if (piece.kind === 'gear-set') {
+    const set = gearSets.find(s => s.id === piece.brandOrSetId);
+    if (!set) return null;
+    return set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
+  }
+  if (piece.kind === 'brand') {
+    const brand = brandSets.find(b => b.id === piece.brandOrSetId);
+    if (!brand) return null;
+    return brand.coreAttribute?.includes('Armor') ? 'Armor' : (brand.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
+  }
+  if (piece.kind === 'named') {
+    const item = namedGear.find(i => i.name === piece.name);
+    if (!item) return null;
+    return item.coreAttribute?.includes('Armor') ? 'Armor' : (item.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
+  }
+  return null;
+}
+
 export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
   const isChest = slot === 'chest';
   const isBackpack = slot === 'backpack';
@@ -134,15 +153,16 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
     } else if (piece.kind === 'gear-set') {
       const set = gearSets.find(s => s.id === id);
       if (set) {
-        const coreType: CoreType = set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
+        const nativeCoreType: CoreType = set.coreAttribute?.includes('Armor') ? 'Armor' : (set.coreAttribute?.includes('Skill') ? 'Skill Tier' : 'Weapon Damage');
+        const currentCoreType = piece.core.isRecalibrated ? piece.core.type : nativeCoreType;
         onChange({
           ...piece,
           name: `${set.name} ${slot.toUpperCase()}`,
           brandOrSetId: set.id,
           core: {
-            type: coreType,
-            value: coreType === 'Armor' ? 170000 : (coreType === 'Skill Tier' ? 1 : 0.15),
-            isRecalibrated: false
+            type: currentCoreType,
+            value: currentCoreType === 'Armor' ? 170000 : (currentCoreType === 'Skill Tier' ? 1 : 0.15),
+            isRecalibrated: currentCoreType !== nativeCoreType
           },
           talent: isChest ? set.chestTalent : (isBackpack ? set.backpackTalent : null)
         });
@@ -278,19 +298,23 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
           />
           <select
             value={piece.core.type}
-            disabled={piece.kind === 'gear-set' || piece.kind === 'exotic'}
+            disabled={piece.kind === 'exotic'}
             onChange={(e) => {
               const t = e.target.value as CoreType;
+              const nativeCore = getNativeCore(piece);
+              const isDifferentFromNative = nativeCore ? t !== nativeCore : false;
               onChange({
                 ...piece,
                 core: {
                   type: t,
                   value: t === 'Armor' ? 170000 : (t === 'Skill Tier' ? 1 : 0.15),
-                  isRecalibrated: piece.kind !== 'gear-set' && piece.kind !== 'exotic'
+                  isRecalibrated: isDifferentFromNative
                 }
               });
             }}
-            className="bg-transparent text-xs font-mono text-shd-textPrimary outline-none cursor-pointer truncate w-full"
+            className={`bg-transparent text-xs font-mono outline-none truncate w-full ${
+              piece.kind === 'exotic' ? 'text-shd-textSecondary cursor-not-allowed' : 'text-shd-textPrimary cursor-pointer'
+            }`}
           >
             <option value="Weapon Damage" className="bg-shd-surface1">+15.0% Weapon Damage</option>
             <option value="Armor" className="bg-shd-surface1">+170,000 Armor</option>
@@ -298,7 +322,7 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
           </select>
         </div>
 
-        {piece.kind !== 'gear-set' && piece.kind !== 'exotic' && (
+        {piece.kind !== 'exotic' && (
           <label className="flex items-center gap-1 text-[10px] font-mono text-shd-textMonoMuted cursor-pointer shrink-0">
             <input
               type="checkbox"
