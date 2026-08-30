@@ -18,10 +18,20 @@ export interface ArchetypeDefinition {
 }
 
 /**
- * Standard Status Immunity Thresholds (Reference §7)
- * Mean threshold is ~91.4% Hazard Protection for general immunity
+ * Exact Status Immunity Cliff Thresholds (Reference §7)
+ * Pulse: 100.0%, Disrupt: 95.8%, Bleed/Disorient/Ensnare: 93.8%, Burn: 91.4%, Blind/Deaf: 91.0%, Poison: 89.2%, Shock: 86.0%
  */
-export const MEAN_STATUS_IMMUNITY_THRESHOLD = 0.914;
+export const STATUS_IMMUNITY_CLIFFS = {
+  pulse: 1.00,
+  disrupt: 0.958,
+  bleed: 0.938,
+  burn: 0.914,
+  blind: 0.910,
+  poison: 0.892,
+  shock: 0.860
+};
+
+export const DEFAULT_STATUS_IMMUNITY_CLIFF = STATUS_IMMUNITY_CLIFFS.burn; // 91.4% Burn Immunity
 
 export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
   sustained_dps: {
@@ -30,7 +40,8 @@ export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
     description: 'Damage over a long engagement, at steady state — stack build-up, decay, reload and magazine costs included.',
     defaultFloors: {},
     score: (stats: ComputedLoadoutStats) => {
-      return stats.sustainedDps + (stats.pestilencePlagueTickDamage ? stats.pestilencePlagueTickDamage * 10 : 0);
+      // Steady state sustained bullet cycle DPS plus general damage-over-time tick DPS
+      return stats.sustainedDps + (stats.dotTickDamage ? stats.dotTickDamage * 10 : 0);
     },
     validateFloors: () => ({ satisfied: true })
   },
@@ -192,20 +203,25 @@ export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
   hardened: {
     id: 'hardened',
     name: 'Hardened',
-    description: 'Achieves immunity thresholds across status categories to shrug off disrupt, bleed, and fire.',
+    description: 'Achieves discrete status immunity cliff thresholds (Reference §7) with zero value for surplus beyond the cliff.',
     defaultFloors: {
-      minHazardProtection: 0.80
+      minHazardProtection: DEFAULT_STATUS_IMMUNITY_CLIFF
     },
     score: (stats: ComputedLoadoutStats) => {
       const hazPct = stats.hazardProtection || 0;
-      const proximity = Math.min(1.0, hazPct / MEAN_STATUS_IMMUNITY_THRESHOLD);
-      const ehpScore = stats.effectiveHealth / 10000;
-      return proximity * 10000 + ehpScore;
+      const targetCliff = DEFAULT_STATUS_IMMUNITY_CLIFF;
+      // Hard boundary: below cliff is failing; clearing cliff grants baseline 10,000; surplus above cliff gives 0 additional immunity value
+      const cliffCleared = hazPct >= targetCliff ? 10000 : (hazPct / targetCliff) * 5000;
+      const ehpScore = stats.effectiveHealth / 1000;
+      return cliffCleared + ehpScore;
     },
     validateFloors: (stats: ComputedLoadoutStats, floors: ArchetypeFloors) => {
-      const required = floors.minHazardProtection !== undefined ? floors.minHazardProtection : 0.80;
+      const required = floors.minHazardProtection !== undefined ? floors.minHazardProtection : DEFAULT_STATUS_IMMUNITY_CLIFF;
       if ((stats.hazardProtection || 0) < required) {
-        return { satisfied: false, shortfall: `Hazard Protection ${Math.round((stats.hazardProtection || 0) * 100)}% / ${Math.round(required * 100)}%` };
+        return {
+          satisfied: false,
+          shortfall: `Hazard Protection ${( (stats.hazardProtection || 0) * 100).toFixed(1)}% / ${(required * 100).toFixed(1)}% (Immunity Cliff Unmet)`
+        };
       }
       return { satisfied: true };
     }

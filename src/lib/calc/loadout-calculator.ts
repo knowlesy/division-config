@@ -423,9 +423,9 @@ export function calculateLoadout(
 
   const metrics = calculateDamageMetrics(baseDmg, breakdown, rpm, mag, reload);
 
-  // 12. Check for Pestilence Plague Debuff
-  let pestilencePlagueTickDamage = 0;
-  if (activeWeapon && activeWeapon.name.toLowerCase().includes('pestilence')) {
+  // 12. Calculate Damage-Over-Time (DoT) and Debuff Tick Damage from weapon/gear sources
+  let dotTickDamage = 0;
+  if (activeWeapon && ((activeWeapon.talent && activeWeapon.talent.toLowerCase().includes('plague')) || (activeWeapon.name && activeWeapon.name.toLowerCase().includes('pestilence')))) {
     const res = calculatePestilencePlague(
       baseDmg,
       breakdown.weaponDamageSum,
@@ -433,7 +433,7 @@ export function calculateLoadout(
       breakdown.totalAmplifierMultiplier,
       50
     );
-    pestilencePlagueTickDamage = res.dpsTick;
+    dotTickDamage = res.dpsTick;
   }
 
   // 13. Warnings & Diminishing Returns Check
@@ -478,7 +478,7 @@ export function calculateLoadout(
     expectedDamagePerShot: metrics.expectedHit,
     burstDps: metrics.burstDps,
     sustainedDps: metrics.sustainedDps,
-    pestilencePlagueTickDamage: pestilencePlagueTickDamage || undefined,
+    dotTickDamage: dotTickDamage || undefined,
     totalArmor,
     totalHealth,
     effectiveHealth,

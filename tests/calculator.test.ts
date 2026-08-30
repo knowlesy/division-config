@@ -326,7 +326,7 @@ describe('Calculator Step 2: Worked Builds from Reference §10', () => {
     expect(tsResult.groupBreakdown.critChance).toBe(0.60);
     // Expected bullet damage and Plague debuff
     expect(tsResult.effectiveBulletDamage).toBeGreaterThan(300000);
-    expect(tsResult.pestilencePlagueTickDamage).toBeGreaterThan(0);
+    expect(tsResult.dotTickDamage).toBeGreaterThan(0);
 
     // 2. Heartbreaker build comparison: 4pc Heartbreaker (Blue Cores), lower crit damage
     const heartbreakerGear: Record<string, GearPieceInstance> = {

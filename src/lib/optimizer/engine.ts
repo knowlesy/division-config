@@ -333,25 +333,40 @@ function generateCandidateSkeletons(
 function getTargetCoreVariations(archetype: ArchetypeDefinition, floors: ArchetypeFloors): CoreType[][] {
   const variations: CoreType[][] = [];
 
+  const RED: CoreType = 'Weapon Damage';
+  const BLUE: CoreType = 'Armor';
+  const YELLOW: CoreType = 'Skill Tier';
+
   if (archetype.id === 'sustained_dps' || archetype.id === 'precision_dps') {
-    variations.push(['Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage']);
-    variations.push(['Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Armor', 'Armor']); // 4 Red / 2 Blue
+    variations.push([RED, RED, RED, RED, RED, RED]); // 6-0-0
+    variations.push([RED, RED, RED, RED, RED, BLUE]); // 5-1-0
+    variations.push([RED, RED, RED, RED, BLUE, BLUE]); // 4-2-0
+    variations.push([RED, RED, RED, BLUE, BLUE, BLUE]); // 3-3-0
   } else if (archetype.id === 'skill_damage' || archetype.id === 'glass_medic' || archetype.id === 'lockdown') {
-    variations.push(['Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier']);
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]); // 0-0-6
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLUE]); // 0-1-5
   } else if (archetype.id === 'field_medic' || archetype.id === 'force_multiplier') {
-    variations.push(['Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Armor', 'Armor']); // 4 Yellow / 2 Blue
-    variations.push(['Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier']);
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, BLUE, BLUE]); // 0-2-4
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLUE]); // 0-1-5
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]); // 0-0-6
+    variations.push([YELLOW, YELLOW, YELLOW, BLUE, BLUE, BLUE]); // 0-3-3
   } else if (archetype.id === 'bulwark' || archetype.id === 'lightning_rod') {
-    variations.push(['Armor', 'Armor', 'Armor', 'Armor', 'Armor', 'Armor']); // 6 Blue
-    variations.push(['Armor', 'Armor', 'Armor', 'Armor', 'Skill Tier', 'Skill Tier']); // 4 Blue / 2 Yellow
+    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, BLUE]); // 0-6-0
+    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, RED]); // 1-5-0
+    variations.push([BLUE, BLUE, BLUE, BLUE, RED, RED]); // 2-4-0
+    variations.push([BLUE, BLUE, BLUE, BLUE, YELLOW, YELLOW]); // 0-4-2
   } else if (archetype.id === 'hardened') {
-    variations.push(['Armor', 'Armor', 'Armor', 'Armor', 'Armor', 'Armor']);
-    variations.push(['Armor', 'Armor', 'Armor', 'Armor', 'Weapon Damage', 'Weapon Damage']);
-    variations.push(['Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier']);
+    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, BLUE]); // 0-6-0
+    variations.push([BLUE, BLUE, BLUE, BLUE, RED, RED]); // 2-4-0
+    variations.push([BLUE, BLUE, RED, RED, YELLOW, YELLOW]); // 2-2-2 (Hybrid)
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]); // 0-0-6
   } else {
-    variations.push(['Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage', 'Weapon Damage']);
-    variations.push(['Armor', 'Armor', 'Armor', 'Armor', 'Armor', 'Armor']);
-    variations.push(['Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier', 'Skill Tier']);
+    variations.push([RED, RED, RED, RED, RED, RED]);
+    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, BLUE]);
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]);
+    variations.push([RED, RED, RED, RED, BLUE, BLUE]);
+    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, BLUE, BLUE]);
+    variations.push([BLUE, BLUE, RED, RED, YELLOW, YELLOW]);
   }
 
   return variations;

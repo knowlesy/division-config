@@ -63,15 +63,15 @@ export const StatsPanel: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      {/* Pestilence Plague Banner if active */}
-      {stats.pestilencePlagueTickDamage && stats.pestilencePlagueTickDamage > 0 && (
+      {/* Damage Over Time / Debuff Tick Banner if active */}
+      {stats.dotTickDamage && stats.dotTickDamage > 0 && (
         <div className="bg-amber-950/30 border border-amber-800/60 p-2.5 clip-corner-sm flex items-center justify-between">
           <div>
             <div className="text-xs font-heading font-bold text-amber-400">
-              ☠️ PESTILENCE PLAGUE (50 STACKS)
+              ☠️ DAMAGE OVER TIME / DEBUFF TICK
             </div>
             <div className="text-[11px] font-mono text-shd-textSecondary">
-              Tick: <span className="text-white font-semibold">{Math.round(stats.pestilencePlagueTickDamage).toLocaleString()}</span> / sec (10s: {Math.round(stats.pestilencePlagueTickDamage * 10).toLocaleString()})
+              Tick: <span className="text-white font-semibold">{Math.round(stats.dotTickDamage).toLocaleString()}</span> / sec (10s: {Math.round(stats.dotTickDamage * 10).toLocaleString()})
             </div>
           </div>
           <ConfidenceBadge tag="[PDF]" />

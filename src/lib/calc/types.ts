@@ -153,7 +153,7 @@ export interface ComputedLoadoutStats {
   expectedDamagePerShot: number;
   burstDps: number;
   sustainedDps: number;
-  pestilencePlagueTickDamage?: number;
+  dotTickDamage?: number;
   totalArmor: number;
   totalHealth: number;
   effectiveHealth: number;
