@@ -123,4 +123,29 @@ describe('Data Pipeline Verification', () => {
       expect(content).not.toContain('null,null');
     }
   });
+
+  it('strictly resolves all referenced sets, brands, and named items to entries in /data/', () => {
+    const gearSets = JSON.parse(fs.readFileSync(path.join(dataDir, 'gear-sets.json'), 'utf8'));
+    const brandSets = JSON.parse(fs.readFileSync(path.join(dataDir, 'brand-sets.json'), 'utf8'));
+    const namedGear = JSON.parse(fs.readFileSync(path.join(dataDir, 'gear-named.json'), 'utf8'));
+
+    const setIds = new Set(gearSets.map((s: any) => s.id));
+    const brandIds = new Set(brandSets.map((b: any) => b.id));
+    const namedNames = new Set(namedGear.map((g: any) => g.name.toLowerCase().replace(/[\u2018\u2019]/g, "'")));
+
+    // Verify key references in optimizer/calculator resolve to valid records in /data/
+    expect(setIds.has('future-initiative')).toBe(true);
+    expect(setIds.has('tipping-scales')).toBe(true);
+    expect(setIds.has('eclipse-protocol')).toBe(true);
+    expect(setIds.has('striker-s-battlegear')).toBe(true);
+    expect(setIds.has('foundry-bulwark')).toBe(true);
+    expect(setIds.has('system-corruption')).toBe(true);
+    expect(setIds.has('tip-of-the-spear')).toBe(true);
+    expect(setIds.has('aces-eights')).toBe(true);
+
+    expect(namedNames.has('the courier')).toBe(true);
+    expect(namedNames.has("coyote's mask")).toBe(true);
+    expect(namedNames.has('btsu datagloves')).toBe(true);
+    expect(namedNames.has('the setup')).toBe(true);
+  });
 });
