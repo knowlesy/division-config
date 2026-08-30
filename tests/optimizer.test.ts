@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { runTwoTierOptimization, getAllCoreVariations } from '../src/lib/optimizer/engine';
-import { computeFarmingProbability } from '../src/lib/optimizer/cost-model';
+import { computeFarmingProbability, getFreeMinorsCount } from '../src/lib/optimizer/cost-model';
 import { WeaponInstance } from '../src/lib/calc/types';
 import { ARCHETYPES } from '../src/lib/optimizer/archetypes';
 
@@ -192,25 +192,51 @@ describe('Two-Tier Optimizer Engine', () => {
     expect(uniqueKeys.has('2-2-2')).toBe(true);
   });
 
-  it('correctly calculates exact combinatoric farming probabilities and ratios', () => {
+  it('correctly derives free minor slots and calculates exact combinatoric farming probabilities', () => {
+    // 1. Derivation of free minor slots
+    expect(getFreeMinorsCount({ kind: 'gear-set', slot: 'mask' })).toBe(1);
+    expect(getFreeMinorsCount({ kind: 'gear-set', slot: 'chest' })).toBe(1);
+    expect(getFreeMinorsCount({ kind: 'named', slot: 'gloves' })).toBe(1); // Named non-chest/bp (1 locked perfect minor)
+    expect(getFreeMinorsCount({ kind: 'named', slot: 'kneepads' })).toBe(1);
+    expect(getFreeMinorsCount({ kind: 'named', slot: 'backpack' })).toBe(2); // Named backpack (talent locked, 2 minors free)
+    expect(getFreeMinorsCount({ kind: 'named', slot: 'chest' })).toBe(2);
+    expect(getFreeMinorsCount({ kind: 'brand', slot: 'holster' })).toBe(2);
+
+    // 2. Single free minor slot (Gear Sets, Named non-chest/bp): 1/12 (12 drops) vs 1.0 (1 drop) -> 12x ratio
+    const singleSlotCoreRecal = computeFarmingProbability(1, true, 1);
+    expect(singleSlotCoreRecal.probability).toBeCloseTo(1 / 12, 5);
+    expect(singleSlotCoreRecal.expectedDrops).toBe(12);
+    expect(singleSlotCoreRecal.confidence).toBe('[?]');
+
+    const singleSlotCoreKept = computeFarmingProbability(1, false, 1);
+    expect(singleSlotCoreKept.probability).toBe(1.0);
+    expect(singleSlotCoreKept.expectedDrops).toBe(1);
+    expect(singleSlotCoreKept.confidence).toBe('[?]');
+
+    const ratioSingle = singleSlotCoreKept.probability / singleSlotCoreRecal.probability;
+    expect(ratioSingle).toBeCloseTo(12, 1);
+
+    // 3. Two free minor slots (Brand / High-End / Named Chest & BP):
     // 2 desired minors: Scenario A (1/66, 66 drops) vs Scenario B (21/66, 3.14 drops) -> ~21x ratio
-    const twoMinorsCoreRecal = computeFarmingProbability(2, true);
+    const twoMinorsCoreRecal = computeFarmingProbability(2, true, 2);
     expect(twoMinorsCoreRecal.probability).toBeCloseTo(1 / 66, 5);
     expect(twoMinorsCoreRecal.expectedDrops).toBe(66);
+    expect(twoMinorsCoreRecal.confidence).toBe('[?]');
 
-    const twoMinorsCoreKept = computeFarmingProbability(2, false);
+    const twoMinorsCoreKept = computeFarmingProbability(2, false, 2);
     expect(twoMinorsCoreKept.probability).toBeCloseTo(21 / 66, 5);
     expect(twoMinorsCoreKept.expectedDrops).toBeCloseTo(66 / 21, 2);
+    expect(twoMinorsCoreKept.confidence).toBe('[?]');
 
     const ratio2 = twoMinorsCoreKept.probability / twoMinorsCoreRecal.probability;
     expect(ratio2).toBeCloseTo(21, 1);
 
-    // 1 desired minor: Scenario A (1/6, 6 drops) vs Scenario B (1.0, 1 drop) -> 6x ratio
-    const oneMinorCoreRecal = computeFarmingProbability(1, true);
+    // 1 desired minor on 2-slot piece: Scenario A (1/6, 6 drops) vs Scenario B (1.0, 1 drop) -> 6x ratio
+    const oneMinorCoreRecal = computeFarmingProbability(1, true, 2);
     expect(oneMinorCoreRecal.probability).toBeCloseTo(1 / 6, 5);
     expect(oneMinorCoreRecal.expectedDrops).toBe(6);
 
-    const oneMinorCoreKept = computeFarmingProbability(1, false);
+    const oneMinorCoreKept = computeFarmingProbability(1, false, 2);
     expect(oneMinorCoreKept.probability).toBe(1.0);
     expect(oneMinorCoreKept.expectedDrops).toBe(1);
 

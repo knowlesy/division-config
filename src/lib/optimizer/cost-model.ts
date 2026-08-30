@@ -353,16 +353,50 @@ export function computeTwoTierGap(
 }
 
 /**
- * Computes exact combinatoric drop probability for High-End gear pieces
- * with 2 minor slots drawn from a standard pool of N = 12 attributes.
+ * Determines the number of free (re-rollable/customizable) minor attribute slots on a gear piece.
+ * - Gear Set pieces carry 1 minor slot.
+ * - Named pieces in non-talent slots (mask, gloves, holster, kneepads) have 1 locked Perfect attribute + 1 free minor slot.
+ * - High-End / Brand pieces and Named Chest/Backpacks have 2 free minor slots.
+ */
+export function getFreeMinorsCount(piece: { kind: string; slot: string }): 1 | 2 {
+  if (piece.kind === 'gear-set') {
+    return 1;
+  }
+  if (piece.kind === 'named' && piece.slot !== 'chest' && piece.slot !== 'backpack') {
+    return 1; // 1 locked perfect minor + 1 free minor
+  }
+  return 2;
+}
+
+/**
+ * Computes exact combinatoric drop probability for gear pieces
+ * drawn from a standard pool of N = 12 minor attributes under a uniform-draw assumption [?].
  *
  * @param desiredMinorsCount Number of specific minor attributes the build requires (1 or 2).
  * @param isCoreRecalibrated True if recalibration is committed to the Core; False if Core is kept and recal is free for a Minor.
+ * @param freeSlotsCount Number of free minor attribute slots on the piece (1 for Gear Sets & Named non-talent pieces; 2 for High-End).
  */
 export function computeFarmingProbability(
   desiredMinorsCount: 1 | 2,
-  isCoreRecalibrated: boolean
-): { probability: number; expectedDrops: number } {
+  isCoreRecalibrated: boolean,
+  freeSlotsCount: 1 | 2 = 2
+): { probability: number; expectedDrops: number; confidence: string } {
+  // Standard pool of 12 minor attributes in Division 2
+  const N = 12;
+
+  // Single free minor slot (Gear Sets, Named non-chest/backpack pieces)
+  if (freeSlotsCount === 1) {
+    if (isCoreRecalibrated) {
+      // Must drop the 1 desired minor naturally: 1 out of 12
+      const prob = 1 / N; // ~8.333%
+      return { probability: prob, expectedDrops: N, confidence: '[?]' }; // 12 drops
+    } else {
+      // Freed recalibration: guaranteed via recalibration bench
+      return { probability: 1.0, expectedDrops: 1, confidence: '[?]' }; // 1 drop
+    }
+  }
+
+  // Two free minor slots (Brand / High-End / Named Chest & Backpack)
   // Total distinct unordered pairs drawn from 12 minors = C(12,2) = 66
   const TOTAL_PAIRS = 66;
 
@@ -370,23 +404,23 @@ export function computeFarmingProbability(
     if (isCoreRecalibrated) {
       // Both minors must drop correct: exactly 1 qualifying pair out of 66
       const prob = 1 / TOTAL_PAIRS; // ~1.515%
-      return { probability: prob, expectedDrops: TOTAL_PAIRS }; // 66 drops
+      return { probability: prob, expectedDrops: TOTAL_PAIRS, confidence: '[?]' }; // 66 drops
     } else {
       // Freed recalibration: at least one minor must drop correct
       // Non-qualifying pairs (neither desired) = C(10,2) = 45
       // Qualifying pairs = 66 - 45 = 21
       const prob = 21 / TOTAL_PAIRS; // ~31.818%
-      return { probability: prob, expectedDrops: TOTAL_PAIRS / 21 }; // ~3.14 drops
+      return { probability: prob, expectedDrops: TOTAL_PAIRS / 21, confidence: '[?]' }; // ~3.14 drops
     }
   } else {
-    // 1 desired minor
+    // 1 desired minor on a 2-slot piece
     if (isCoreRecalibrated) {
       // Must drop naturally: 11 pairs out of 66 contain the desired minor
       const prob = 11 / TOTAL_PAIRS; // 1/6 (~16.667%)
-      return { probability: prob, expectedDrops: 6 }; // 6 drops
+      return { probability: prob, expectedDrops: 6, confidence: '[?]' }; // 6 drops
     } else {
       // Guaranteed via recalibration bench
-      return { probability: 1.0, expectedDrops: 1 }; // 1 drop
+      return { probability: 1.0, expectedDrops: 1, confidence: '[?]' }; // 1 drop
     }
   }
 }
