@@ -242,5 +242,11 @@ describe('Two-Tier Optimizer Engine', () => {
 
     const ratio1 = oneMinorCoreKept.probability / oneMinorCoreRecal.probability;
     expect(ratio1).toBeCloseTo(6, 1);
+
+    // 4. Edge Case: desiredMinorsCount = 2 on freeSlotsCount = 1 (unsatisfiable)
+    const impossibleCase = computeFarmingProbability(2, false, 1);
+    expect(impossibleCase.probability).toBe(0);
+    expect(impossibleCase.expectedDrops).toBe(Infinity);
+    expect(impossibleCase.confidence).toBe('[?]');
   });
 });

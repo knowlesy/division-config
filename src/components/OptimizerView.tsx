@@ -365,6 +365,7 @@ export const OptimizerView: React.FC<Props> = ({
               score={result.practical.score}
               shoppingList={result.practical.shoppingList}
               weapons={result.practical.weapons}
+              runnerUp={result.practical.runnerUp}
               onEquip={() => handleEquipTier('practical')}
               onCompare={() => handleCompareTier('practical')}
               archetype={result.archetype}
@@ -379,6 +380,7 @@ export const OptimizerView: React.FC<Props> = ({
               score={result.ceiling.score}
               shoppingList={result.ceiling.shoppingList}
               weapons={result.ceiling.weapons}
+              runnerUp={result.ceiling.runnerUp}
               onEquip={() => handleEquipTier('ceiling')}
               onCompare={() => handleCompareTier('ceiling')}
               archetype={result.archetype}
@@ -399,6 +401,7 @@ interface TierColumnProps {
   score: number;
   shoppingList: ShoppingListItem[];
   weapons: WeaponShoppingItem[];
+  runnerUp?: { name: string; score: number; scoreDeltaPct: number };
   onEquip: () => void;
   onCompare: () => void;
   archetype: ArchetypeDefinition;
@@ -412,51 +415,65 @@ const TierColumn: React.FC<TierColumnProps> = ({
   stats,
   shoppingList,
   weapons,
+  runnerUp,
   onEquip,
   onCompare,
   isCeiling
 }) => {
+  const [isBreakdownOpen, setIsBreakdownOpen] = useState<boolean>(true);
+
   return (
     <div className={`bg-shd-surface1 border ${isCeiling ? 'border-shd-orange/50' : 'border-shd-border1'} p-4 clip-corner shadow-lg flex flex-col gap-4`}>
       {/* Column Header */}
-      <div className="flex items-center justify-between border-b border-shd-border2 pb-2.5">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className={`text-[10px] font-heading font-bold px-1.5 py-0.5 uppercase clip-corner-sm ${
-              isCeiling ? 'bg-shd-orange text-shd-bg' : 'bg-shd-surface2 text-shd-textSecondary border border-shd-border3'
-            }`}>
-              {tag}
-            </span>
-            <h3 className="font-heading font-bold text-base text-shd-textPrimary uppercase tracking-wider">
-              {title}
-            </h3>
-            {stats.confidenceFlags && stats.confidenceFlags.map((flag: string) => (
-              <ConfidenceBadge key={flag} tag={flag} />
-            ))}
+      <div className="flex flex-col gap-2 border-b border-shd-border2 pb-2.5">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] font-heading font-bold px-1.5 py-0.5 uppercase clip-corner-sm ${
+                isCeiling ? 'bg-shd-orange text-shd-bg' : 'bg-shd-surface2 text-shd-textSecondary border border-shd-border3'
+              }`}>
+                {tag}
+              </span>
+              <h3 className="font-heading font-bold text-base text-shd-textPrimary uppercase tracking-wider">
+                {title}
+              </h3>
+              {stats.confidenceFlags && stats.confidenceFlags.map((flag: string) => (
+                <ConfidenceBadge key={flag} tag={flag} />
+              ))}
+            </div>
+            <p className="text-[11px] font-mono text-shd-textMonoMuted mt-0.5">
+              {subtitle}
+            </p>
           </div>
-          <p className="text-[11px] font-mono text-shd-textMonoMuted mt-0.5">
-            {subtitle}
-          </p>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onCompare}
+              className="px-3 py-1.5 text-xs font-heading font-semibold bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm transition-colors focus-visible:ring-2 focus-visible:ring-shd-orange outline-none"
+            >
+              + Compare
+            </button>
+            <button
+              onClick={onEquip}
+              className={`px-4 py-1.5 text-xs font-heading font-bold clip-corner-sm transition-colors focus-visible:ring-2 focus-visible:ring-shd-orange outline-none ${
+                isCeiling
+                  ? 'bg-shd-orange text-shd-bg hover:bg-shd-orangeLight'
+                  : 'bg-shd-surface2 text-shd-textPrimary border border-shd-border3 hover:border-shd-orange'
+              }`}
+            >
+              Equip
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onCompare}
-            className="px-3 py-1.5 text-xs font-heading font-semibold bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm transition-colors"
-          >
-            + Compare
-          </button>
-          <button
-            onClick={onEquip}
-            className={`px-4 py-1.5 text-xs font-heading font-bold clip-corner-sm transition-colors ${
-              isCeiling
-                ? 'bg-shd-orange text-shd-bg hover:bg-shd-orangeLight'
-                : 'bg-shd-surface2 text-shd-textPrimary border border-shd-border3 hover:border-shd-orange'
-            }`}
-          >
-            Equip
-          </button>
-        </div>
+        {/* Runner-up Candidate Margin (if present) */}
+        {runnerUp && (
+          <div className="text-[11px] font-mono text-shd-textSecondary flex items-center gap-1.5 pt-1 border-t border-shd-border3/40">
+            <span className="text-shd-textMonoMuted">Runner-up:</span>
+            <span className="text-white font-medium">{runnerUp.name}</span>
+            <span className="text-amber-400 font-semibold">(-{runnerUp.scoreDeltaPct.toFixed(1)}% vs Winner)</span>
+          </div>
+        )}
       </div>
 
       {/* Stats Summary Bar */}
@@ -476,9 +493,110 @@ const TierColumn: React.FC<TierColumnProps> = ({
         <div>
           <div className="text-[9px] text-shd-textMonoMuted uppercase">Repair / Status</div>
           <div className="font-bold text-emerald-400 text-sm">
-            +{Math.round((stats.groupBreakdown.skillRepairSum || stats.groupBreakdown.statusEffectsSum) * 100)}%
+            +{Math.round((stats.groupBreakdown?.skillRepairSum || stats.groupBreakdown?.statusEffectsSum || 0) * 100)}%
           </div>
         </div>
+      </div>
+
+      {/* Multiplier-Group Breakdown (Criterion 7) */}
+      <div className="bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm flex flex-col gap-2 font-mono text-xs">
+        <button
+          onClick={() => setIsBreakdownOpen(!isBreakdownOpen)}
+          className="flex items-center justify-between text-shd-textSecondary hover:text-white transition-colors text-left focus-visible:ring-2 focus-visible:ring-shd-orange outline-none"
+        >
+          <span className="text-[11px] font-heading font-bold uppercase text-shd-orange tracking-wider flex items-center gap-1.5">
+            <span>📊 MULTIPLIER GROUP BREAKDOWN</span>
+            <span className="text-[9px] font-normal text-shd-textMonoMuted">(Additive vs Multiplicative Math)</span>
+          </span>
+          <span className="text-shd-textMonoMuted text-xs">{isBreakdownOpen ? '▲' : '▼'}</span>
+        </button>
+
+        {isBreakdownOpen && (
+          <div className="flex flex-col gap-2.5 pt-2 border-t border-shd-border3/60">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+              <div>
+                <span className="text-shd-textMonoMuted block">Weapon Dmg Sum:</span>
+                <span className="text-shd-redCore font-bold">+{Math.round((stats.groupBreakdown?.weaponDamageSum || 0) * 100)}%</span>
+              </div>
+              <div>
+                <span className="text-shd-textMonoMuted block">Total Weapon Dmg:</span>
+                <span className="text-amber-300 font-bold">+{Math.round((stats.groupBreakdown?.totalWeaponDamageSum || 0) * 100)}%</span>
+              </div>
+              <div>
+                <span className="text-shd-textMonoMuted block">Crit Chance / Dmg:</span>
+                <span className="text-shd-textPrimary font-bold">
+                  {Math.round(stats.critChance * 100)}%{stats.critChance >= 0.60 ? ' [CAP]' : ''} / +{Math.round(stats.critDamage * 100)}%
+                </span>
+              </div>
+              <div>
+                <span className="text-shd-textMonoMuted block">Headshot Dmg:</span>
+                <span className="text-shd-textPrimary font-bold">+{Math.round(stats.headshotDamage * 100)}%</span>
+              </div>
+              <div>
+                <span className="text-shd-textMonoMuted block">Skill Dmg / Tier:</span>
+                <span className="text-shd-yellowCore font-bold">+{Math.round((stats.groupBreakdown?.skillDamageSum || 0) * 100)}% (ST{stats.skillTier})</span>
+              </div>
+              <div>
+                <span className="text-shd-textMonoMuted block">DtOOC / DtA:</span>
+                <span className="text-emerald-400 font-bold">
+                  +{Math.round(((stats.multipliers?.dtOOC || 1.0) - 1.0) * 100)}% / +{Math.round(((stats.multipliers?.dta || 1.0) - 1.0) * 100)}%
+                </span>
+              </div>
+            </div>
+
+            {/* Amplifiers (Separate Multiplicative Terms) */}
+            {stats.independentAmplifiers && stats.independentAmplifiers.length > 0 && (
+              <div className="pt-1.5 border-t border-shd-border3/40">
+                <span className="text-[10px] uppercase font-bold text-amber-300 block mb-1">
+                  Multiplicative Amplifiers (Independent Terms):
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {stats.independentAmplifiers.map((amp: any, ai: number) => (
+                    <span
+                      key={ai}
+                      className="text-[10px] px-2 py-0.5 bg-shd-surface1 border border-amber-500/40 text-amber-200 clip-corner-sm"
+                    >
+                      ×(1 + {Math.round(amp.value * 100)}%) <span className="text-shd-textMonoMuted font-normal">{amp.source}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Active Brand & Gear Set Bonuses */}
+            {((stats.activeSetBonuses && stats.activeSetBonuses.length > 0) || (stats.activeBrandBonuses && stats.activeBrandBonuses.length > 0)) && (
+              <div className="pt-1.5 border-t border-shd-border3/40">
+                <span className="text-[10px] uppercase font-bold text-shd-textSecondary block mb-1">
+                  Active Set & Brand Thresholds:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {stats.activeSetBonuses?.map((sb: any, sbi: number) => (
+                    <span key={sbi} className="text-[10px] px-1.5 py-0.5 bg-shd-surface1 border border-teal-500/40 text-teal-300 clip-corner-sm">
+                      {sb.name} ({sb.count}pc: {sb.activeTalents?.join(', ') || 'Active'})
+                    </span>
+                  ))}
+                  {stats.activeBrandBonuses?.map((bb: any, bbi: number) => (
+                    <span key={bbi} className="text-[10px] px-1.5 py-0.5 bg-shd-surface1 border border-shd-border3 text-shd-textSecondary clip-corner-sm">
+                      {bb.brandName} ({bb.count}pc)
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* In-Game Mismatch Notes & Traps Warnings */}
+            {stats.warnings && stats.warnings.length > 0 && (
+              <div className="pt-1.5 flex flex-col gap-1 border-t border-shd-border3/40">
+                {stats.warnings.map((w: string, wi: number) => (
+                  <div key={wi} className="text-[10px] text-amber-300 flex items-start gap-1">
+                    <span>⚠️</span>
+                    <span>{w}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Weapons Shopping List (3 Slots) */}

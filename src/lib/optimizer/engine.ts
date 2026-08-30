@@ -66,6 +66,9 @@ export function runTwoTierOptimization(
   const warnings: string[] = [];
   const confidenceFlags = new Set<string>();
 
+  let runnerUpCeilingBuild: { name: string; score: number; scoreDeltaPct: number } | null = null;
+  let runnerUpPracticalBuild: { name: string; score: number; scoreDeltaPct: number } | null = null;
+
   for (const skeleton of candidateSkeletons) {
     // 1. Solve Tier 2 (Ceiling)
     const ceilingPlan = solveMinorAttributes(skeleton, archetype, 2, activeWeapon, watch, spec, context);
@@ -95,21 +98,51 @@ export function runTwoTierOptimization(
     const practicalStats = calculateLoadout(practicalGear, activeWeapon, watch, spec, context);
     const practicalScore = archetype.score(practicalStats, context);
 
+    const buildName = getBuildSkeletonName(skeleton);
+
     if (!bestCeilingBuild || ceilingScore > bestCeilingBuild.score) {
+      if (bestCeilingBuild) {
+        runnerUpCeilingBuild = {
+          name: (bestCeilingBuild as any).name || 'Previous candidate',
+          score: bestCeilingBuild.score,
+          scoreDeltaPct: ((ceilingScore - bestCeilingBuild.score) / (ceilingScore || 1)) * 100
+        };
+      }
       bestCeilingBuild = {
         gear: ceilingGear,
         stats: ceilingStats,
         score: ceilingScore,
-        minorPlan: ceilingPlan
-      };
+        minorPlan: ceilingPlan,
+        name: buildName
+      } as any;
+
+      if (bestPracticalBuild) {
+        runnerUpPracticalBuild = {
+          name: (bestPracticalBuild as any).name || 'Previous candidate',
+          score: bestPracticalBuild.score,
+          scoreDeltaPct: ((practicalScore - bestPracticalBuild.score) / (practicalScore || 1)) * 100
+        };
+      }
       bestPracticalBuild = {
         gear: practicalGear,
         stats: practicalStats,
         score: practicalScore,
-        minorPlan: practicalPlan
-      };
+        minorPlan: practicalPlan,
+        name: buildName
+      } as any;
 
       for (const flag of ceilingStats.confidenceFlags) confidenceFlags.add(flag);
+    } else if (!runnerUpCeilingBuild || ceilingScore > runnerUpCeilingBuild.score) {
+      runnerUpCeilingBuild = {
+        name: buildName,
+        score: ceilingScore,
+        scoreDeltaPct: ((bestCeilingBuild.score - ceilingScore) / (bestCeilingBuild.score || 1)) * 100
+      };
+      runnerUpPracticalBuild = {
+        name: buildName,
+        score: practicalScore,
+        scoreDeltaPct: ((bestPracticalBuild!.score - practicalScore) / (bestPracticalBuild!.score || 1)) * 100
+      };
     }
   }
 
@@ -185,20 +218,33 @@ export function runTwoTierOptimization(
       weapons: practicalWeapons,
       stats: bestPracticalBuild!.stats,
       score: bestPracticalBuild!.score,
-      shoppingList: practicalShoppingList
+      shoppingList: practicalShoppingList,
+      runnerUp: runnerUpPracticalBuild || undefined
     },
     ceiling: {
       gear: bestCeilingBuild.gear,
       weapons: ceilingWeapons,
       stats: bestCeilingBuild.stats,
       score: bestCeilingBuild.score,
-      shoppingList: ceilingShoppingList
+      shoppingList: ceilingShoppingList,
+      runnerUp: runnerUpCeilingBuild || undefined
     },
     gap,
     warnings,
     confidenceFlags: Array.from(confidenceFlags),
     floorsSatisfied: true
   };
+}
+
+function getBuildSkeletonName(skeleton: Record<GearSlot, GearPieceInstance>): string {
+  const pieces = Object.values(skeleton);
+  const gearSet = pieces.find(p => p.kind === 'gear-set');
+  const exotic = pieces.find(p => p.kind === 'exotic');
+  const named = pieces.find(p => p.kind === 'named');
+  if (gearSet) {
+    return `4pc ${gearSet.name || gearSet.brandOrSetId}${exotic ? ` + ${exotic.name}` : (named ? ` + ${named.name}` : '')}`;
+  }
+  return `${pieces[0]?.name || pieces[0]?.brandOrSetId || 'High-End'} Hybrid`;
 }
 
 /**

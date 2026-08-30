@@ -58,6 +58,7 @@ export interface TwoTierResult {
     stats: ComputedLoadoutStats;
     score: number;
     shoppingList: ShoppingListItem[];
+    runnerUp?: { name: string; score: number; scoreDeltaPct: number };
   };
   ceiling: {
     gear: Record<GearSlot, GearPieceInstance>;
@@ -65,6 +66,7 @@ export interface TwoTierResult {
     stats: ComputedLoadoutStats;
     score: number;
     shoppingList: ShoppingListItem[];
+    runnerUp?: { name: string; score: number; scoreDeltaPct: number };
   };
   gap: TwoTierGapAnalysis;
   warnings: string[];
@@ -381,6 +383,11 @@ export function computeFarmingProbability(
   isCoreRecalibrated: boolean,
   freeSlotsCount: 1 | 2 = 2
 ): { probability: number; expectedDrops: number; confidence: string } {
+  // Defensive validation: impossible to require more desired minors than available free slots
+  if (desiredMinorsCount > freeSlotsCount) {
+    return { probability: 0, expectedDrops: Infinity, confidence: '[?]' };
+  }
+
   // Standard pool of 12 minor attributes in Division 2
   const N = 12;
 
