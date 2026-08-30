@@ -7,37 +7,37 @@ import gearSetsData from '../../data/gear-sets.json';
 import gearNamedData from '../../data/gear-named.json';
 import gearTalentsData from '../../data/talents-gear.json';
 
-const brandSets = brandSetsData as any[];
-const gearSets = gearSetsData as any[];
-const namedGear = gearNamedData as any[];
-const gearTalents = gearTalentsData as any[];
+const brandSets = (brandSetsData as any[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+const gearSets = (gearSetsData as any[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+const namedGear = (gearNamedData as any[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+const gearTalents = (gearTalentsData as any[]).slice().sort((a, b) => a.name.localeCompare(b.name));
 
 const MINOR_OPTIONS: Array<{ name: string; value: number; unit: string; group: string }> = [
+  { name: 'Armor Regen', value: 4925, unit: '/s', group: 'Defensive' },
   { name: 'Critical Hit Chance', value: 0.06, unit: '%', group: 'Offensive' },
   { name: 'Critical Hit Damage', value: 0.12, unit: '%', group: 'Offensive' },
+  { name: 'Explosive Resistance', value: 0.10, unit: '%', group: 'Defensive' },
+  { name: 'Hazard Protection', value: 0.10, unit: '%', group: 'Defensive' },
   { name: 'Headshot Damage', value: 0.10, unit: '%', group: 'Offensive' },
-  { name: 'Weapon Handling', value: 0.08, unit: '%', group: 'Offensive' },
-  { name: 'Status Effects', value: 0.10, unit: '%', group: 'Skill' },
+  { name: 'Health', value: 18935, unit: '', group: 'Defensive' },
+  { name: 'Repair Skills', value: 0.20, unit: '%', group: 'Skill' },
   { name: 'Skill Damage', value: 0.10, unit: '%', group: 'Skill' },
   { name: 'Skill Haste', value: 0.12, unit: '%', group: 'Skill' },
-  { name: 'Repair Skills', value: 0.20, unit: '%', group: 'Skill' },
-  { name: 'Armor Regen', value: 4925, unit: '/s', group: 'Defensive' },
-  { name: 'Hazard Protection', value: 0.10, unit: '%', group: 'Defensive' },
-  { name: 'Explosive Resistance', value: 0.10, unit: '%', group: 'Defensive' },
-  { name: 'Health', value: 18935, unit: '', group: 'Defensive' }
-];
+  { name: 'Status Effects', value: 0.10, unit: '%', group: 'Skill' },
+  { name: 'Weapon Handling', value: 0.08, unit: '%', group: 'Offensive' }
+].sort((a, b) => a.name.localeCompare(b.name));
 
-const MOD_OPTIONS: Array<{ name: string; value: number; unit: string }> = [
-  { name: 'Critical Hit Chance (6%)', value: 0.06, unit: '%' },
-  { name: 'Critical Hit Damage (12%)', value: 0.12, unit: '%' },
-  { name: 'Headshot Damage (10%)', value: 0.10, unit: '%' },
-  { name: 'Protection from Elites (13%)', value: 0.13, unit: '%' },
-  { name: 'Skill Haste (12%)', value: 0.12, unit: '%' },
-  { name: 'Repair Skills (20%)', value: 0.20, unit: '%' },
-  { name: 'Skill Duration (10%)', value: 0.10, unit: '%' },
-  { name: 'Incoming Repairs (20%)', value: 0.20, unit: '%' },
-  { name: 'Armor on Kill (18.9k)', value: 18935, unit: '' }
-];
+const MOD_OPTIONS: Array<{ name: string; cleanName: string; value: number; unit: string }> = [
+  { name: 'Armor on Kill (18.9k)', cleanName: 'Armor on Kill', value: 18935, unit: '' },
+  { name: 'Critical Hit Chance (6%)', cleanName: 'Critical Hit Chance', value: 0.06, unit: '%' },
+  { name: 'Critical Hit Damage (12%)', cleanName: 'Critical Hit Damage', value: 0.12, unit: '%' },
+  { name: 'Headshot Damage (10%)', cleanName: 'Headshot Damage', value: 0.10, unit: '%' },
+  { name: 'Incoming Repairs (20%)', cleanName: 'Incoming Repairs', value: 0.20, unit: '%' },
+  { name: 'Protection from Elites (13%)', cleanName: 'Protection from Elites', value: 0.13, unit: '%' },
+  { name: 'Repair Skills (20%)', cleanName: 'Repair Skills', value: 0.20, unit: '%' },
+  { name: 'Skill Duration (10%)', cleanName: 'Skill Duration', value: 0.10, unit: '%' },
+  { name: 'Skill Haste (12%)', cleanName: 'Skill Haste', value: 0.12, unit: '%' }
+].sort((a, b) => a.cleanName.localeCompare(b.cleanName));
 
 interface Props {
   slot: GearSlot;
@@ -69,10 +69,18 @@ export const GearSlotCard: React.FC<Props> = ({ slot, piece, onChange }) => {
   const isBackpack = slot === 'backpack';
   const hasModSlot = ['mask', 'chest', 'backpack'].includes(slot) || piece.kind === 'improvised';
 
-  // Available named items / exotics for this slot
-  const slotNamedItems = namedGear.filter(g => g.slot?.toLowerCase().includes(slot.toLowerCase()));
-  const availableChestTalents = gearTalents.filter(t => t.slot === 'Chest');
-  const availableBackpackTalents = gearTalents.filter(t => t.slot === 'Backpack');
+  // Available named items / exotics for this slot, sorted A-Z
+  const slotNamedItems = namedGear
+    .filter(g => g.slot?.toLowerCase().includes(slot.toLowerCase()))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const availableChestTalents = gearTalents
+    .filter(t => t.slot === 'Chest')
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const availableBackpackTalents = gearTalents
+    .filter(t => t.slot === 'Backpack')
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const handleKindChange = (newKind: GearPieceInstance['kind']) => {
     if (newKind === 'brand') {

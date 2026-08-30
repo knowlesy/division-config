@@ -8,19 +8,19 @@ import weaponTalentsData from '../../data/talents-weapon.json';
 
 const weapons = weaponsData as any[];
 const namedWeapons = weaponsNamedData as any[];
-const weaponTalents = weaponTalentsData as any[];
+const weaponTalents = (weaponTalentsData as any[]).slice().sort((a, b) => a.name.localeCompare(b.name));
 
-const WEAPON_MINOR_OPTIONS: Array<{ name: string; value: number; unit: string }> = [
-  { name: 'Damage to Target Out of Cover (10%)', value: 0.10, unit: '%' },
-  { name: 'Damage to Armor (6%)', value: 0.06, unit: '%' },
-  { name: 'Critical Hit Chance (9.5%)', value: 0.095, unit: '%' },
-  { name: 'Critical Hit Damage (10%)', value: 0.10, unit: '%' },
-  { name: 'Headshot Damage (10%)', value: 0.10, unit: '%' },
-  { name: 'Rate of Fire (5%)', value: 0.05, unit: '%' },
-  { name: 'Magazine Size (12.5%)', value: 0.125, unit: '%' },
-  { name: 'Reload Speed (12%)', value: 0.12, unit: '%' },
-  { name: 'Health Damage (9.5%)', value: 0.095, unit: '%' }
-];
+const WEAPON_MINOR_OPTIONS: Array<{ name: string; cleanName: string; value: number; unit: string }> = [
+  { name: 'Critical Hit Chance (9.5%)', cleanName: 'Critical Hit Chance', value: 0.095, unit: '%' },
+  { name: 'Critical Hit Damage (10%)', cleanName: 'Critical Hit Damage', value: 0.10, unit: '%' },
+  { name: 'Damage to Armor (6%)', cleanName: 'Damage to Armor', value: 0.06, unit: '%' },
+  { name: 'Damage to Target Out of Cover (10%)', cleanName: 'Damage to Target Out of Cover', value: 0.10, unit: '%' },
+  { name: 'Headshot Damage (10%)', cleanName: 'Headshot Damage', value: 0.10, unit: '%' },
+  { name: 'Health Damage (9.5%)', cleanName: 'Health Damage', value: 0.095, unit: '%' },
+  { name: 'Magazine Size (12.5%)', cleanName: 'Magazine Size', value: 0.125, unit: '%' },
+  { name: 'Rate of Fire (5%)', cleanName: 'Rate of Fire', value: 0.05, unit: '%' },
+  { name: 'Reload Speed (12%)', cleanName: 'Reload Speed', value: 0.12, unit: '%' }
+].sort((a, b) => a.cleanName.localeCompare(b.cleanName));
 
 interface Props {
   slot: WeaponSlot;
