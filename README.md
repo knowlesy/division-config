@@ -16,7 +16,8 @@ Built with React 19, TypeScript, Vite 6, and TailwindCSS. Deployed automatically
 - **Full Red Horizon Dataset**: Native support for *Fafnir*, *Iron Will*, *Trick Shot*, *Rushdown*, *Melon Baller*, *Keeper*, *Teapot*, *Steamer*, *Ember Engine*, *Boiling Point*, and the *Determined* rework.
 - **Constraint-Based Build Optimiser**: Combinatorial search with fast pruning across primary objectives (Max Sustained DPS, Max Burst DPS, Max Bullet Hit, Max Plague DoT, Max Status Duration, Max Armor/DPS balance) with plain-English trade-off explanations.
 - **Side-by-Side Comparison Matrix**: Direct delta comparisons showing the mathematical impact of swapping gear pieces, set tiers, and talents.
-- **Private Zero-Telemetry Persistence**: Connects directly to personal GitHub accounts to store and synchronise builds in a private repository (`my-division-builds`). No third-party servers, user tracking, or telemetry.
+- **Standalone JSON Import & Export**: Download and upload loadouts as clean `.json` files to save, share, and backup builds locally.
+- **100% Offline & Client-Side**: Operates entirely in the browser using `localStorage`. Zero login requirements, zero third-party databases, and zero tracking.
 
 ---
 
@@ -33,7 +34,7 @@ graph TD
     G --> H["Build Optimiser Engine (src/lib/optimizer/)"]
     G --> I["React 19 Interactive UI (src/components/)"]
     H --> I
-    I --> J["GitHub Private Repo Sync (my-division-builds)"]
+    I --> J["Browser Local Storage & JSON Files (.json)"]
 ```
 
 ---
@@ -95,8 +96,8 @@ npm run build
 ## Privacy & Security
 
 - **Zero PII**: No hardcoded usernames, machine paths, or organizational identifiers.
-- **Direct User Storage**: Saved builds are stored in `localStorage` and synchronised directly with your personal GitHub account in a private repository (`my-division-builds`).
-- **No Third-Party Backend**: Static site execution with client-side cryptography and calculation.
+- **Local & Offline Storage**: Saved builds are stored in browser `localStorage` and can be exported as standalone `.json` files.
+- **No Third-Party Backend**: 100% static site execution with purely client-side calculation and zero tracking.
 
 ---
 

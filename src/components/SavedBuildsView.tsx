@@ -131,6 +131,41 @@ export const SavedBuildsView: React.FC<Props> = ({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  const handleDownloadBuild = (build: SavedBuild) => {
+    const blob = new Blob([JSON.stringify(build, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${build.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const text = event.target?.result as string;
+        const parsed = parseBuildString(text.trim());
+        if (parsed && (parsed.gear || parsed.weapon)) {
+          saveLocalBuild(parsed);
+          refreshBuilds();
+        } else {
+          setImportError('Invalid build JSON file format.');
+        }
+      } catch (err) {
+        setImportError('Failed to parse build JSON file.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col gap-5 py-2">
       {/* Save Current Build Card */}
@@ -139,9 +174,7 @@ export const SavedBuildsView: React.FC<Props> = ({
           <h2 className="font-heading font-bold text-sm text-shd-textPrimary uppercase tracking-wider">
             💾 Save Current Loadout
           </h2>
-          {syncStatus && (
-            <span className="text-[10px] font-mono text-shd-textMonoMuted">{syncStatus}</span>
-          )}
+          <span className="text-[10px] font-mono text-emerald-400">Browser Local Storage</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
@@ -212,6 +245,13 @@ export const SavedBuildsView: React.FC<Props> = ({
                       {copiedId === build.id ? '✓ Copied' : '🔗 Share URL'}
                     </button>
                     <button
+                      onClick={() => handleDownloadBuild(build)}
+                      className="text-xs font-mono px-2 py-1 bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm"
+                      title="Download as JSON file"
+                    >
+                      ⬇ JSON
+                    </button>
+                    <button
                       onClick={() => handleDelete(build.id, build.sha)}
                       className="text-xs font-mono px-2 py-1 border border-shd-border3 hover:border-rose-500 text-shd-textMonoMuted hover:text-rose-400 clip-corner-sm"
                     >
@@ -234,9 +274,20 @@ export const SavedBuildsView: React.FC<Props> = ({
 
       {/* Import / Export JSON Card */}
       <div className="bg-shd-surface1 border border-shd-border1 p-4 clip-corner shadow-lg flex flex-col gap-3">
-        <h3 className="font-heading font-bold text-sm text-shd-textPrimary uppercase tracking-wider">
-          📥 Import Build via JSON
-        </h3>
+        <div className="flex items-center justify-between">
+          <h3 className="font-heading font-bold text-sm text-shd-textPrimary uppercase tracking-wider">
+            📥 Import Build via JSON
+          </h3>
+          <label className="px-3 py-1 text-xs font-mono border border-shd-border2 hover:border-shd-orange text-shd-textSecondary hover:text-white bg-shd-surface2 clip-corner-sm transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm">
+            <span>⬆ Upload JSON File</span>
+            <input
+              type="file"
+              accept=".json,application/json"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+          </label>
+        </div>
         <textarea
           rows={3}
           value={importJson}
@@ -253,7 +304,7 @@ export const SavedBuildsView: React.FC<Props> = ({
             disabled={!importJson.trim()}
             className="px-4 py-1.5 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors disabled:opacity-50"
           >
-            Import Build
+            Import Pasted JSON
           </button>
         </div>
       </div>

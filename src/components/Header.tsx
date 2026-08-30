@@ -104,31 +104,12 @@ export const Header: React.FC<Props> = ({
           </button>
         </nav>
 
-        {/* Right: Auth / GitHub Sync */}
+        {/* Right Status Indicator */}
         <div className="flex items-center gap-2">
-          {user ? (
-            <div className="flex items-center gap-2 bg-shd-surface2 px-2.5 py-1 border border-shd-border2 clip-corner-sm">
-              {user.avatar_url && (
-                <img src={user.avatar_url} alt={user.login} className="w-5 h-5 rounded-full border border-shd-orange/60" />
-              )}
-              <span className="text-xs font-mono text-shd-textSecondary">{user.login}</span>
-              <button
-                onClick={onSignOut}
-                title="Sign out"
-                className="text-[10px] font-mono text-shd-textMonoMuted hover:text-rose-400 ml-1"
-              >
-                ✕
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={onOpenAuthModal}
-              className="px-3 py-1.5 text-xs font-mono border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm bg-shd-surface2 transition-colors flex items-center gap-1.5"
-            >
-              <span className="w-2 h-2 rounded-full bg-amber-500/80"></span>
-              Connect GitHub
-            </button>
-          )}
+          <div className="flex items-center gap-1.5 bg-shd-surface2 px-2.5 py-1 border border-shd-border2 clip-corner-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.8)]"></span>
+            <span className="text-[11px] font-mono text-shd-textSecondary">LOCAL READY</span>
+          </div>
         </div>
       </div>
     </header>
