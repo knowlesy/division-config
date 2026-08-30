@@ -210,8 +210,8 @@ function generateCandidateSkeletons(
 ): Array<Record<GearSlot, GearPieceInstance>> {
   const skeletons: Array<Record<GearSlot, GearPieceInstance>> = [];
 
-  // Determine target core preference based on archetype
-  const coreVariations: CoreType[][] = getTargetCoreVariations(archetype, floors);
+  // Generate all 28 core variations across Red, Blue, and Yellow
+  const coreVariations: CoreType[][] = getAllCoreVariations();
 
   // 1. Generate 4pc Gear Set skeletons across all gear sets in /data/
   for (const set of gearSets) {
@@ -330,43 +330,25 @@ function generateCandidateSkeletons(
   return skeletons;
 }
 
-function getTargetCoreVariations(archetype: ArchetypeDefinition, floors: ArchetypeFloors): CoreType[][] {
-  const variations: CoreType[][] = [];
-
+export function getAllCoreVariations(): CoreType[][] {
   const RED: CoreType = 'Weapon Damage';
   const BLUE: CoreType = 'Armor';
   const YELLOW: CoreType = 'Skill Tier';
 
-  if (archetype.id === 'sustained_dps' || archetype.id === 'precision_dps') {
-    variations.push([RED, RED, RED, RED, RED, RED]); // 6-0-0
-    variations.push([RED, RED, RED, RED, RED, BLUE]); // 5-1-0
-    variations.push([RED, RED, RED, RED, BLUE, BLUE]); // 4-2-0
-    variations.push([RED, RED, RED, BLUE, BLUE, BLUE]); // 3-3-0
-  } else if (archetype.id === 'skill_damage' || archetype.id === 'glass_medic' || archetype.id === 'lockdown') {
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]); // 0-0-6
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLUE]); // 0-1-5
-  } else if (archetype.id === 'field_medic' || archetype.id === 'force_multiplier') {
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, BLUE, BLUE]); // 0-2-4
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLUE]); // 0-1-5
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]); // 0-0-6
-    variations.push([YELLOW, YELLOW, YELLOW, BLUE, BLUE, BLUE]); // 0-3-3
-  } else if (archetype.id === 'bulwark' || archetype.id === 'lightning_rod') {
-    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, BLUE]); // 0-6-0
-    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, RED]); // 1-5-0
-    variations.push([BLUE, BLUE, BLUE, BLUE, RED, RED]); // 2-4-0
-    variations.push([BLUE, BLUE, BLUE, BLUE, YELLOW, YELLOW]); // 0-4-2
-  } else if (archetype.id === 'hardened') {
-    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, BLUE]); // 0-6-0
-    variations.push([BLUE, BLUE, BLUE, BLUE, RED, RED]); // 2-4-0
-    variations.push([BLUE, BLUE, RED, RED, YELLOW, YELLOW]); // 2-2-2 (Hybrid)
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]); // 0-0-6
-  } else {
-    variations.push([RED, RED, RED, RED, RED, RED]);
-    variations.push([BLUE, BLUE, BLUE, BLUE, BLUE, BLUE]);
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW]);
-    variations.push([RED, RED, RED, RED, BLUE, BLUE]);
-    variations.push([YELLOW, YELLOW, YELLOW, YELLOW, BLUE, BLUE]);
-    variations.push([BLUE, BLUE, RED, RED, YELLOW, YELLOW]);
+  const variations: CoreType[][] = [];
+
+  // Generate all 28 combinations of 6 cores across 3 types (Red, Blue, Yellow)
+  // Stars and bars theorem: C(6 + 3 - 1, 3 - 1) = C(8, 2) = 28 integer partitions
+  for (let r = 6; r >= 0; r--) {
+    for (let b = 6 - r; b >= 0; b--) {
+      const y = 6 - r - b;
+      const cores: CoreType[] = [
+        ...Array(r).fill(RED),
+        ...Array(b).fill(BLUE),
+        ...Array(y).fill(YELLOW)
+      ];
+      variations.push(cores);
+    }
   }
 
   return variations;

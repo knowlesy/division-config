@@ -238,6 +238,29 @@ export function calculateLoadout(
           isIndependentAmp: true,
           confidence: '[PDF]'
         });
+      } else if (setId.includes('future-initiative')) {
+        const dmgBonus = hasChestTalent ? 0.25 : 0.15;
+        bonuses.push({
+          group: 'Total Weapon Damage',
+          value: dmgBonus,
+          source: `Future Initiative (Ground Control - Self: +${dmgBonus * 100}% at full armor)`,
+          beneficiary: 'self'
+        });
+        bonuses.push({
+          group: 'Total Weapon Damage',
+          value: dmgBonus,
+          source: `Future Initiative (Ground Control - Allies: +${dmgBonus * 100}% at full armor)`,
+          beneficiary: 'ally'
+        });
+
+        // Proximity splash repair: 60% base, upgraded to 120% with backpack talent (Advanced Combat Tactics)
+        const splashBonus = hasBackpackTalent ? 1.20 : 0.60;
+        bonuses.push({
+          group: 'Skill Repair',
+          value: splashBonus,
+          source: `Future Initiative (Ground Control Proximity Splash: +${splashBonus * 100}% within 5m)`,
+          beneficiary: 'ally'
+        });
       } else if (setId.includes('ortiz-exuro')) {
         if (hasBackpackTalent && context.isEnemyBurning) {
           const res = calculateOrtizHeatstroke(true);

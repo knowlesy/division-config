@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { runTwoTierOptimization } from '../src/lib/optimizer/engine';
+import { runTwoTierOptimization, getAllCoreVariations } from '../src/lib/optimizer/engine';
 import { WeaponInstance } from '../src/lib/calc/types';
 import { ARCHETYPES } from '../src/lib/optimizer/archetypes';
 
@@ -166,5 +166,28 @@ describe('Two-Tier Optimizer Engine', () => {
 
     // Score is exactly sustained DPS with 0 DoT
     expect(bulletOnlyRun.ceiling.score).toBeCloseTo(bulletOnlyRun.ceiling.stats.sustainedDps, -1);
+  });
+
+  it('evaluates all 28 integer partitions of 6 cores across Red, Blue, and Yellow (C(8,2) = 28)', () => {
+    const variations = getAllCoreVariations();
+    expect(variations).toHaveLength(28);
+
+    // Verify all 28 are unique partitions of 6
+    const uniqueKeys = new Set(variations.map(cores => {
+      const red = cores.filter(c => c === 'Weapon Damage').length;
+      const blue = cores.filter(c => c === 'Armor').length;
+      const yellow = cores.filter(c => c === 'Skill Tier').length;
+      expect(red + blue + yellow).toBe(6);
+      return `${red}-${blue}-${yellow}`;
+    }));
+    expect(uniqueKeys.size).toBe(28);
+
+    // Check specific hybrids exist: 5-0-1, 4-0-2, 3-0-3, 2-0-4, 1-0-5, 2-2-2
+    expect(uniqueKeys.has('5-0-1')).toBe(true);
+    expect(uniqueKeys.has('4-0-2')).toBe(true);
+    expect(uniqueKeys.has('3-0-3')).toBe(true);
+    expect(uniqueKeys.has('2-0-4')).toBe(true);
+    expect(uniqueKeys.has('1-0-5')).toBe(true);
+    expect(uniqueKeys.has('2-2-2')).toBe(true);
   });
 });
