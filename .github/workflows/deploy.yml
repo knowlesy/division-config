@@ -35,6 +35,8 @@ jobs:
         run: npm test
 
       - name: Build Web Application
+        env:
+          VITE_GITHUB_CLIENT_ID: ${{ secrets.VITE_GITHUB_CLIENT_ID }}
         run: npm run build
 
       - name: Upload GitHub Pages Artifact

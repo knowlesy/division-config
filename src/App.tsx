@@ -12,7 +12,7 @@ import { SavedBuildsView } from './components/SavedBuildsView';
 import { AdvisorChat } from './components/AdvisorChat';
 import { AuthModal } from './components/AuthModal';
 import { CandidateBuild } from './lib/optimizer/types';
-import { SavedBuild, getStoredToken, importBuildFromUrl } from './lib/storage/build-storage';
+import { SavedBuild, getStoredToken, importBuildFromUrl, saveLocalBuild } from './lib/storage/build-storage';
 import { GitHubClient, GitHubUser } from './lib/github/client';
 
 // Default initial loadout: Build A (Pestilence DPS)
@@ -166,6 +166,12 @@ export default function App() {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
 
   // Active weapon for calculation
   const activeWeapon = activeWeaponSlot === 'primary' ? primaryWeapon : (activeWeaponSlot === 'secondary' ? secondaryWeapon : sidearm);
@@ -234,6 +240,91 @@ export default function App() {
     if (b.specialization) setSpecialization(b.specialization);
     if (b.context) setContext(b.context);
     setActiveTab('editor');
+  };
+
+  const handleDownloadBuildJson = () => {
+    const buildData: SavedBuild = {
+      id: `build-${Date.now()}`,
+      name: `Division-Build-${new Date().toISOString().slice(0, 10)}`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      gear,
+      weapon: primaryWeapon,
+      secondaryWeapon,
+      sidearm,
+      watch,
+      specialization,
+      context
+    };
+
+    const blob = new Blob([JSON.stringify(buildData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${buildData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Build exported & downloaded as JSON file!');
+  };
+
+  const handleUploadBuildJson = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const text = event.target?.result as string;
+        const parsed = JSON.parse(text);
+        if (parsed.gear || parsed.weapon || parsed.primaryWeapon) {
+          loadSavedBuild({
+            id: parsed.id || `build-${Date.now()}`,
+            name: parsed.name || file.name.replace(/\.json$/i, ''),
+            createdAt: parsed.createdAt || new Date().toISOString(),
+            updatedAt: parsed.updatedAt || new Date().toISOString(),
+            gear: parsed.gear || gear,
+            weapon: parsed.primaryWeapon || parsed.weapon || primaryWeapon,
+            secondaryWeapon: parsed.secondaryWeapon || secondaryWeapon,
+            sidearm: parsed.sidearm || sidearm,
+            watch: parsed.watch || watch,
+            specialization: parsed.specialization || specialization,
+            context: parsed.context || context
+          });
+          showToast(`Successfully loaded build from ${file.name}!`);
+        } else {
+          alert('Invalid build JSON format.');
+        }
+      } catch (err) {
+        console.error('Failed to parse build JSON:', err);
+        alert('Failed to parse JSON file.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
+  const handleSaveToBrowser = () => {
+    const buildName = prompt('Enter a name for this build:', `Custom Build (${new Date().toLocaleDateString()})`);
+    if (!buildName) return;
+
+    const newBuild: SavedBuild = {
+      id: `build-${Date.now()}`,
+      name: buildName,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      gear,
+      weapon: primaryWeapon,
+      secondaryWeapon,
+      sidearm,
+      watch,
+      specialization,
+      context
+    };
+
+    saveLocalBuild(newBuild);
+    showToast(`Saved "${buildName}" to local browser storage!`);
   };
 
   const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD') => {
@@ -332,7 +423,55 @@ export default function App() {
 
         {/* Tab 1: Loadout Editor */}
         {activeTab === 'editor' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="flex flex-col gap-4">
+            {/* Quick Actions / Standalone Calculator Local JSON Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-2.5 bg-shd-surface1 border border-shd-border1 p-2.5 clip-corner shadow-sm">
+              <div className="flex items-center gap-2">
+                <span className="font-heading font-bold text-xs uppercase tracking-wider text-shd-orange flex items-center gap-1.5">
+                  <span>⚡ LOADOUT CALCULATOR</span>
+                </span>
+                <span className="text-[10px] font-mono text-shd-textMonoMuted hidden sm:inline">
+                  • Standalone Calculator & Local JSON File Storage
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <label className="px-3 py-1.5 text-xs font-mono border border-shd-border2 hover:border-shd-orange text-shd-textSecondary hover:text-white bg-shd-surface2 clip-corner-sm transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm">
+                  <span>⬆ Upload JSON</span>
+                  <input
+                    type="file"
+                    accept=".json,application/json"
+                    onChange={handleUploadBuildJson}
+                    className="hidden"
+                  />
+                </label>
+
+                <button
+                  onClick={handleDownloadBuildJson}
+                  className="px-3 py-1.5 text-xs font-mono border border-shd-border2 hover:border-shd-orange text-shd-textSecondary hover:text-white bg-shd-surface2 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Download build as local JSON file"
+                >
+                  <span>⬇ Download JSON</span>
+                </button>
+
+                <button
+                  onClick={handleSaveToBrowser}
+                  className="px-3 py-1.5 text-xs font-heading font-semibold uppercase tracking-wider bg-shd-orange hover:bg-shd-orangeLight text-shd-bg clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Save build to browser local storage"
+                >
+                  <span>💾 Save Build</span>
+                </button>
+              </div>
+            </div>
+
+            {toastMessage && (
+              <div className="bg-emerald-950/40 border border-emerald-700 text-emerald-300 text-xs font-mono px-3 py-2 clip-corner-sm flex items-center justify-between">
+                <span>✓ {toastMessage}</span>
+                <button onClick={() => setToastMessage(null)} className="text-emerald-400 hover:text-white text-xs ml-2">✕</button>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
             {/* Left Column: 6 Gear Slots + 3 Weapons (8 Cols) */}
             <div className="lg:col-span-8 flex flex-col gap-4">
               {/* Weapons Section */}
@@ -412,7 +551,8 @@ export default function App() {
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
         {/* Tab 2: Optimizer */}
         {activeTab === 'optimizer' && (

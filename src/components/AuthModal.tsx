@@ -8,6 +8,8 @@ interface Props {
   onAuthenticated: (user: GitHubUser, token: string) => void;
 }
 
+const DEFAULT_CLIENT_ID = 'Ov23li7dPJ3mv4rgQBfs';
+
 export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated }) => {
   const [patInput, setPatInput] = useState('');
   const [clientIdInput, setClientIdInput] = useState('');
@@ -17,7 +19,7 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated })
   if (!isOpen) return null;
 
   const handleOAuthRedirect = () => {
-    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID || clientIdInput.trim();
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID || clientIdInput.trim() || DEFAULT_CLIENT_ID;
     if (!clientId) {
       setError('Please enter your GitHub App Client ID to initiate 1-click authorization.');
       return;
