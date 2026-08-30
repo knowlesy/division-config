@@ -485,3 +485,245 @@ export function generateLoadoutTweaks(
     return b.deltaArmor - a.deltaArmor;
   });
 }
+
+/* ─────────────────── GROUPED PACKAGES ─────────────────── */
+
+export interface TweakPackage {
+  id: string;
+  goal: 'max-dps' | 'max-survivability' | 'balanced';
+  goalLabel: string;
+  goalIcon: string;
+  badgeColor: 'orange' | 'blue' | 'emerald' | 'purple' | 'amber';
+  description: string;
+  /** Individual tweaks included in this package */
+  includedTweaks: TweakSuggestion[];
+  /** Final merged gear after applying all tweaks in order */
+  mergedGear: Record<GearSlot, GearPieceInstance>;
+  /** Final weapon (last weapon tweak wins, if any) */
+  mergedWeapon?: WeaponInstance;
+  /** Combined delta evaluated against baseline */
+  deltaSustainedDpsPct: number;
+  deltaSustainedDps: number;
+  deltaArmor: number;
+  deltaArmorPct: number;
+  deltaCritChance: number;
+  deltaCritDamage: number;
+}
+
+/**
+ * Merges an ordered list of individual tweaks into a single gear+weapon snapshot.
+ * Later tweaks overwrite per-slot gear from earlier ones; last weapon tweak wins.
+ */
+function mergeTweaks(
+  baseGear: Record<GearSlot, GearPieceInstance>,
+  tweaks: TweakSuggestion[]
+): { gear: Record<GearSlot, GearPieceInstance>; weapon?: WeaponInstance } {
+  const merged = { ...baseGear };
+  let mergedWeapon: WeaponInstance | undefined;
+
+  for (const t of tweaks) {
+    // Overlay per-slot changes from this tweak
+    for (const slot of ALL_SLOTS) {
+      if (t.modifiedGear[slot] && t.modifiedGear[slot] !== baseGear[slot]) {
+        // Only overlay if the tweak actually changed this slot
+        const tweakPiece = t.modifiedGear[slot];
+        const basePiece = baseGear[slot];
+        if (
+          tweakPiece.name !== basePiece.name ||
+          tweakPiece.kind !== basePiece.kind ||
+          tweakPiece.brandOrSetId !== basePiece.brandOrSetId ||
+          JSON.stringify(tweakPiece.minors) !== JSON.stringify(basePiece.minors) ||
+          tweakPiece.talent !== basePiece.talent ||
+          tweakPiece.core?.type !== basePiece.core?.type
+        ) {
+          merged[slot] = tweakPiece;
+        }
+      }
+    }
+    if (t.modifiedWeapon) {
+      mergedWeapon = t.modifiedWeapon;
+    }
+  }
+
+  return { gear: merged, weapon: mergedWeapon };
+}
+
+/**
+ * Checks if two tweaks conflict (both modify the same gear slot or both modify weapon).
+ */
+function getModifiedSlots(tweak: TweakSuggestion, baseGear: Record<GearSlot, GearPieceInstance>): Set<string> {
+  const slots = new Set<string>();
+  for (const slot of ALL_SLOTS) {
+    const tp = tweak.modifiedGear[slot];
+    const bp = baseGear[slot];
+    if (
+      tp.name !== bp.name ||
+      tp.kind !== bp.kind ||
+      tp.brandOrSetId !== bp.brandOrSetId ||
+      JSON.stringify(tp.minors) !== JSON.stringify(bp.minors) ||
+      tp.talent !== bp.talent ||
+      tp.core?.type !== bp.core?.type
+    ) {
+      slots.add(slot);
+    }
+  }
+  if (tweak.modifiedWeapon) slots.add('__weapon__');
+  return slots;
+}
+
+/**
+ * Selects the best non-conflicting set of tweaks for a given goal.
+ * Greedy: picks the highest-impact tweak first, then adds non-conflicting ones.
+ */
+function selectNonConflicting(
+  candidates: TweakSuggestion[],
+  baseGear: Record<GearSlot, GearPieceInstance>,
+  sortKey: 'dps' | 'armor' | 'balanced'
+): TweakSuggestion[] {
+  // Sort candidates by the goal metric
+  const sorted = [...candidates].sort((a, b) => {
+    if (sortKey === 'dps') return b.deltaSustainedDpsPct - a.deltaSustainedDpsPct;
+    if (sortKey === 'armor') return b.deltaArmor - a.deltaArmor;
+    // balanced: composite score
+    const scoreA = a.deltaSustainedDpsPct + (a.deltaArmorPct * 0.5);
+    const scoreB = b.deltaSustainedDpsPct + (b.deltaArmorPct * 0.5);
+    return scoreB - scoreA;
+  });
+
+  const selected: TweakSuggestion[] = [];
+  const usedSlots = new Set<string>();
+
+  for (const tweak of sorted) {
+    const slots = getModifiedSlots(tweak, baseGear);
+    // Check for conflicts
+    let conflicts = false;
+    for (const s of slots) {
+      if (usedSlots.has(s)) { conflicts = true; break; }
+    }
+    if (!conflicts) {
+      selected.push(tweak);
+      for (const s of slots) usedSlots.add(s);
+    }
+  }
+
+  return selected;
+}
+
+/**
+ * Generate grouped "packages" of tweaks: Max DPS, Max Survivability, and Balanced.
+ * Each package merges all non-conflicting tweaks for that goal and evaluates the combined delta.
+ */
+export function generateTweakPackages(
+  gear: Record<GearSlot, GearPieceInstance>,
+  weapon: WeaponInstance,
+  allTweaks: TweakSuggestion[],
+  watch: WatchStats = {},
+  specialization: string = 'Gunner',
+  context: CombatContext = { isSolo: true, distanceMeters: 15 }
+): TweakPackage[] {
+  const baseline = calculateLoadout(gear, weapon, watch, specialization, context);
+  const baselineDps = baseline.sustainedDps || 1;
+  const baselineArmor = baseline.totalArmor || 726000;
+  const baselineChc = baseline.groupBreakdown?.critChance || 0;
+  const baselineChd = baseline.groupBreakdown?.critDamage || 0;
+
+  // Filter out trivial tweaks
+  const viable = allTweaks.filter(t => Math.abs(t.deltaSustainedDps) >= 50 || Math.abs(t.deltaArmor) >= 1000);
+
+  const packages: TweakPackage[] = [];
+
+  // --- MAX DPS PACKAGE ---
+  const dpsCandidates = viable.filter(t =>
+    t.deltaSustainedDpsPct > 0 && t.category !== 'cap-fix'
+  );
+  const dpsSelected = selectNonConflicting(dpsCandidates, gear, 'dps');
+  if (dpsSelected.length >= 2) {
+    const { gear: mergedGear, weapon: mergedWeapon } = mergeTweaks(gear, dpsSelected);
+    const stats = calculateLoadout(mergedGear, mergedWeapon || weapon, watch, specialization, context);
+    const deltaDps = stats.sustainedDps - baselineDps;
+    const deltaArmor = stats.totalArmor - baselineArmor;
+
+    packages.push({
+      id: 'pkg-max-dps',
+      goal: 'max-dps',
+      goalLabel: 'Max DPS Package',
+      goalIcon: '🔥',
+      badgeColor: 'orange',
+      description: `Apply all ${dpsSelected.length} compatible DPS upgrades together for maximum damage output.`,
+      includedTweaks: dpsSelected,
+      mergedGear,
+      mergedWeapon,
+      deltaSustainedDpsPct: (deltaDps / baselineDps) * 100,
+      deltaSustainedDps: deltaDps,
+      deltaArmor,
+      deltaArmorPct: (deltaArmor / baselineArmor) * 100,
+      deltaCritChance: (stats.groupBreakdown?.critChance || 0) - baselineChc,
+      deltaCritDamage: (stats.groupBreakdown?.critDamage || 0) - baselineChd,
+    });
+  }
+
+  // --- MAX SURVIVABILITY PACKAGE ---
+  const survCandidates = viable.filter(t =>
+    t.deltaArmor > 0 || t.category === 'survivability' || t.category === 'cap-fix'
+  );
+  const survSelected = selectNonConflicting(survCandidates, gear, 'armor');
+  if (survSelected.length >= 2) {
+    const { gear: mergedGear, weapon: mergedWeapon } = mergeTweaks(gear, survSelected);
+    const stats = calculateLoadout(mergedGear, mergedWeapon || weapon, watch, specialization, context);
+    const deltaDps = stats.sustainedDps - baselineDps;
+    const deltaArmor = stats.totalArmor - baselineArmor;
+
+    packages.push({
+      id: 'pkg-max-surv',
+      goal: 'max-survivability',
+      goalLabel: 'Max Survivability Package',
+      goalIcon: '🛡️',
+      badgeColor: 'blue',
+      description: `Apply all ${survSelected.length} compatible survivability upgrades together for maximum tankiness.`,
+      includedTweaks: survSelected,
+      mergedGear,
+      mergedWeapon,
+      deltaSustainedDpsPct: (deltaDps / baselineDps) * 100,
+      deltaSustainedDps: deltaDps,
+      deltaArmor,
+      deltaArmorPct: (deltaArmor / baselineArmor) * 100,
+      deltaCritChance: (stats.groupBreakdown?.critChance || 0) - baselineChc,
+      deltaCritDamage: (stats.groupBreakdown?.critDamage || 0) - baselineChd,
+    });
+  }
+
+  // --- BALANCED PACKAGE (best of both worlds) ---
+  const balancedCandidates = viable.filter(t =>
+    // Include tweaks that improve DPS without tanking armor, OR improve armor without tanking DPS
+    (t.deltaSustainedDpsPct > 0 && t.deltaArmor >= -10000) ||
+    (t.deltaArmor > 0 && t.deltaSustainedDpsPct >= -1.0) ||
+    t.category === 'cap-fix'
+  );
+  const balancedSelected = selectNonConflicting(balancedCandidates, gear, 'balanced');
+  if (balancedSelected.length >= 2) {
+    const { gear: mergedGear, weapon: mergedWeapon } = mergeTweaks(gear, balancedSelected);
+    const stats = calculateLoadout(mergedGear, mergedWeapon || weapon, watch, specialization, context);
+    const deltaDps = stats.sustainedDps - baselineDps;
+    const deltaArmor = stats.totalArmor - baselineArmor;
+
+    packages.push({
+      id: 'pkg-balanced',
+      goal: 'balanced',
+      goalLabel: 'Balanced Package',
+      goalIcon: '⚖️',
+      badgeColor: 'purple',
+      description: `Apply ${balancedSelected.length} compatible changes that improve both DPS and survivability without major trade-offs.`,
+      includedTweaks: balancedSelected,
+      mergedGear,
+      mergedWeapon,
+      deltaSustainedDpsPct: (deltaDps / baselineDps) * 100,
+      deltaSustainedDps: deltaDps,
+      deltaArmor,
+      deltaArmorPct: (deltaArmor / baselineArmor) * 100,
+      deltaCritChance: (stats.groupBreakdown?.critChance || 0) - baselineChc,
+      deltaCritDamage: (stats.groupBreakdown?.critDamage || 0) - baselineChd,
+    });
+  }
+
+  return packages;
+}
