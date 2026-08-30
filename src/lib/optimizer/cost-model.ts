@@ -137,14 +137,21 @@ export function generateShoppingList(
 }
 
 import namedWeaponsData from '../../../data/weapons-named.json';
+import { calculateLoadout } from '../calc/loadout-calculator';
+import { CombatContext, WatchStats } from '../calc/types';
 
 /**
  * Generates recommended weapons matching the archetype objective and active weapon dynamically from /data/
+ * Evaluates candidates through calculateLoadout and the archetype scoring function.
  */
 export function generateRecommendedWeapons(
   archetype: ArchetypeDefinition,
   activeWeapon: WeaponInstance,
-  tier: 1 | 2
+  tier: 1 | 2,
+  gear?: Record<GearSlot, GearPieceInstance>,
+  watch: WatchStats = {},
+  specialization: string = 'Gunner',
+  context: CombatContext = { isSolo: true, distanceMeters: 15 }
 ): WeaponShoppingItem[] {
   const dtOocRoll = tier === 2 ? '10.0%' : '8.5%';
 
@@ -163,35 +170,44 @@ export function generateRecommendedWeapons(
       : `Recalibrate 3rd attribute to Damage to Target Out of Cover (${dtOocRoll}); farm or craft desired talent.`
   };
 
-  // 2. Dynamic Secondary Weapon Selection from /data/weapons-named.json
+  const evalGear = gear || {
+    mask: { slot: 'mask', kind: 'brand', name: 'Mask', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    backpack: { slot: 'backpack', kind: 'brand', name: 'BP', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    chest: { slot: 'chest', kind: 'brand', name: 'Chest', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    gloves: { slot: 'gloves', kind: 'brand', name: 'Gloves', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    holster: { slot: 'holster', kind: 'brand', name: 'Holster', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    kneepads: { slot: 'kneepads', kind: 'brand', name: 'Knees', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] }
+  };
+
+  // 2. Dynamic Secondary Weapon Selection: Evaluates all weapons (including Pistols) via calculateLoadout
   const allowsExoticSecondary = !activeWeapon.isExotic;
   const secondaryCandidates = (namedWeaponsData as any[]).filter(w => {
-    if (w.category === 'Pistol') return false;
     if (w.isExotic && !allowsExoticSecondary) return false;
     return true;
   });
 
-  let bestSecondary = secondaryCandidates[0] || { name: 'Standard Shotgun', category: 'Shotgun', isExotic: false, dropLocation: 'Targeted Loot' };
-  let bestSecondaryScore = -1;
+  let bestSecondary: any = null;
+  let bestSecondaryScore = -Infinity;
 
   for (const cand of secondaryCandidates) {
-    let score = 0;
-    const text = `${cand.name} ${cand.talentOrPerk || ''} ${cand.category}`.toLowerCase();
+    const testWeapon: WeaponInstance = {
+      slot: 'secondary',
+      name: cand.name,
+      category: cand.category,
+      baseDamage: cand.baseDamage || 50000,
+      rpm: cand.rpm || 600,
+      magSize: cand.magSize || 30,
+      reloadTime: cand.reloadTime || 2.0,
+      innateHsd: cand.category === 'Marksman Rifle' ? 1.37 : (cand.category === 'Rifle' ? 0.60 : 0.55),
+      coreAttribute: { type: `${cand.category} Damage`, value: tier === 2 ? 0.15 : 0.125 },
+      secondaryCoreAttribute: { type: 'Damage to Armor', value: 0.12 },
+      minorAttribute: { attribute: 'Damage to Target Out of Cover', value: tier === 2 ? 0.10 : 0.085, unit: '%' },
+      talent: cand.talentOrPerk ? cand.talentOrPerk.split('\n')[0] : undefined,
+      isExotic: !!cand.isExotic
+    };
 
-    if (archetype.id.includes('medic') || archetype.id.includes('skill') || archetype.id.includes('force')) {
-      if (text.includes('sledgehammer') || text.includes('in sync') || text.includes('skill') || text.includes('repair')) score += 10;
-      if (text.includes('armor damage') || text.includes('shotgun')) score += 3;
-    } else if (archetype.id.includes('bulwark') || archetype.id.includes('rod') || archetype.id.includes('hardened')) {
-      if (text.includes('armor on kill') || text.includes('preservation') || text.includes('repair')) score += 10;
-      if (text.includes('shotgun')) score += 3;
-    } else if (archetype.id.includes('precision')) {
-      if (text.includes('headshot') || text.includes('first blood') || text.includes('ranger') || text.includes('rifle')) score += 10;
-    } else {
-      // Sustained DPS
-      if (cand.isExotic && allowsExoticSecondary && text.includes('septic')) score += 12; // Scorpio
-      if (text.includes('extra') || text.includes('fast hands') || text.includes('flatline') || text.includes('killer')) score += 8;
-      if (cand.category === 'Shotgun' || cand.category === 'SMG') score += 2;
-    }
+    const stats = calculateLoadout(evalGear, testWeapon, watch, specialization, context);
+    const score = archetype.score(stats, context);
 
     if (score > bestSecondaryScore) {
       bestSecondaryScore = score;
@@ -199,39 +215,57 @@ export function generateRecommendedWeapons(
     }
   }
 
-  const isSecExotic = !!bestSecondary.isExotic;
+  const resolvedSecondary = bestSecondary || {
+    name: 'Custom M870 (Unscored Default)',
+    category: 'Shotgun',
+    dropLocation: 'Targeted Loot',
+    isExotic: false,
+    talentOrPerk: 'In Sync / Preservation'
+  };
+
+  const isSecExotic = !!resolvedSecondary.isExotic;
   const secondaryItem: WeaponShoppingItem = {
     slot: 'secondary',
-    name: bestSecondary.name,
-    category: bestSecondary.category,
-    source: isSecExotic ? 'Exotic Cache / Targeted Loot' : (bestSecondary.dropLocation || 'Named Item / Targeted Loot'),
-    coreAttribute: `${bestSecondary.category} Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
+    name: resolvedSecondary.name,
+    category: resolvedSecondary.category,
+    source: isSecExotic ? 'Exotic Cache / Targeted Loot' : (resolvedSecondary.dropLocation || 'Named Item / Targeted Loot'),
+    coreAttribute: `${resolvedSecondary.category} Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
     minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
-    talent: bestSecondary.talentOrPerk ? bestSecondary.talentOrPerk.split('\n')[0] : 'Standard Weapon Talent',
+    talent: resolvedSecondary.talentOrPerk ? resolvedSecondary.talentOrPerk.split('\n')[0] : 'Standard Weapon Talent',
     isExotic: isSecExotic,
     recalibrationInstruction: isSecExotic
       ? 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
       : `Recalibrate 3rd minor attribute to DtOOC (${dtOocRoll}); Perfect talent is locked.`
   };
 
-  // 3. Dynamic Sidearm Selection from /data/weapons-named.json
+  // 3. Dynamic Sidearm Selection: Evaluates all Pistol candidates via calculateLoadout
   const allowsExoticSidearm = !activeWeapon.isExotic && !isSecExotic;
-  const sidearmCandidates = (namedWeaponsData as any[]).filter(w => w.category === 'Pistol' && (!w.isExotic || allowsExoticSidearm));
+  const sidearmCandidates = (namedWeaponsData as any[]).filter(
+    w => w.category === 'Pistol' && (!w.isExotic || allowsExoticSidearm)
+  );
 
-  let bestSidearm = sidearmCandidates[0] || { name: 'Standard Pistol', category: 'Pistol', isExotic: false, dropLocation: 'Targeted Loot' };
-  let bestSidearmScore = -1;
+  let bestSidearm: any = null;
+  let bestSidearmScore = -Infinity;
 
   for (const cand of sidearmCandidates) {
-    let score = 0;
-    const text = `${cand.name} ${cand.talentOrPerk || ''} ${cand.minor || ''}`.toLowerCase();
+    const testSidearm: WeaponInstance = {
+      slot: 'sidearm',
+      name: cand.name,
+      category: 'Pistol',
+      baseDamage: cand.baseDamage || 40000,
+      rpm: cand.rpm || 300,
+      magSize: cand.magSize || 15,
+      reloadTime: cand.reloadTime || 1.8,
+      innateHsd: 1.0,
+      coreAttribute: { type: 'Pistol Damage', value: tier === 2 ? 0.15 : 0.125 },
+      secondaryCoreAttribute: { type: 'Damage to Armor', value: 0.10 },
+      minorAttribute: { attribute: cand.minor || 'Damage to Target Out of Cover', value: tier === 2 ? 0.10 : 0.085, unit: '%' },
+      talent: cand.talentOrPerk ? cand.talentOrPerk.split('\n')[0] : undefined,
+      isExotic: !!cand.isExotic
+    };
 
-    if (archetype.id.includes('medic') || archetype.id.includes('skill') || archetype.id.includes('force')) {
-      if (text.includes('skill tier') || text.includes('reformation') || text.includes('in sync')) score += 10;
-    } else if (archetype.id.includes('bulwark') || archetype.id.includes('rod')) {
-      if (text.includes('skill tier') || text.includes('preservation') || text.includes('liberty')) score += 10;
-    } else if (archetype.id.includes('precision') || archetype.id.includes('dps')) {
-      if (text.includes('finisher') || text.includes('duelist') || text.includes('critical') || text.includes('killer')) score += 10;
-    }
+    const stats = calculateLoadout(evalGear, testSidearm, watch, specialization, context);
+    const score = archetype.score(stats, context);
 
     if (score > bestSidearmScore) {
       bestSidearmScore = score;
@@ -239,15 +273,23 @@ export function generateRecommendedWeapons(
     }
   }
 
-  const isSideExotic = !!bestSidearm.isExotic;
+  const resolvedSidearm = bestSidearm || {
+    name: 'Custom PF45 (Unscored Default)',
+    category: 'Pistol',
+    dropLocation: 'Targeted Loot',
+    isExotic: false,
+    talentOrPerk: 'In Sync / Reformation'
+  };
+
+  const isSideExotic = !!resolvedSidearm.isExotic;
   const sidearmItem: WeaponShoppingItem = {
     slot: 'sidearm',
-    name: bestSidearm.name,
+    name: resolvedSidearm.name,
     category: 'Pistol',
-    source: isSideExotic ? 'Exotic Cache / Targeted Loot' : (bestSidearm.dropLocation || 'Named Item / Targeted Loot'),
+    source: isSideExotic ? 'Exotic Cache / Targeted Loot' : (resolvedSidearm.dropLocation || 'Named Item / Targeted Loot'),
     coreAttribute: `Pistol Damage (${tier === 2 ? '15.0%' : '12.5%'})`,
-    minorAttribute: bestSidearm.minor || `Damage to Target Out of Cover (${dtOocRoll})`,
-    talent: bestSidearm.talentOrPerk ? bestSidearm.talentOrPerk.split('\n')[0] : 'Standard Pistol Talent',
+    minorAttribute: resolvedSidearm.minor || `Damage to Target Out of Cover (${dtOocRoll})`,
+    talent: resolvedSidearm.talentOrPerk ? resolvedSidearm.talentOrPerk.split('\n')[0] : 'Standard Pistol Talent',
     isExotic: isSideExotic,
     recalibrationInstruction: isSideExotic
       ? 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
