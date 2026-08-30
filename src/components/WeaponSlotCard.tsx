@@ -132,14 +132,16 @@ export const WeaponSlotCard: React.FC<Props> = ({
     }
   };
 
-  // 1. Exotics at the top
-  const exoticWeapons = namedWeapons.filter(w => {
-    if (!w.isExotic) return false;
-    if (isSidearmSlot) {
-      return normalizeCategory(w.category) === 'Pistols';
-    }
-    return true;
-  });
+  // 1. Exotics at the top, sorted A-Z
+  const exoticWeapons = namedWeapons
+    .filter(w => {
+      if (!w.isExotic) return false;
+      if (isSidearmSlot) {
+        return normalizeCategory(w.category) === 'Pistols';
+      }
+      return true;
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   // 2. Categories to display (Sidearm restricted to Pistols only)
   const activeCategories = isSidearmSlot ? ['Pistols'] : CATEGORY_ORDER;
@@ -194,12 +196,13 @@ export const WeaponSlotCard: React.FC<Props> = ({
           )}
 
           {activeCategories.map(categoryName => {
-            const namedInCategory = namedWeapons.filter(
-              w => !w.isExotic && normalizeCategory(w.category) === categoryName
-            );
-            const standardInCategory = weapons.filter(
-              w => normalizeCategory(w.category) === categoryName && isCleanStandardWeapon(w)
-            );
+            const namedInCategory = namedWeapons
+              .filter(w => !w.isExotic && normalizeCategory(w.category) === categoryName)
+              .sort((a, b) => a.name.localeCompare(b.name));
+
+            const standardInCategory = weapons
+              .filter(w => normalizeCategory(w.category) === categoryName && isCleanStandardWeapon(w))
+              .sort((a, b) => a.name.localeCompare(b.name));
 
             if (namedInCategory.length === 0 && standardInCategory.length === 0) return null;
 
@@ -207,13 +210,13 @@ export const WeaponSlotCard: React.FC<Props> = ({
 
             return (
               <optgroup key={categoryName} label={displayLabel}>
-                {/* Named weapons at top of category */}
+                {/* Named weapons at top of category (sorted A-Z) */}
                 {namedInCategory.map(w => (
                   <option key={w.name} value={w.name}>
                     ◆ {w.name} (Named)
                   </option>
                 ))}
-                {/* Standard High-End weapons in category */}
+                {/* Standard High-End weapons in category (sorted A-Z) */}
                 {standardInCategory.map(w => (
                   <option key={w.name} value={w.name}>
                     {w.name}
