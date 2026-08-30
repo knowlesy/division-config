@@ -193,17 +193,31 @@ export function generateRecommendedWeapons(
       recalibrationInstruction: `Recalibrate talent to Preservation or Close & Personal; 10% AoK is locked.`
     };
   } else {
-    secondaryItem = {
-      slot: 'secondary',
-      name: 'Scorpio (or Fafnir)',
-      category: 'Shotgun',
-      source: 'Exotic Cache / Targeted Loot',
-      coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
-      minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
-      talent: 'Septic Shock (Applies Poison, Disorient, Shock, and +20% amplified damage from all sources)',
-      isExotic: true,
-      recalibrationInstruction: 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
-    };
+    if (activeWeapon.isExotic) {
+      secondaryItem = {
+        slot: 'secondary',
+        name: "Rock 'n' Roll (or ACS-12)",
+        category: 'Shotgun',
+        source: 'Named Item / Conflict Cache / DZ',
+        coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
+        minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
+        talent: 'Perfectly Extra (+50% Mag Size: 30 rounds)',
+        isExotic: false,
+        recalibrationInstruction: `Recalibrate 3rd minor attribute to DtOOC (${dtOocRoll}); Perfectly Extra is locked.`
+      };
+    } else {
+      secondaryItem = {
+        slot: 'secondary',
+        name: 'Scorpio',
+        category: 'Shotgun',
+        source: 'Exotic Cache / Targeted Loot',
+        coreAttribute: `Shotgun Damage (${tier === 2 ? '15.0%' : '12.5%'}) · Damage to Armor (12.0%)`,
+        minorAttribute: `Damage to Target Out of Cover (${dtOocRoll})`,
+        talent: 'Septic Shock (Applies Poison, Disorient, Shock, and +20% amplified damage from all sources)',
+        isExotic: true,
+        recalibrationInstruction: 'Optimise attributes at Tinkering Station; Exotic talent is locked.'
+      };
+    }
   }
 
   // 3. Sidearm

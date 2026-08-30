@@ -5,7 +5,7 @@
 ## Part 1: Verification of Close-Out Items (1 through 12)
 
 ### 1. Shared Multiplier Group Warning
-- **Implementation**: Plain-language warnings are dynamically generated in [`src/lib/calc/loadout-calculator.ts:L474-L478`](file:///Users/peterknowles/Repo/division-config/src/lib/calc/loadout-calculator.ts#L474-L478):
+- **Implementation**: Plain-language warnings are dynamically generated in [`src/lib/calc/loadout-calculator.ts:L474-L478`](`src/lib/calc/loadout-calculator.ts#L474-L478):
   ```ts
   warnings.push(`Shared multiplier group: Two or more bonuses share the ${grp} group; these add rather than multiply.`);
   ```
@@ -15,14 +15,14 @@
 ---
 
 ### 2. Wasted Recalibration Warning
-- **Implementation**: Flagged in [`src/lib/calc/loadout-calculator.ts`](file:///Users/peterknowles/Repo/division-config/src/lib/calc/loadout-calculator.ts) and [`src/lib/optimizer/cost-model.ts`](file:///Users/peterknowles/Repo/division-config/src/lib/optimizer/cost-model.ts) when a recalibration provides 0 value to the objective (e.g. rolling Yellow when Technician already grants ST6, resulting in ST7 overcap).
+- **Implementation**: Flagged in [`src/lib/calc/loadout-calculator.ts`](`src/lib/calc/loadout-calculator.ts) and [`src/lib/optimizer/cost-model.ts`](`src/lib/optimizer/cost-model.ts) when a recalibration provides 0 value to the objective (e.g. rolling Yellow when Technician already grants ST6, resulting in ST7 overcap).
 - **Actual Rendered Text**:
   > *"⚠️ Wasted recalibration: Skill Tier 7 overcaps the ST6 maximum; this core provides 0 additional skill scaling."*
 
 ---
 
 ### 3. Gear-Set One-Minor Cost
-- **Implementation**: Automatically surfaced in [`src/lib/calc/loadout-calculator.ts:L482-L484`](file:///Users/peterknowles/Repo/division-config/src/lib/calc/loadout-calculator.ts#L482-L484) whenever 4 or more gear set pieces are equipped:
+- **Implementation**: Automatically surfaced in [`src/lib/calc/loadout-calculator.ts:L482-L484`](`src/lib/calc/loadout-calculator.ts#L482-L484) whenever 4 or more gear set pieces are equipped:
   ```ts
   warnings.push('Gear-set trade-off: 4pc gear set pieces sacrifice 4 minor attribute slots compared to High-End brand pieces (4 vs 8 minors).');
   ```
@@ -32,7 +32,7 @@
 ---
 
 ### 4. `[CAP]` on Every Capped Attribute
-- **Implementation**: Rendered in [`src/components/StatsPanel.tsx:L85-L87`](file:///Users/peterknowles/Repo/division-config/src/components/StatsPanel.tsx#L85-L87) and [`src/components/OptimizerView.tsx:L528-L530`](file:///Users/peterknowles/Repo/division-config/src/components/OptimizerView.tsx#L528-L530):
+- **Implementation**: Rendered in [`src/components/StatsPanel.tsx:L85-L87`](`src/components/StatsPanel.tsx#L85-L87) and [`src/components/OptimizerView.tsx:L528-L530`](`src/components/OptimizerView.tsx#L528-L530):
   - **Critical Hit Chance**: $\ge 60\%$ $\to$ `60% [CAP]`
   - **Protection from Elites**: $\ge 80\%$ $\to$ `80% [CAP]`
   - **Hazard Protection**: $\ge 100\%$ $\to$ `100% [CAP]`
@@ -57,7 +57,7 @@
 ---
 
 ### 7. `prefers-reduced-motion`
-- **Implementation**: Global stylesheet [`src/index.css:L105-L114`](file:///Users/peterknowles/Repo/division-config/src/index.css#L105-L114):
+- **Implementation**: Global stylesheet [`src/index.css:L105-L114`](`src/index.css#L105-L114):
   ```css
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -79,7 +79,7 @@
 ---
 
 ### 9. `aria-hidden="true"` on All Decorative Emoji
-- **Implementation**: Quoted from [`src/components/OptimizerView.tsx:L508-L510`](file:///Users/peterknowles/Repo/division-config/src/components/OptimizerView.tsx#L508-L510) and [`src/components/StatsPanel.tsx:L69-L72`](file:///Users/peterknowles/Repo/division-config/src/components/StatsPanel.tsx#L69-L72):
+- **Implementation**: Quoted from [`src/components/OptimizerView.tsx:L508-L510`](`src/components/OptimizerView.tsx#L508-L510) and [`src/components/StatsPanel.tsx:L69-L72`](`src/components/StatsPanel.tsx#L69-L72):
   ```tsx
   <span className="text-[11px] font-heading font-bold uppercase text-shd-orange tracking-wider flex items-center gap-1.5">
     <span aria-hidden="true">📊</span>
@@ -91,7 +91,7 @@
 ---
 
 ### 10. `expectedDrops: Infinity` Guard
-- **Implementation**: Guard in [`src/lib/optimizer/cost-model.ts:L384-L386`](file:///Users/peterknowles/Repo/division-config/src/lib/optimizer/cost-model.ts#L384-L386):
+- **Implementation**: Guard in [`src/lib/optimizer/cost-model.ts:L384-L386`](`src/lib/optimizer/cost-model.ts#L384-L386):
   ```ts
   if (desiredMinorsCount > freeSlotsCount) {
     return { probability: 0, expectedDrops: Infinity, confidence: '[?]' };
@@ -106,12 +106,12 @@
 ---
 
 ### 11. Reference §10 Annotation
-- **Recorded Fact**: Added permanent documentation in [`context/response.md`](file:///Users/peterknowles/Repo/division-config/context/response.md) confirming that Named gear pieces (including *The Courier*) have always legally supported core recalibration under standard Division 2 rules. The 7th core in the original reference text was an over-specification in the source document, not an engine regression.
+- **Recorded Fact**: Added permanent documentation in [`context/response.md`](`context/response.md) confirming that Named gear pieces (including *The Courier*) have always legally supported core recalibration under standard Division 2 rules. The 7th core in the original reference text was an over-specification in the source document, not an engine regression.
 
 ---
 
 ### 12. User-Facing Farming Cost Output & Uniform-Draw `[?]`
-- **Implementation**: Live combinatoric drop probabilities feed the shopping list and delta summary cards in [`src/components/OptimizerView.tsx`](file:///Users/peterknowles/Repo/division-config/src/components/OptimizerView.tsx):
+- **Implementation**: Live combinatoric drop probabilities feed the shopping list and delta summary cards in [`src/components/OptimizerView.tsx`](`src/components/OptimizerView.tsx):
   - **1 Free Slot (Gear Sets & Named Non-Talent)**: $1/12 \approx 8.3\%$ ($12$ drops) vs $1.0$ ($1$ drop) $\to \mathbf{12\times}$ ratio.
   - **2 Free Slots (High-End / Brand / Named Chest & BP)**:
     - 2 target minors: $1/66 \approx 1.5\%$ ($66$ drops) vs $21/66 \approx 31.8\%$ ($3.14$ drops) $\to \mathbf{21\times}$ ratio.
@@ -124,21 +124,21 @@
 
 | # | Acceptance Criterion | Status | Satisfying Implementation & File Reference |
 | :-: | :--- | :---: | :--- |
-| **1** | All 14 data files generated in `/data/` matching schema with zero NaNs | **PASS** | `data/*.json`, [`tests/data-pipeline.test.ts:L8-L28`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L8-L28) |
-| **2** | Four brand corrections applied (Lengmo, China Light, Electrique, 5.11) | **PASS** | `data/brand-sets.json`, [`tests/data-pipeline.test.ts:L30-L56`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L30-L56) |
-| **3** | Red Horizon additions present (Fafnir, Iron Will, Ember Engine, Teapot) | **PASS** | `data/gear-sets.json`, `data/weapons-named.json`, [`tests/data-pipeline.test.ts:L89-L116`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L89-L116) |
-| **4** | Reference §4 gear sets matched exactly (Tipping Scales, Striker, Eclipse) | **PASS** | `data/gear-sets.json`, [`tests/data-pipeline.test.ts:L58-L88`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L58-L88) |
-| **5** | Additive in-group, multiplicative between groups math architecture | **PASS** | `src/lib/calc/loadout-calculator.ts`, [`tests/calculator.test.ts:L1-L60`](file:///Users/peterknowles/Repo/division-config/tests/calculator.test.ts#L1-L60) |
-| **6** | Independent amplifiers calculated as separate $(1 + \text{Amp})$ terms | **PASS** | `src/lib/calc/loadout-calculator.ts:L390-L410`, [`tests/calculator.test.ts:L75-L95`](file:///Users/peterknowles/Repo/division-config/tests/calculator.test.ts#L75-L95) |
+| **1** | All 14 data files generated in `/data/` matching schema with zero NaNs | **PASS** | `data/*.json`, [`tests/data-pipeline.test.ts:L8-L28`](`tests/data-pipeline.test.ts#L8-L28) |
+| **2** | Four brand corrections applied (Lengmo, China Light, Electrique, 5.11) | **PASS** | `data/brand-sets.json`, [`tests/data-pipeline.test.ts:L30-L56`](`tests/data-pipeline.test.ts#L30-L56) |
+| **3** | Red Horizon additions present (Fafnir, Iron Will, Ember Engine, Teapot) | **PASS** | `data/gear-sets.json`, `data/weapons-named.json`, [`tests/data-pipeline.test.ts:L89-L116`](`tests/data-pipeline.test.ts#L89-L116) |
+| **4** | Reference §4 gear sets matched exactly (Tipping Scales, Striker, Eclipse) | **PASS** | `data/gear-sets.json`, [`tests/data-pipeline.test.ts:L58-L88`](`tests/data-pipeline.test.ts#L58-L88) |
+| **5** | Additive in-group, multiplicative between groups math architecture | **PASS** | `src/lib/calc/loadout-calculator.ts`, [`tests/calculator.test.ts:L1-L60`](`tests/calculator.test.ts#L1-L60) |
+| **6** | Independent amplifiers calculated as separate $(1 + \text{Amp})$ terms | **PASS** | `src/lib/calc/loadout-calculator.ts:L390-L410`, [`tests/calculator.test.ts:L75-L95`](`tests/calculator.test.ts#L75-L95) |
 | **7** | Multiplier-group breakdown & plain-language warnings visible to user | **PASS** | `src/components/OptimizerView.tsx:L501-L600`, `src/components/StatsPanel.tsx:L109-L150` |
-| **8** | Falsifier passes: changing data file values alters loadout & scores | **PASS** | `src/lib/optimizer/archetypes.ts`, [`tests/optimizer.test.ts:L121-L144`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L121-L144) |
+| **8** | Falsifier passes: changing data file values alters loadout & scores | **PASS** | `src/lib/optimizer/archetypes.ts`, [`tests/optimizer.test.ts:L121-L144`](`tests/optimizer.test.ts#L121-L144) |
 | **9** | Two-Tier architecture: Tier 1 (Practical) and Tier 2 (Ceiling) | **PASS** | `src/lib/optimizer/engine.ts:L50-L130`, `src/lib/optimizer/cost-model.ts` |
-| **10** | Generated enumeration of all 28 core combinations $\binom{8}{2} = 28$ | **PASS** | `src/lib/optimizer/engine.ts:L240-L270`, [`tests/optimizer.test.ts:L171-L193`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L171-L193) |
-| **11** | Combinatoric farming cost model with slot-count parameterization | **PASS** | `src/lib/optimizer/cost-model.ts:L360-L415`, [`tests/optimizer.test.ts:L195-L250`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L195-L250) |
+| **10** | Generated enumeration of all 28 core combinations $\binom{8}{2} = 28$ | **PASS** | `src/lib/optimizer/engine.ts:L240-L270`, [`tests/optimizer.test.ts:L171-L193`](`tests/optimizer.test.ts#L171-L193) |
+| **11** | Combinatoric farming cost model with slot-count parameterization | **PASS** | `src/lib/optimizer/cost-model.ts:L360-L415`, [`tests/optimizer.test.ts:L195-L250`](`tests/optimizer.test.ts#L195-L250) |
 | **12** | Confidence badges (`[PDF]`, `[UBI]`, `[SHEET]`, `[?]`) surfaced across UI | **PASS** | `src/components/ConfidenceBadge.tsx`, `src/components/OptimizerView.tsx:L433-L435` |
 | **13** | Accessibility compliance: WCAG AA contrast, focus rings, reduced motion | **PASS** | `src/index.css:L105-L114`, `tailwind.config.js:L20-L25`, Lighthouse score 100 |
-| **14** | Zero item names hardcoded in scoring functions (1:1 DoT rate parity) | **PASS** | `src/lib/optimizer/archetypes.ts:L68-L80`, [`tests/optimizer.test.ts:L145-L169`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L145-L169) |
-| **15** | Strict `/data/` resolution test for all sets, brands, and named pieces | **PASS** | `data/*.json`, [`tests/data-pipeline.test.ts:L128-L152`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L128-L152) |
+| **14** | Zero item names hardcoded in scoring functions (1:1 DoT rate parity) | **PASS** | `src/lib/optimizer/archetypes.ts:L68-L80`, [`tests/optimizer.test.ts:L145-L169`](`tests/optimizer.test.ts#L145-L169) |
+| **15** | Strict `/data/` resolution test for all sets, brands, and named pieces | **PASS** | `data/*.json`, [`tests/data-pipeline.test.ts:L128-L152`](`tests/data-pipeline.test.ts#L128-L152) |
 | **16** | Unit test suite with $\ge 40$ passing tests and clean production build | **PASS** | **40/40 tests passing** (`vitest run`), `tsc && vite build` succeeds cleanly |
 
 ---
@@ -166,4 +166,4 @@
 - **Test Suite**: **40/40 tests pass** (`vitest run`).
 - **Production Build**: `npm run build` succeeds cleanly.
 - **Git & Live App**: Committed, pushed to `main`, and live on GitHub Pages at **[https://knowlesy.github.io/division-config/](https://knowlesy.github.io/division-config/)**.
-- **Documentation Files**: Created and committed in **[`context/response-X.md`](file:///Users/peterknowles/Repo/division-config/context/response-X.md)** and **[`context/response.md`](file:///Users/peterknowles/Repo/division-config/context/response.md)**.
+- **Documentation Files**: Created and committed in **`context/response-X.md`** and **`context/response.md`**.

@@ -100,9 +100,9 @@ export function validateLoadoutLegality(gear: Record<GearSlot, GearPieceInstance
     allWarnings.push(...res.warnings);
   }
 
-  // Exotic limit: standard loadout allows 1 exotic gear piece
+  // Hard game rule: At most 1 exotic gear piece permitted
   if (exoticCount > 1) {
-    allWarnings.push(`Loadout contains ${exoticCount} exotic gear pieces. Note: standard loadout rules permit 1 exotic gear piece.`);
+    allErrors.push(`Illegal loadout: Contains ${exoticCount} exotic gear pieces. Division 2 strictly permits at most 1 exotic gear piece.`);
   }
 
   return {

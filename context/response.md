@@ -125,21 +125,21 @@
 
 | # | Acceptance Criterion | Status | Satisfying Implementation & File Reference |
 | :-: | :--- | :---: | :--- |
-| **1** | All 14 data files generated in `/data/` matching schema with zero NaNs | **PASS** | `data/*.json`, `data-pipeline.ts`, [`tests/data-pipeline.test.ts:8-28`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L8-L28) |
-| **2** | Four brand corrections applied (Lengmo, China Light, Electrique, 5.11) | **PASS** | `data/brand-sets.json`, [`tests/data-pipeline.test.ts:30-56`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L30-L56) |
-| **3** | Red Horizon additions present (Fafnir, Iron Will, Ember Engine, Teapot) | **PASS** | `data/gear-sets.json`, `data/weapons-named.json`, [`tests/data-pipeline.test.ts:89-116`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L89-L116) |
-| **4** | Reference §4 gear sets matched exactly (Tipping Scales, Striker, Eclipse) | **PASS** | `data/gear-sets.json`, [`tests/data-pipeline.test.ts:58-88`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L58-L88) |
-| **5** | Additive in-group, multiplicative between groups math architecture | **PASS** | `src/lib/calc/loadout-calculator.ts`, [`tests/calculator.test.ts:1-60`](file:///Users/peterknowles/Repo/division-config/tests/calculator.test.ts#L1-L60) |
-| **6** | Independent amplifiers calculated as separate $(1 + \text{Amp})$ terms | **PASS** | `src/lib/calc/loadout-calculator.ts:390-410`, [`tests/calculator.test.ts:75-95`](file:///Users/peterknowles/Repo/division-config/tests/calculator.test.ts#L75-L95) |
+| **1** | All 14 data files generated in `/data/` matching schema with zero NaNs | **PASS** | `data/*.json`, `data-pipeline.ts`, [`tests/data-pipeline.test.ts:8-28`](`tests/data-pipeline.test.ts#L8-L28) |
+| **2** | Four brand corrections applied (Lengmo, China Light, Electrique, 5.11) | **PASS** | `data/brand-sets.json`, [`tests/data-pipeline.test.ts:30-56`](`tests/data-pipeline.test.ts#L30-L56) |
+| **3** | Red Horizon additions present (Fafnir, Iron Will, Ember Engine, Teapot) | **PASS** | `data/gear-sets.json`, `data/weapons-named.json`, [`tests/data-pipeline.test.ts:89-116`](`tests/data-pipeline.test.ts#L89-L116) |
+| **4** | Reference §4 gear sets matched exactly (Tipping Scales, Striker, Eclipse) | **PASS** | `data/gear-sets.json`, [`tests/data-pipeline.test.ts:58-88`](`tests/data-pipeline.test.ts#L58-L88) |
+| **5** | Additive in-group, multiplicative between groups math architecture | **PASS** | `src/lib/calc/loadout-calculator.ts`, [`tests/calculator.test.ts:1-60`](`tests/calculator.test.ts#L1-L60) |
+| **6** | Independent amplifiers calculated as separate $(1 + \text{Amp})$ terms | **PASS** | `src/lib/calc/loadout-calculator.ts:390-410`, [`tests/calculator.test.ts:75-95`](`tests/calculator.test.ts#L75-L95) |
 | **7** | Multiplier-group breakdown & plain-language warnings visible to user | **PASS** | `src/components/OptimizerView.tsx:501-600`, `src/components/StatsPanel.tsx:109-150` |
-| **8** | Falsifier passes: changing data file values alters loadout & scores | **PASS** | `src/lib/optimizer/archetypes.ts`, [`tests/optimizer.test.ts:121-144`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L121-L144) |
+| **8** | Falsifier passes: changing data file values alters loadout & scores | **PASS** | `src/lib/optimizer/archetypes.ts`, [`tests/optimizer.test.ts:121-144`](`tests/optimizer.test.ts#L121-L144) |
 | **9** | Two-Tier architecture: Tier 1 (Practical) and Tier 2 (Ceiling) | **PASS** | `src/lib/optimizer/engine.ts:50-130`, `src/lib/optimizer/cost-model.ts` |
-| **10** | Generated enumeration of all 28 core combinations $\binom{8}{2} = 28$ | **PASS** | `src/lib/optimizer/engine.ts:240-270`, [`tests/optimizer.test.ts:171-193`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L171-L193) |
-| **11** | Combinatoric farming cost model with slot-count parameterization | **PASS** | `src/lib/optimizer/cost-model.ts:360-415`, [`tests/optimizer.test.ts:195-250`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L195-L250) |
+| **10** | Generated enumeration of all 28 core combinations $\binom{8}{2} = 28$ | **PASS** | `src/lib/optimizer/engine.ts:240-270`, [`tests/optimizer.test.ts:171-193`](`tests/optimizer.test.ts#L171-L193) |
+| **11** | Combinatoric farming cost model with slot-count parameterization | **PASS** | `src/lib/optimizer/cost-model.ts:360-415`, [`tests/optimizer.test.ts:195-250`](`tests/optimizer.test.ts#L195-L250) |
 | **12** | Confidence badges (`[PDF]`, `[UBI]`, `[SHEET]`, `[?]`) surfaced across UI | **PASS** | `src/components/ConfidenceBadge.tsx`, `src/components/OptimizerView.tsx:433-435` |
 | **13** | Accessibility compliance: WCAG AA contrast, focus rings, reduced motion | **PASS** | `src/index.css:105-114`, `tailwind.config.js:20-25`, Lighthouse score 100 |
-| **14** | Zero item names hardcoded in scoring functions (1:1 DoT rate parity) | **PASS** | `src/lib/optimizer/archetypes.ts:68-80`, [`tests/optimizer.test.ts:145-169`](file:///Users/peterknowles/Repo/division-config/tests/optimizer.test.ts#L145-L169) |
-| **15** | Strict `/data/` resolution test for all sets, brands, and named pieces | **PASS** | `data/*.json`, [`tests/data-pipeline.test.ts:128-152`](file:///Users/peterknowles/Repo/division-config/tests/data-pipeline.test.ts#L128-L152) |
+| **14** | Zero item names hardcoded in scoring functions (1:1 DoT rate parity) | **PASS** | `src/lib/optimizer/archetypes.ts:68-80`, [`tests/optimizer.test.ts:145-169`](`tests/optimizer.test.ts#L145-L169) |
+| **15** | Strict `/data/` resolution test for all sets, brands, and named pieces | **PASS** | `data/*.json`, [`tests/data-pipeline.test.ts:128-152`](`tests/data-pipeline.test.ts#L128-L152) |
 | **16** | Unit test suite with $\ge 40$ passing tests and clean production build | **PASS** | **40/40 tests passing** (`vitest run`), `tsc && vite build` succeeds |
 
 ---

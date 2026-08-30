@@ -9,6 +9,65 @@ export interface SolvedMinorPlan {
   recalibrationPerSlot: Record<GearSlot, { target: 'core' | 'minor' | 'none'; detail: string }>;
 }
 
+const rankingCache = new Map<string, { scoredMinors: Array<{ minor: MinorAttributeInfo; marginalGain: number }>; scoredMods: Array<{ mod: ModAttributeInfo; marginalGain: number }> }>();
+
+function getRankedMinorsAndMods(
+  archetype: ArchetypeDefinition,
+  weapon: WeaponInstance,
+  watch: WatchStats,
+  specialization: string,
+  context: CombatContext,
+  tier: 1 | 2
+) {
+  const cacheKey = `${archetype.id}:${tier}:${weapon.name}:${specialization}:${context.isSolo}`;
+  if (rankingCache.has(cacheKey)) {
+    return rankingCache.get(cacheKey)!;
+  }
+
+  const dummyGear: Record<GearSlot, GearPieceInstance> = {
+    mask: { slot: 'mask', kind: 'brand', name: 'Mask', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    backpack: { slot: 'backpack', kind: 'brand', name: 'BP', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    chest: { slot: 'chest', kind: 'brand', name: 'Chest', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    gloves: { slot: 'gloves', kind: 'brand', name: 'Gloves', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    holster: { slot: 'holster', kind: 'brand', name: 'Holster', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] },
+    kneepads: { slot: 'kneepads', kind: 'brand', name: 'Knees', brandOrSetId: 'brand', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: false }, minors: [] }
+  };
+
+  const baseStats = calculateLoadout(dummyGear, weapon, watch, specialization, context);
+  const scoredMinors: Array<{ minor: MinorAttributeInfo; marginalGain: number }> = [];
+
+  for (const minor of STANDARD_GEAR_MINORS) {
+    const testRoll: AttributeRoll = {
+      attribute: minor.name,
+      value: tier === 2 ? minor.maxRoll : minor.typicalRoll,
+      unit: minor.unit
+    };
+    const testGear = createGearWithMinors(dummyGear, { mask: [testRoll] }, {}, tier);
+    const testStats = calculateLoadout(testGear, weapon, watch, specialization, context);
+    const gain = archetype.score(testStats, context) - archetype.score(baseStats, context);
+    scoredMinors.push({ minor, marginalGain: gain });
+  }
+  scoredMinors.sort((a, b) => b.marginalGain - a.marginalGain);
+
+  const scoredMods: Array<{ mod: ModAttributeInfo; marginalGain: number }> = [];
+  for (const mod of STANDARD_GEAR_MODS) {
+    const testRoll: AttributeRoll = {
+      attribute: mod.name,
+      value: tier === 2 ? mod.maxRoll : mod.typicalRoll,
+      unit: mod.unit
+    };
+    const testGear = createGearWithMinors(dummyGear, {}, { mask: testRoll }, tier);
+    const testStats = calculateLoadout(testGear, weapon, watch, specialization, context);
+    const gain = archetype.score(testStats, context) - archetype.score(baseStats, context);
+    scoredMods.push({ mod, marginalGain: gain });
+  }
+  scoredMods.sort((a, b) => b.marginalGain - a.marginalGain);
+
+  const result = { scoredMinors, scoredMods };
+  rankingCache.set(cacheKey, result);
+  return result;
+}
+
 /**
  * Assigns minor attributes and mods to gear pieces using a deterministic marginal-gain assignment solver.
  *
@@ -50,45 +109,10 @@ export function solveMinorAttributes(
     }
   }
 
-  // Rank candidate minor attributes by testing marginal score improvement
+  // Rank candidate minor attributes by testing marginal score improvement (memoized per archetype)
+  const { scoredMinors, scoredMods } = getRankedMinorsAndMods(archetype, weapon, watch, specialization, context, tier);
   const candidateMinors = STANDARD_GEAR_MINORS;
   const candidateMods = STANDARD_GEAR_MODS;
-
-  // Evaluate baseline stats with empty minors/mods
-  const baseGear = createGearWithMinors(gearSkeleton, {}, {}, tier);
-  const baseStats = calculateLoadout(baseGear, weapon, watch, specialization, context);
-
-  // Score marginal value for each minor
-  const scoredMinors: Array<{ minor: MinorAttributeInfo; marginalGain: number }> = [];
-  for (const minor of candidateMinors) {
-    const testRoll: AttributeRoll = {
-      attribute: minor.name,
-      value: tier === 2 ? minor.maxRoll : minor.typicalRoll,
-      unit: minor.unit
-    };
-    const testGear = createGearWithMinors(gearSkeleton, { mask: [testRoll] }, {}, tier);
-    const testStats = calculateLoadout(testGear, weapon, watch, specialization, context);
-    const gain = archetype.score(testStats, context) - archetype.score(baseStats, context);
-    scoredMinors.push({ minor, marginalGain: gain });
-  }
-
-  // Sort candidate minors by marginal gain descending
-  scoredMinors.sort((a, b) => b.marginalGain - a.marginalGain);
-
-  // Score candidate mods
-  const scoredMods: Array<{ mod: ModAttributeInfo; marginalGain: number }> = [];
-  for (const mod of candidateMods) {
-    const testRoll: AttributeRoll = {
-      attribute: mod.name,
-      value: tier === 2 ? mod.maxRoll : mod.typicalRoll,
-      unit: mod.unit
-    };
-    const testGear = createGearWithMinors(gearSkeleton, {}, { mask: testRoll }, tier);
-    const testStats = calculateLoadout(testGear, weapon, watch, specialization, context);
-    const gain = archetype.score(testStats, context) - archetype.score(baseStats, context);
-    scoredMods.push({ mod, marginalGain: gain });
-  }
-  scoredMods.sort((a, b) => b.marginalGain - a.marginalGain);
 
   // Stage 1 & 2: Allocate minors deterministically
   const assignedMinors: Record<GearSlot, AttributeRoll[]> = {
@@ -182,10 +206,18 @@ export function solveMinorAttributes(
     }
   }
 
-  // 4. Generate recalibration decisions per piece
-  for (const slot of Object.keys(recalPlan) as GearSlot[]) {
+  // 4. Generate transparent recalibration instructions per slot
+  for (const slot of Object.keys(assignedMinors) as GearSlot[]) {
     const piece = gearSkeleton[slot];
     if (!piece) continue;
+
+    if (piece.kind === 'exotic') {
+      recalPlan[slot] = {
+        target: 'none',
+        detail: 'Exotic fixed rolls (Optimise-only at Tinkering Station; non-recalibratable)'
+      };
+      continue;
+    }
 
     if (tier === 2) {
       // Tier 2 assumes god-roll drop with desired minors, leaving recal free for Core

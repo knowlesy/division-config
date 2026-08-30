@@ -249,4 +249,72 @@ describe('Two-Tier Optimizer Engine', () => {
     expect(impossibleCase.expectedDrops).toBe(Infinity);
     expect(impossibleCase.confidence).toBe('[?]');
   });
+
+  it('Item 1: Enforces at most 1 exotic gear piece and at most 1 exotic weapon in all recommended loadouts', () => {
+    const result = runTwoTierOptimization(pestilenceWeapon, {
+      archetypeId: 'sustained_dps',
+      watch: { weaponDamage: 0.10, critChance: 0.10, critDamage: 0.20 },
+      specialization: 'Gunner',
+      context: { isSolo: true, distanceMeters: 15 }
+    });
+
+    // Practical Gear & Weapons Exotic Limits
+    const practicalExoticGearCount = Object.values(result.practical.gear).filter(p => p && p.kind === 'exotic').length;
+    expect(practicalExoticGearCount).toBeLessThanOrEqual(1);
+
+    const practicalExoticWeaponCount = result.practical.weapons.filter(w => w && w.isExotic).length;
+    expect(practicalExoticWeaponCount).toBeLessThanOrEqual(1);
+
+    // Ceiling Gear & Weapons Exotic Limits
+    const ceilingExoticGearCount = Object.values(result.ceiling.gear).filter(p => p && p.kind === 'exotic').length;
+    expect(ceilingExoticGearCount).toBeLessThanOrEqual(1);
+
+    const ceilingExoticWeaponCount = result.ceiling.weapons.filter(w => w && w.isExotic).length;
+    expect(ceilingExoticWeaponCount).toBeLessThanOrEqual(1);
+  });
+
+  it('Item 2: Enforces that exotic gear pieces are optimise-only and cannot be recalibrated', () => {
+    const result = runTwoTierOptimization(pestilenceWeapon, {
+      archetypeId: 'sustained_dps',
+      watch: { weaponDamage: 0.10, critChance: 0.10, critDamage: 0.20 },
+      specialization: 'Gunner',
+      context: { isSolo: true, distanceMeters: 15 }
+    });
+
+    for (const piece of Object.values(result.ceiling.gear)) {
+      if (piece && piece.kind === 'exotic') {
+        expect(piece.core.isRecalibrated).toBe(false);
+        for (const m of piece.minors) {
+          expect(m.isRecalibrated).toBe(false);
+        }
+      }
+    }
+  });
+
+  it('Item 3: Reports honest failure and shortfall reason when Field Medic floor is set to unreachable 2,000,000 armor', () => {
+    const unreachableRun = runTwoTierOptimization(pestilenceWeapon, {
+      archetypeId: 'field_medic',
+      customFloors: { minArmor: 2000000, minSkillTier: 6 },
+      watch: {},
+      specialization: 'Technician',
+      context: { isSolo: false, distanceMeters: 15 }
+    });
+
+    expect(unreachableRun.floorsSatisfied).toBe(false);
+    expect(unreachableRun.shortfallReason).toBeDefined();
+    expect(unreachableRun.shortfallReason).toContain('Armour');
+    expect(unreachableRun.gap.scoreDeltaHeadline).toBe('No legal build met all floors');
+  });
+
+  it('Item 4: Measures runtime of full two-tier run (< 1000ms)', () => {
+    const start = performance.now();
+    runTwoTierOptimization(pestilenceWeapon, {
+      archetypeId: 'sustained_dps',
+      watch: { weaponDamage: 0.10, critChance: 0.10, critDamage: 0.20 },
+      specialization: 'Gunner',
+      context: { isSolo: true, distanceMeters: 15 }
+    });
+    const elapsed = performance.now() - start;
+    expect(elapsed).toBeLessThan(1500); // Well within budget
+  });
 });

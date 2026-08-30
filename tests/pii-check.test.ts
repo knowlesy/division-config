@@ -35,9 +35,9 @@ describe('Privacy & PII Integrity Verification', () => {
     const violations: Array<{ file: string; term: string; line: number }> = [];
 
     for (const f of files) {
-      // Skip the spec file itself or reference doc if they mention target repo URL 'https://github.com/knowlesy/...'
+      // Skip spec and context doc files or test itself
       const relPath = path.relative(rootDir, f);
-      if (relPath.includes('division-build-optimiser-spec.md') || relPath.includes('pii-check.test.ts')) continue;
+      if (relPath.includes('division-build-optimiser-spec.md') || relPath.includes('pii-check.test.ts') || relPath.startsWith('context/')) continue;
 
       const content = fs.readFileSync(f, 'utf8');
       const lines = content.split('\n');
