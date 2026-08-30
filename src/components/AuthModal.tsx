@@ -76,24 +76,33 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onAuthenticated })
             Option A: 1-Click GitHub Authorization
           </label>
           <p className="text-[11px] font-mono text-shd-textMonoMuted">
-            Uses your configured Cloudflare Worker token exchange endpoint
+            Connects your GitHub account securely to sync builds to your private <code className="text-shd-orange">my-division-builds</code> repo.
           </p>
 
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={clientIdInput}
-              onChange={(e) => setClientIdInput(e.target.value)}
-              placeholder="Paste Client ID (e.g. Iv1... or Ov2...)"
-              className="flex-1 bg-shd-surface1 border border-shd-border3 p-2 text-xs font-mono text-shd-textPrimary outline-none focus:border-shd-orange clip-corner-sm"
-            />
+          {import.meta.env.VITE_GITHUB_CLIENT_ID ? (
             <button
               onClick={handleOAuthRedirect}
-              className="px-4 py-2 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors"
+              className="w-full py-2.5 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors flex items-center justify-center gap-2 mt-1"
             >
-              Authorise
+              <span>Authorise with GitHub (1-Click)</span>
             </button>
-          </div>
+          ) : (
+            <div className="flex gap-2 mt-1">
+              <input
+                type="text"
+                value={clientIdInput}
+                onChange={(e) => setClientIdInput(e.target.value)}
+                placeholder="Paste Client ID (e.g. Iv1... or Ov2...)"
+                className="flex-1 bg-shd-surface1 border border-shd-border3 p-2 text-xs font-mono text-shd-textPrimary outline-none focus:border-shd-orange clip-corner-sm"
+              />
+              <button
+                onClick={handleOAuthRedirect}
+                className="px-4 py-2 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors"
+              >
+                Authorise
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Method 2: Personal Access Token (PAT) */}
