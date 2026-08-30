@@ -63,11 +63,17 @@ export function calculateLoadout(
       } else if (attrLower.includes('weapon handling')) {
         bonuses.push({ group: 'Utility', value: m.value, source: `${piece.name} (Handling)` });
       } else if (attrLower.includes('skill damage')) {
-        bonuses.push({ group: 'Skill Damage', value: m.value, source: `${piece.name} (Skill Damage)` });
+        bonuses.push({ group: 'Skill Damage', value: m.value, source: `${piece.name} (Skill Damage)`, beneficiary: 'self' });
+      } else if (attrLower.includes('skill haste') || attrLower.includes('haste')) {
+        bonuses.push({ group: 'Utility', value: m.value, source: `${piece.name} (Skill Haste)`, beneficiary: 'self' });
       } else if (attrLower.includes('status')) {
-        bonuses.push({ group: 'Status Effects', value: m.value, source: `${piece.name} (Status Effects)` });
+        bonuses.push({ group: 'Status Effects', value: m.value, source: `${piece.name} (Status Effects)`, beneficiary: 'self' });
       } else if (attrLower.includes('repair')) {
-        bonuses.push({ group: 'Skill Repair', value: m.value, source: `${piece.name} (Skill Repair)` });
+        bonuses.push({ group: 'Skill Repair', value: m.value, source: `${piece.name} (Skill Repair)`, beneficiary: 'self' });
+      } else if (attrLower.includes('hazard')) {
+        bonuses.push({ group: 'Utility', value: m.value, source: `${piece.name} (Hazard Protection)`, beneficiary: 'self' });
+      } else if (attrLower.includes('threat')) {
+        bonuses.push({ group: 'Utility', value: m.value, source: `${piece.name} (Threat)`, beneficiary: 'self' });
       }
     }
 
@@ -75,11 +81,15 @@ export function calculateLoadout(
     if (piece.modSlot) {
       const modAttrLower = piece.modSlot.attribute.toLowerCase();
       if (modAttrLower.includes('crit') && modAttrLower.includes('chance')) {
-        bonuses.push({ group: 'Critical Hit Chance', value: piece.modSlot.value, source: `${piece.name} (Mod CHC)` });
+        bonuses.push({ group: 'Critical Hit Chance', value: piece.modSlot.value, source: `${piece.name} (Mod CHC)`, beneficiary: 'self' });
       } else if (modAttrLower.includes('crit') && modAttrLower.includes('damage')) {
-        bonuses.push({ group: 'Critical Hit Damage', value: piece.modSlot.value, source: `${piece.name} (Mod CHD)` });
+        bonuses.push({ group: 'Critical Hit Damage', value: piece.modSlot.value, source: `${piece.name} (Mod CHD)`, beneficiary: 'self' });
       } else if (modAttrLower.includes('headshot')) {
-        bonuses.push({ group: 'Headshot Damage', value: piece.modSlot.value, source: `${piece.name} (Mod HSD)` });
+        bonuses.push({ group: 'Headshot Damage', value: piece.modSlot.value, source: `${piece.name} (Mod HSD)`, beneficiary: 'self' });
+      } else if (modAttrLower.includes('skill haste') || modAttrLower.includes('haste')) {
+        bonuses.push({ group: 'Utility', value: piece.modSlot.value, source: `${piece.name} (Mod Skill Haste)`, beneficiary: 'self' });
+      } else if (modAttrLower.includes('repair')) {
+        bonuses.push({ group: 'Skill Repair', value: piece.modSlot.value, source: `${piece.name} (Mod Skill Repair)`, beneficiary: 'self' });
       }
     }
 
@@ -434,6 +444,9 @@ export function calculateLoadout(
   let redCores = 0;
   let blueCores = 0;
   let yellowCores = 0;
+  let totalArmorPercentBonus = 0;
+  let totalHealthBonus = 0;
+
   for (const piece of Object.values(gear)) {
     if (!piece || !piece.core) continue;
     if (piece.core.type === 'Weapon Damage') redCores++;
@@ -441,10 +454,21 @@ export function calculateLoadout(
     else if (piece.core.type === 'Skill Tier') yellowCores++;
   }
 
+  // Calculate base armor and total armor
   const baseArmor = 726000;
-  const totalArmor = baseArmor + blueCores * 170000;
+  const totalArmor = (baseArmor + blueCores * 170000) * (1 + (watch?.armor || 0));
+  const baseHealth = 330000;
+  const totalHealth = baseHealth * (1 + (watch?.health || 0));
+  const effectiveHealth = totalArmor + totalHealth;
 
   const legality = validateLoadoutLegality(gear);
+  // Calculate total skill haste
+  let totalSkillHaste = watch?.skillHaste || 0;
+  for (const b of bonuses) {
+    if (b.source.toLowerCase().includes('skill haste') || b.source.toLowerCase().includes('haste')) {
+      totalSkillHaste += b.value;
+    }
+  }
 
   return {
     effectiveBulletDamage: metrics.expectedHit,
@@ -456,6 +480,11 @@ export function calculateLoadout(
     sustainedDps: metrics.sustainedDps,
     pestilencePlagueTickDamage: pestilencePlagueTickDamage || undefined,
     totalArmor,
+    totalHealth,
+    effectiveHealth,
+    threatMultiplier: breakdown.threatMultiplier,
+    hazardProtection: Math.min(1.0, breakdown.hazardProtectionSum + (watch?.hazardProtection || 0)),
+    skillHasteSum: totalSkillHaste,
     skillTier: yellowCores,
     activeSetBonuses,
     activeBrandBonuses,
@@ -473,28 +502,34 @@ function addParsedBonusToGroup(bonuses: BonusTerm[], bonus: { attribute: string;
   const source = `${sourcePrefix} (${bonus.attribute})`;
 
   if (attrLower.includes('crit') && attrLower.includes('chance')) {
-    bonuses.push({ group: 'Critical Hit Chance', value: bonus.value, source });
+    bonuses.push({ group: 'Critical Hit Chance', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('crit') && attrLower.includes('damage')) {
-    bonuses.push({ group: 'Critical Hit Damage', value: bonus.value, source });
+    bonuses.push({ group: 'Critical Hit Damage', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('headshot')) {
-    bonuses.push({ group: 'Headshot Damage', value: bonus.value, source });
+    bonuses.push({ group: 'Headshot Damage', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('reload')) {
-    bonuses.push({ group: 'Utility', value: bonus.value, source });
+    bonuses.push({ group: 'Utility', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('magazine') || attrLower.includes('mag size') || (attrLower.includes('mag') && !attrLower.includes('damage') && !attrLower.includes('marksman'))) {
-    bonuses.push({ group: 'Utility', value: bonus.value, source });
+    bonuses.push({ group: 'Utility', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('handling')) {
-    bonuses.push({ group: 'Utility', value: bonus.value, source });
+    bonuses.push({ group: 'Utility', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('rate of fire') || attrLower === 'rof') {
-    bonuses.push({ group: 'Rate of Fire', value: bonus.value, source });
+    bonuses.push({ group: 'Rate of Fire', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('damage to armor') || attrLower.includes('dta')) {
-    bonuses.push({ group: 'Amplifier', value: bonus.value, source, isIndependentAmp: true });
+    bonuses.push({ group: 'Amplifier', value: bonus.value, source, isIndependentAmp: true, beneficiary: 'self' });
   } else if (attrLower.includes('status')) {
-    bonuses.push({ group: 'Status Effects', value: bonus.value, source });
+    bonuses.push({ group: 'Status Effects', value: bonus.value, source, beneficiary: 'self' });
+  } else if (attrLower.includes('hazard')) {
+    bonuses.push({ group: 'Utility', value: bonus.value, source, beneficiary: 'self' });
+  } else if (attrLower.includes('threat')) {
+    bonuses.push({ group: 'Utility', value: bonus.value, source, beneficiary: 'self' });
+  } else if (attrLower.includes('skill haste') || attrLower.includes('haste')) {
+    bonuses.push({ group: 'Utility', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('skill damage')) {
-    bonuses.push({ group: 'Skill Damage', value: bonus.value, source });
+    bonuses.push({ group: 'Skill Damage', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('repair')) {
-    bonuses.push({ group: 'Skill Repair', value: bonus.value, source });
+    bonuses.push({ group: 'Skill Repair', value: bonus.value, source, beneficiary: 'self' });
   } else if (attrLower.includes('weapon damage') || attrLower.includes('lmg damage') || attrLower.includes('rifle damage') || attrLower.includes('smg damage') || attrLower.includes('shotgun damage') || attrLower.includes('assault rifle damage') || attrLower.includes('marksman rifle damage')) {
-    bonuses.push({ group: 'Weapon Damage', value: bonus.value, source });
+    bonuses.push({ group: 'Weapon Damage', value: bonus.value, source, beneficiary: 'self' });
   }
 }

@@ -80,13 +80,15 @@ One "total weapon damage" talent plus one amplifier beats three "total weapon da
 - **Ortiz: Exuro's Heatstroke** is an amplifier despite the in-game text calling it increased weapon damage. `[PDF]`
 - **Hunter's Fury** on-kill stacks are a self-multiplicative amp: `1.05^n`, n = 0–5.
 
-### Recalibration and itemisation rules (verified 28 Aug 2026)
+### Recalibration and itemisation rules (revised 30 Aug 2026)
 - **One recalibration per item** — a single stat *or* talent, though that one slot can be re-switched indefinitely afterwards. Spending it on the core means you can never fix a minor attribute on that piece, and vice versa.
-- **Core attributes are a recalibratable category** and can be changed across colours (e.g. Armor → Skill Tier) on High-End, Named and brand pieces, provided that core is banked in the recalibration library for that slot type. Deconstruct a donor piece *in the library* to bank it.
-- **Named gear:** the perfect ("golden") talent is locked; the core and minor attributes are open. This is what makes e.g. The Courier → yellow core work.
-- **Gear set pieces:** the core is **fixed to the set's natural colour** and can never be changed (Striker always red, Eclipse always yellow). Set chest/backpack talents cannot be recalibrated either.
+- **Core attributes are a recalibratable category** and can be changed across colours (e.g. Armor → Skill Tier, Weapon Damage → Armor) on Brand, High-End, Named, and Gear Set pieces, provided that core is banked in the recalibration library for that slot type. Deconstruct a donor piece *in the library* to bank it.
+- **Named gear:** carries exactly one locked feature depending on the slot:
+  - **Chest and Backpack** carry a **Perfect talent**, and that talent is locked ❌. The core and both minor attributes are open for recalibration (one choice per piece).
+  - **Mask, Gloves, Holster, and Kneepads** carry a **Perfect attribute** occupying one minor slot, and that attribute is locked ❌. The core and the second minor attribute are open (one choice per piece, leaving one free minor slot).
+- **Gear set pieces:** the core is **recalibratable across colours** ✅ (e.g. Striker with Yellow/Blue core, Eclipse with Red/Blue core counts toward the 4pc bonus normally). Set chest and backpack talents are **locked** ❌ and cannot be recalibrated.
 - **Gear set pieces carry only ONE minor attribute** versus two on brand pieces — a hidden attribute-budget cost of any 4pc set that belongs in optimisation comparisons.
-- **Exotics:** fixed rolls; not recalibratable (optimise/expertise only).
+- **Exotics:** fixed rolls; not recalibratable ❌ (optimise/expertise only).
 
 ---
 
@@ -440,8 +442,8 @@ Swap the backpack to **Eclipse backpack (Symptom Aggravator)** and the sixth slo
 
 ## 11. OPEN QUESTIONS AND THINGS TO VERIFY
 
-**Resolved 28 Aug 2026:**
-- ✅ **Core recalibration on named gear** — confirmed. Cores are a recalibratable category, changeable across colours via the library; named items lock only the perfect talent; gear set cores are immutable. See §3 recalibration rules.
+**Resolved 30 Aug 2026 (revised):**
+- ✅ **Core recalibration on gear sets and named gear** — confirmed. Core attributes are a recalibratable category across colours (Armor, Weapon Damage, Skill Tier) on Brand, High-End, Named, and Gear Set pieces. Named pieces lock only their Perfect talent (chest/backpack) or Perfect attribute (mask/gloves/holster/kneepads). Gear set pieces lock only their chest/backpack talent (core is fully recalibratable; set carries 1 minor attribute). Exotics are fixed/optimise-only. See §3 recalibration rules.
 
 **Still open:**
 1. **Striker's Risk Management** — the sheet says 0.65% → 0.9% per stack; some third-party sources say 1%. Striker was not in the Y8S3 change list, so the sheet is probably right. At 0.9% and 200 stacks the amp is 2.8×; at 1% it is 3.0×.

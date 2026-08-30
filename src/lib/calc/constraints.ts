@@ -25,28 +25,38 @@ export function validateGearPieceLegality(piece: GearPieceInstance): LegalityRes
     errors.push(`${piece.name} (${piece.slot}): Violates the one recalibration per item limit (${recalibrationCount} recalibrations specified).`);
   }
 
-  // 2. Exotics: not recalibratable
+  // 2. Exotics: not recalibratable (optimise-only)
   if (piece.kind === 'exotic') {
     if (recalibrationCount > 0) {
       errors.push(`${piece.name} (${piece.slot}): Exotic gear rolls are fixed and cannot be recalibrated.`);
     }
   }
 
-  // 3. Named gear: perfect talent locked
+  // 3. Named gear:
+  // - Chest & Backpack: Perfect talent is locked, core and minors are open
+  // - Mask, Gloves, Holster, Kneepads: Perfect attribute is locked, core and second minor are open
   if (piece.kind === 'named') {
-    if (piece.isTalentRecalibrated) {
-      errors.push(`${piece.name} (${piece.slot}): Named gear has a locked perfect talent that cannot be recalibrated.`);
+    if (piece.slot === 'chest' || piece.slot === 'backpack') {
+      if (piece.isTalentRecalibrated) {
+        errors.push(`${piece.name} (${piece.slot}): Named gear has a locked Perfect talent that cannot be recalibrated.`);
+      }
+    } else {
+      if (piece.isTalentRecalibrated) {
+        errors.push(`${piece.name} (${piece.slot}): Named gear in slot '${piece.slot}' has no talent slot.`);
+      }
+      // Check if the locked perfect minor attribute was marked as recalibrated
+      const lockedMinor = piece.minors.find(m => m.isLocked);
+      if (lockedMinor && lockedMinor.isRecalibrated) {
+        errors.push(`${piece.name} (${piece.slot}): Named gear in slot '${piece.slot}' has a locked Perfect attribute that cannot be recalibrated.`);
+      }
     }
   }
 
   // 4. Gear set pieces:
-  // - Core is fixed to the set natural colour and cannot change
+  // - Core IS recalibratable across colours (counts toward 1-recalibration limit)
   // - Talents cannot be recalibrated
   // - Carries only ONE minor attribute (where brand pieces carry two)
   if (piece.kind === 'gear-set') {
-    if (piece.core.isRecalibrated) {
-      errors.push(`${piece.name} (${piece.slot}): Gear set cores are fixed to their natural colour and cannot be recalibrated.`);
-    }
     if (piece.isTalentRecalibrated) {
       errors.push(`${piece.name} (${piece.slot}): Gear set chest/backpack talents are fixed and cannot be recalibrated.`);
     }

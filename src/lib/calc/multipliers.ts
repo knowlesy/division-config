@@ -20,13 +20,33 @@ export function calculateMultiplierBreakdown(
   let tsdSum = 0;
   let srSum = 0;
   let seSum = 0;
+  let hazardSum = 0;
   let rofSum = 0;
   let magSum = 0;
   let reloadSum = 0;
+  let threatSum = 0;
+  let allyDmgSum = 0;
+  let allyMitSum = 0;
+  let enemyDebuffMultiplier = 1.0;
 
-  const amplifiers: Array<{ source: string; factor: number; condition?: string }> = [];
+  const amplifiers: Array<{ source: string; factor: number; condition?: string; beneficiary?: any }> = [];
 
   for (const b of bonuses) {
+    const beneficiary = b.beneficiary || 'self';
+
+    // Track ally and enemy debuff contributions
+    if (beneficiary === 'ally') {
+      if (b.group === 'Weapon Damage' || b.group === 'Total Weapon Damage' || b.group === 'Skill Damage' || b.group === 'Amplifier' || b.group === 'Critical Hit Chance' || b.group === 'Critical Hit Damage') {
+        allyDmgSum += b.value;
+      } else {
+        allyMitSum += b.value;
+      }
+    } else if (beneficiary === 'enemy-debuff') {
+      if (b.group === 'Amplifier') {
+        enemyDebuffMultiplier *= (1 + b.value);
+      }
+    }
+
     switch (b.group) {
       case 'Weapon Damage':
         wdSum += b.value;
@@ -62,13 +82,20 @@ export function calculateMultiplierBreakdown(
         amplifiers.push({
           source: b.source,
           factor: 1 + b.value,
-          condition: b.condition
+          condition: b.condition,
+          beneficiary
         });
         break;
       case 'Utility':
         const srcLower = b.source.toLowerCase();
         if (srcLower.includes('mag size') || srcLower.includes('magazine')) magSum += b.value;
         if (srcLower.includes('reload')) reloadSum += b.value;
+        if (srcLower.includes('hazard')) hazardSum += b.value;
+        if (srcLower.includes('increased threat') || srcLower.includes('threat')) {
+          threatSum += b.value;
+        } else if (srcLower.includes('reduced threat')) {
+          threatSum -= b.value;
+        }
         break;
     }
   }
@@ -82,6 +109,8 @@ export function calculateMultiplierBreakdown(
     totalAmplifierMultiplier *= amp.factor;
   }
 
+  const threatMultiplier = Math.max(0.1, 1.0 + threatSum);
+
   return {
     weaponDamageSum: wdSum,
     totalWeaponDamageSum: twdSum,
@@ -93,11 +122,16 @@ export function calculateMultiplierBreakdown(
     totalSkillDamageSum: tsdSum,
     skillRepairSum: srSum,
     statusEffectsSum: seSum,
+    hazardProtectionSum: Math.min(1.0, hazardSum),
     rateOfFireMultiplier: 1 + rofSum,
     magazineSizeMultiplier: 1 + magSum,
     reloadSpeedMultiplier: 1 + reloadSum,
+    threatMultiplier,
     amplifiers,
-    totalAmplifierMultiplier
+    totalAmplifierMultiplier,
+    allyDamageBonusSum: allyDmgSum,
+    allyMitigationBonusSum: allyMitSum,
+    enemyDebuffMultiplier
   };
 }
 

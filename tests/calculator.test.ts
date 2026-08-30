@@ -116,25 +116,56 @@ describe('Calculator Step 2: Constraints & Recalibration Legality', () => {
     expect(res.errors[0]).toContain('one recalibration per item limit');
   });
 
-  it('enforces gear set core lock and 1-minor attribute constraint', () => {
-    const illegalGearSet: GearPieceInstance = {
+  it('permits off-colour core recalibration on gear set pieces (e.g. Striker with Yellow/Blue core)', () => {
+    const legalHybridGearSet: GearPieceInstance = {
       slot: 'kneepads',
       kind: 'gear-set',
       name: 'Striker Kneepads',
       brandOrSetId: 'striker-s-battlegear',
-      core: { type: 'Armor', value: 170000, isRecalibrated: true },
+      core: { type: 'Skill Tier', value: 1, isRecalibrated: true },
+      minors: [
+        { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }
+      ]
+    };
+    const res = validateGearPieceLegality(legalHybridGearSet);
+    expect(res.valid).toBe(true);
+    expect(res.errors.length).toBe(0);
+  });
+
+  it('rejects gear set pieces with recalibrated talents or >1 minor attribute', () => {
+    const illegalGearSetTalent: GearPieceInstance = {
+      slot: 'chest',
+      kind: 'gear-set',
+      name: 'Striker Chest',
+      brandOrSetId: 'striker-s-battlegear',
+      core: { type: 'Weapon Damage', value: 0.15 },
+      minors: [
+        { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }
+      ],
+      talent: 'Obliterate',
+      isTalentRecalibrated: true
+    };
+    const resTalent = validateGearPieceLegality(illegalGearSetTalent);
+    expect(resTalent.valid).toBe(false);
+    expect(resTalent.errors.some(e => e.includes('talents are fixed'))).toBe(true);
+
+    const illegalGearSetMinors: GearPieceInstance = {
+      slot: 'kneepads',
+      kind: 'gear-set',
+      name: 'Striker Kneepads',
+      brandOrSetId: 'striker-s-battlegear',
+      core: { type: 'Weapon Damage', value: 0.15 },
       minors: [
         { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' },
         { attribute: 'Critical Hit Chance', value: 0.06, unit: '%' }
       ]
     };
-    const res = validateGearPieceLegality(illegalGearSet);
-    expect(res.valid).toBe(false);
-    expect(res.errors.some(e => e.includes('cores are fixed'))).toBe(true);
-    expect(res.errors.some(e => e.includes('only 1 minor attribute'))).toBe(true);
+    const resMinors = validateGearPieceLegality(illegalGearSetMinors);
+    expect(resMinors.valid).toBe(false);
+    expect(resMinors.errors.some(e => e.includes('only 1 minor attribute'))).toBe(true);
   });
 
-  it('named gear locks perfect talent but permits core recalibration across colours', () => {
+  it('named gear locks perfect talent (chest/backpack) but permits core or minor recalibration', () => {
     const legalCourier: GearPieceInstance = {
       slot: 'backpack',
       kind: 'named',
@@ -150,6 +181,62 @@ describe('Calculator Step 2: Constraints & Recalibration Legality', () => {
     };
     const res = validateGearPieceLegality(legalCourier);
     expect(res.valid).toBe(true);
+
+    const illegalCourier: GearPieceInstance = {
+      ...legalCourier,
+      isTalentRecalibrated: true
+    };
+    const resIllegal = validateGearPieceLegality(illegalCourier);
+    expect(resIllegal.valid).toBe(false);
+    expect(resIllegal.errors.some(e => e.includes('locked Perfect talent'))).toBe(true);
+  });
+
+  it('named non-talent pieces lock perfect attribute but permit core or second minor recalibration', () => {
+    const legalFox: GearPieceInstance = {
+      slot: 'kneepads',
+      kind: 'named',
+      name: "Fox's Prayer",
+      brandOrSetId: 'overlord-armaments',
+      core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: true },
+      minors: [
+        { attribute: 'Damage to Target Out of Cover', value: 0.08, unit: '%', isLocked: true },
+        { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }
+      ]
+    };
+    const res = validateGearPieceLegality(legalFox);
+    expect(res.valid).toBe(true);
+
+    const illegalFox: GearPieceInstance = {
+      slot: 'kneepads',
+      kind: 'named',
+      name: "Fox's Prayer",
+      brandOrSetId: 'overlord-armaments',
+      core: { type: 'Armor', value: 170000 },
+      minors: [
+        { attribute: 'Critical Hit Chance', value: 0.06, unit: '%', isLocked: true, isRecalibrated: true },
+        { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }
+      ]
+    };
+    const resIllegal = validateGearPieceLegality(illegalFox);
+    expect(resIllegal.valid).toBe(false);
+    expect(resIllegal.errors.some(e => e.includes('locked Perfect attribute'))).toBe(true);
+  });
+
+  it('exotics are optimise-only and reject any recalibrations', () => {
+    const illegalExotic: GearPieceInstance = {
+      slot: 'mask',
+      kind: 'exotic',
+      name: "Coyote's Mask",
+      brandOrSetId: 'coyotes-mask',
+      core: { type: 'Armor', value: 170000, isRecalibrated: true },
+      minors: [
+        { attribute: 'Critical Hit Chance', value: 0.06, unit: '%' },
+        { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }
+      ]
+    };
+    const res = validateGearPieceLegality(illegalExotic);
+    expect(res.valid).toBe(false);
+    expect(res.errors.some(e => e.includes('Exotic gear rolls are fixed'))).toBe(true);
   });
 });
 

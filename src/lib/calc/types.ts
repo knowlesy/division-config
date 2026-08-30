@@ -17,6 +17,8 @@ export type MultiplierGroupName =
   | 'Amplifier'
   | 'Utility';
 
+export type Beneficiary = 'self' | 'ally' | 'enemy-debuff';
+
 export interface BonusTerm {
   group: MultiplierGroupName;
   value: number; // e.g. 0.15 for +15%
@@ -24,6 +26,7 @@ export interface BonusTerm {
   condition?: string;
   isIndependentAmp?: boolean; // For amplifiers which are always their own term
   confidence?: string; // '[PDF]' | '[UBI]' | '[SHEET]' | '[?]'
+  beneficiary?: Beneficiary; // 'self' | 'ally' | 'enemy-debuff'
 }
 
 export interface AttributeRoll {
@@ -31,6 +34,7 @@ export interface AttributeRoll {
   value: number;
   unit: string;
   isRecalibrated?: boolean;
+  isLocked?: boolean;
 }
 
 export interface GearPieceInstance {
@@ -129,11 +133,16 @@ export interface MultiplierGroupBreakdown {
   totalSkillDamageSum: number;
   skillRepairSum: number;
   statusEffectsSum: number;
+  hazardProtectionSum: number;
   rateOfFireMultiplier: number;
   magazineSizeMultiplier: number;
   reloadSpeedMultiplier: number;
-  amplifiers: Array<{ source: string; factor: number; condition?: string }>;
+  threatMultiplier: number;
+  amplifiers: Array<{ source: string; factor: number; condition?: string; beneficiary?: Beneficiary }>;
   totalAmplifierMultiplier: number;
+  allyDamageBonusSum: number;
+  allyMitigationBonusSum: number;
+  enemyDebuffMultiplier: number;
 }
 
 export interface ComputedLoadoutStats {
@@ -146,6 +155,11 @@ export interface ComputedLoadoutStats {
   sustainedDps: number;
   pestilencePlagueTickDamage?: number;
   totalArmor: number;
+  totalHealth: number;
+  effectiveHealth: number;
+  threatMultiplier: number;
+  hazardProtection: number;
+  skillHasteSum: number;
   skillTier: number;
   activeSetBonuses: ActiveSetBonus[];
   activeBrandBonuses: ActiveSetBonus[];

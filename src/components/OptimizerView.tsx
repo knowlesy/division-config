@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GearSlot, GearPieceInstance, WeaponInstance, WatchStats, CombatContext } from '../lib/calc/types';
-import { OptimizationObjective, OptimizerConstraints, CandidateBuild } from '../lib/optimizer/types';
-import { runOptimization } from '../lib/optimizer/engine';
+import { ARCHETYPES, ArchetypeDefinition, ArchetypeFloors } from '../lib/optimizer/archetypes';
+import { runTwoTierOptimization } from '../lib/optimizer/engine';
+import { TwoTierResult, ShoppingListItem } from '../lib/optimizer/cost-model';
+import { CandidateBuild } from '../lib/optimizer/types';
 import { ConfidenceBadge } from './ConfidenceBadge';
-
-import gearSetsData from '../../data/gear-sets.json';
-import gearNamedData from '../../data/gear-named.json';
-
-const gearSets = gearSetsData as any[];
-const namedGear = gearNamedData as any[];
 
 interface Props {
   currentGear: Record<GearSlot, GearPieceInstance>;
@@ -29,35 +25,98 @@ export const OptimizerView: React.FC<Props> = ({
   onEquipCandidate,
   onAddToComparison
 }) => {
-  const [objective, setObjective] = useState<OptimizationObjective>('max_sustained_dps');
-  const [minArmor, setMinArmor] = useState<number>(0);
-  const [minSkillTier, setMinSkillTier] = useState<number>(0);
-  const [requiredGearSetId, setRequiredGearSetId] = useState<string>('');
-  const [requiredExoticId, setRequiredExoticId] = useState<string>('');
-  const [results, setResults] = useState<CandidateBuild[] | null>(null);
+  const [selectedArchetypeId, setSelectedArchetypeId] = useState<string>('sustained_dps');
+  const [isGroupMode, setIsGroupMode] = useState<boolean>(!context.isSolo);
+  const [isFloorsExpanded, setIsFloorsExpanded] = useState<boolean>(false);
+  const [customMinArmor, setCustomMinArmor] = useState<number>(0);
+  const [customMinSkillTier, setCustomMinSkillTier] = useState<number>(0);
+  const [customMinSkillHaste, setCustomMinSkillHaste] = useState<number>(0);
+  const [customMinHazardProtection, setCustomMinHazardProtection] = useState<number>(0);
+
+  const [result, setResult] = useState<TwoTierResult | null>(null);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+
+  const archetypeList = Object.values(ARCHETYPES);
+  const currentArchetype = ARCHETYPES[selectedArchetypeId] || ARCHETYPES['sustained_dps'];
+
+  // Initialize floors when archetype changes
+  useEffect(() => {
+    if (currentArchetype.defaultFloors) {
+      setCustomMinArmor(currentArchetype.defaultFloors.minArmor || 0);
+      setCustomMinSkillTier(currentArchetype.defaultFloors.minSkillTier || 0);
+      setCustomMinSkillHaste(currentArchetype.defaultFloors.minSkillHaste ? currentArchetype.defaultFloors.minSkillHaste * 100 : 0);
+      setCustomMinHazardProtection(currentArchetype.defaultFloors.minHazardProtection ? currentArchetype.defaultFloors.minHazardProtection * 100 : 0);
+    }
+  }, [selectedArchetypeId]);
+
+  // If in solo mode and selected archetype is group-only, fallback to sustained_dps
+  useEffect(() => {
+    if (!isGroupMode && currentArchetype.isGroupOnly) {
+      setSelectedArchetypeId('sustained_dps');
+    }
+  }, [isGroupMode]);
 
   const handleRunOptimizer = () => {
     setIsSearching(true);
     setTimeout(() => {
-      const constraints: OptimizerConstraints = {};
-      if (minArmor > 0) constraints.minArmor = minArmor;
-      if (minSkillTier > 0) constraints.minSkillTier = minSkillTier;
-      if (requiredGearSetId) constraints.requiredGearSetId = requiredGearSetId;
-      if (requiredExoticId) constraints.requiredExoticId = requiredExoticId;
+      const customFloors: ArchetypeFloors = {};
+      if (customMinArmor > 0) customFloors.minArmor = customMinArmor;
+      if (customMinSkillTier > 0) customFloors.minSkillTier = customMinSkillTier;
+      if (customMinSkillHaste > 0) customFloors.minSkillHaste = customMinSkillHaste / 100;
+      if (customMinHazardProtection > 0) customFloors.minHazardProtection = customMinHazardProtection / 100;
 
-      const topCandidates = runOptimization(
-        currentGear,
-        activeWeapon,
-        objective,
-        constraints,
+      const optContext: CombatContext = {
+        ...context,
+        isSolo: !isGroupMode
+      };
+
+      const optResult = runTwoTierOptimization(activeWeapon, {
+        archetypeId: selectedArchetypeId,
+        customFloors,
         watch,
         specialization,
-        context
-      );
-      setResults(topCandidates);
+        context: optContext
+      });
+
+      setResult(optResult);
       setIsSearching(false);
     }, 150);
+  };
+
+  const handleEquipTier = (tierKey: 'practical' | 'ceiling') => {
+    if (!result) return;
+    const tierData = result[tierKey];
+    const candidate: CandidateBuild = {
+      id: `${result.archetype.id}-${tierKey}`,
+      name: `${result.archetype.name} (${tierKey.toUpperCase()})`,
+      gear: tierData.gear,
+      weapon: activeWeapon,
+      score: tierData.score,
+      stats: tierData.stats,
+      tradeoffAnalysis: [
+        `${tierKey.toUpperCase()} build for ${result.archetype.name}`,
+        result.gap.scoreDeltaHeadline
+      ]
+    };
+    onEquipCandidate(candidate);
+  };
+
+  const handleCompareTier = (tierKey: 'practical' | 'ceiling') => {
+    if (!result) return;
+    const tierData = result[tierKey];
+    const candidate: CandidateBuild = {
+      id: `${result.archetype.id}-${tierKey}`,
+      name: `${result.archetype.name} (${tierKey.toUpperCase()})`,
+      gear: tierData.gear,
+      weapon: activeWeapon,
+      score: tierData.score,
+      stats: tierData.stats,
+      tradeoffAnalysis: [
+        `${tierKey.toUpperCase()} build for ${result.archetype.name}`,
+        result.gap.scoreDeltaHeadline
+      ]
+    };
+    onAddToComparison(candidate);
   };
 
   return (
@@ -67,230 +126,382 @@ export const OptimizerView: React.FC<Props> = ({
         <div className="flex items-center justify-between border-b border-shd-border2 pb-2">
           <div>
             <h2 className="font-heading font-bold text-base text-shd-textPrimary uppercase tracking-wider flex items-center gap-2">
-              <span className="text-shd-orange">⚡</span> Division 2 Multiplier-Aware Optimizer
+              <span className="text-shd-orange">⚡</span> Two-Tier Build Optimiser
             </h2>
             <p className="text-xs font-mono text-shd-textMonoMuted mt-0.5">
-              Constraint-based pruning engine · Evaluates multiplier group interactions & independent amplifier terms
+              Objective-driven search over data · Practical vs Ceiling · Deterministic itemisation
             </p>
           </div>
           <ConfidenceBadge tag="[PDF]" />
         </div>
 
-        {/* Objective & Constraints Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
-          {/* Column 1: Objective */}
-          <div className="flex flex-col gap-1.5 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
+        {/* Configuration Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 text-xs font-mono">
+          {/* Archetype Picker (6 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-2 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
             <label className="text-[10px] text-shd-textMonoMuted uppercase tracking-wider font-bold">
-              1. Optimization Objective
+              1. Objective Archetype
             </label>
             <select
-              value={objective}
-              onChange={(e) => setObjective(e.target.value as OptimizationObjective)}
+              value={selectedArchetypeId}
+              onChange={(e) => setSelectedArchetypeId(e.target.value)}
               className="bg-shd-surface1 border border-shd-border3 p-2 text-xs font-sans text-shd-textPrimary outline-none focus:border-shd-orange clip-corner-sm"
             >
-              <option value="max_sustained_dps">Max Sustained DPS (Cycle & Reloads)</option>
-              <option value="max_burst_dps">Max Burst DPS</option>
-              <option value="max_bullet_hit">Max Single-Bullet Expected Hit</option>
-              <option value="max_plague_damage">Max Pestilence Plague Tick Damage</option>
-              <option value="max_status_effects">Max Status Effects Duration & Spread</option>
-              <option value="max_skill_damage">Max Skill Damage</option>
-              <option value="max_armor_dps">Max Survivability & DPS Balance</option>
+              {archetypeList.map(a => {
+                const disabled = !isGroupMode && a.isGroupOnly;
+                return (
+                  <option key={a.id} value={a.id} disabled={disabled}>
+                    {a.name} {disabled ? '(Group Mode Only)' : ''}
+                  </option>
+                );
+              })}
             </select>
-            <p className="text-[11px] text-shd-textSecondary mt-1 leading-relaxed">
-              Target weapon: <span className="text-shd-orange font-bold">{activeWeapon.name}</span> ({activeWeapon.category})
-            </p>
+            <div className="p-2 bg-shd-surface1/70 border border-shd-border3/40 clip-corner-sm text-xs font-sans text-shd-textSecondary leading-relaxed">
+              <span className="text-shd-orange font-bold font-heading mr-1">ROLE:</span>
+              {currentArchetype.description}
+            </div>
           </div>
 
-          {/* Column 2: Hard Floor Constraints */}
-          <div className="flex flex-col gap-2 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
-            <label className="text-[10px] text-shd-textMonoMuted uppercase tracking-wider font-bold">
-              2. Core Attribute Floors
-            </label>
-
+          {/* Mode & Floors Toggle (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-3 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
             <div>
-              <div className="flex justify-between text-[11px] text-shd-textSecondary">
-                <span>Minimum Total Armor:</span>
-                <span className="text-shd-blueCore font-bold">{minArmor === 0 ? 'Any' : `${(minArmor / 1000).toFixed(0)}k`}</span>
+              <label className="text-[10px] text-shd-textMonoMuted uppercase tracking-wider font-bold block mb-2">
+                2. Combat Context & Party Mode
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsGroupMode(false)}
+                  className={`py-2 px-3 text-xs font-heading font-bold uppercase tracking-wider clip-corner-sm transition-colors ${
+                    !isGroupMode
+                      ? 'bg-shd-orange text-shd-bg shadow'
+                      : 'bg-shd-surface1 text-shd-textSecondary hover:text-white border border-shd-border3'
+                  }`}
+                >
+                  Solo Mode
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsGroupMode(true)}
+                  className={`py-2 px-3 text-xs font-heading font-bold uppercase tracking-wider clip-corner-sm transition-colors ${
+                    isGroupMode
+                      ? 'bg-shd-orange text-shd-bg shadow'
+                      : 'bg-shd-surface1 text-shd-textSecondary hover:text-white border border-shd-border3'
+                  }`}
+                >
+                  Group Mode
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-1 border-t border-shd-border3/40">
+              <button
+                type="button"
+                onClick={() => setIsFloorsExpanded(!isFloorsExpanded)}
+                className="text-[11px] text-shd-textSecondary hover:text-shd-orange flex items-center gap-1 font-mono transition-colors"
+              >
+                <span>{isFloorsExpanded ? '▼' : '▶'}</span>
+                <span>Hard Floor Constraints ({isFloorsExpanded ? 'Hide' : 'Configure'})</span>
+              </button>
+
+              <button
+                onClick={handleRunOptimizer}
+                disabled={isSearching}
+                className="px-5 py-2 bg-shd-orange text-shd-bg font-heading font-bold text-xs tracking-wider uppercase clip-corner hover:bg-shd-orangeLight transition-colors shadow-md disabled:opacity-50"
+              >
+                {isSearching ? 'Calculating...' : '⚡ Optimise'}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Collapsible Floor Constraints Panel */}
+        {isFloorsExpanded && (
+          <div className="bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono animate-fadeIn">
+            <div>
+              <div className="flex justify-between text-[11px] text-shd-textSecondary mb-1">
+                <span>Min Armour:</span>
+                <span className="text-shd-blueCore font-bold">{customMinArmor === 0 ? 'None' : `${Math.round(customMinArmor / 1000)}k`}</span>
               </div>
               <input
                 type="range"
                 min="0"
                 max="1746000"
                 step="170000"
-                value={minArmor}
-                onChange={(e) => setMinArmor(parseInt(e.target.value, 10))}
-                className="w-full accent-shd-orange h-1.5 bg-shd-border2 rounded-lg cursor-pointer mt-1"
+                value={customMinArmor}
+                onChange={(e) => setCustomMinArmor(parseInt(e.target.value, 10))}
+                className="w-full accent-shd-orange h-1.5 bg-shd-border2 rounded-lg cursor-pointer"
               />
             </div>
 
             <div>
-              <div className="flex justify-between text-[11px] text-shd-textSecondary">
-                <span>Minimum Skill Tier:</span>
-                <span className="text-shd-yellowCore font-bold">{minSkillTier === 0 ? 'Any' : `Tier ${minSkillTier}`}</span>
+              <div className="flex justify-between text-[11px] text-shd-textSecondary mb-1">
+                <span>Min Skill Tier:</span>
+                <span className="text-shd-yellowCore font-bold">{customMinSkillTier === 0 ? 'None' : `Tier ${customMinSkillTier}`}</span>
               </div>
               <input
                 type="range"
                 min="0"
                 max="6"
                 step="1"
-                value={minSkillTier}
-                onChange={(e) => setMinSkillTier(parseInt(e.target.value, 10))}
-                className="w-full accent-shd-orange h-1.5 bg-shd-border2 rounded-lg cursor-pointer mt-1"
+                value={customMinSkillTier}
+                onChange={(e) => setCustomMinSkillTier(parseInt(e.target.value, 10))}
+                className="w-full accent-shd-orange h-1.5 bg-shd-border2 rounded-lg cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between text-[11px] text-shd-textSecondary mb-1">
+                <span>Min Skill Haste:</span>
+                <span className="text-shd-textPrimary font-bold">{customMinSkillHaste === 0 ? 'None' : `${customMinSkillHaste}%`}</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="5"
+                value={customMinSkillHaste}
+                onChange={(e) => setCustomMinSkillHaste(parseInt(e.target.value, 10))}
+                className="w-full accent-shd-orange h-1.5 bg-shd-border2 rounded-lg cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between text-[11px] text-shd-textSecondary mb-1">
+                <span>Min Hazard Protection:</span>
+                <span className="text-shd-textPrimary font-bold">{customMinHazardProtection === 0 ? 'None' : `${customMinHazardProtection}%`}</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="5"
+                value={customMinHazardProtection}
+                onChange={(e) => setCustomMinHazardProtection(parseInt(e.target.value, 10))}
+                className="w-full accent-shd-orange h-1.5 bg-shd-border2 rounded-lg cursor-pointer"
               />
             </div>
           </div>
+        )}
+      </div>
 
-          {/* Column 3: Fixed Pieces / Required Sets */}
-          <div className="flex flex-col gap-2 bg-shd-surface2 p-3 border border-shd-border2 clip-corner-sm">
-            <label className="text-[10px] text-shd-textMonoMuted uppercase tracking-wider font-bold">
-              3. Required Gear Set / Exotic
-            </label>
+      {/* Results View */}
+      {result && (
+        <div className="flex flex-col gap-4">
+          {/* Headline Gap Card */}
+          <div className="bg-shd-surface1 border border-shd-orange/40 p-4 clip-corner shadow-lg flex flex-col gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-shd-border2 pb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs uppercase font-heading font-bold text-shd-orange px-2 py-0.5 bg-shd-orange/10 border border-shd-orange/30 clip-corner-sm">
+                  DELTA SUMMARY
+                </span>
+                <h3 className="font-heading font-bold text-base text-shd-textPrimary">
+                  {result.gap.scoreDeltaHeadline}
+                </h3>
+              </div>
 
-            <select
-              value={requiredGearSetId}
-              onChange={(e) => setRequiredGearSetId(e.target.value)}
-              className="bg-shd-surface1 border border-shd-border3 p-1.5 text-xs font-sans text-shd-textPrimary outline-none focus:border-shd-orange clip-corner-sm"
-            >
-              <option value="">Any Gear Set / High-End</option>
-              {gearSets.map(s => (
-                <option key={s.id} value={s.id}>Must Include: {s.name} (4pc)</option>
-              ))}
-            </select>
+              <div className="flex items-center gap-4 text-xs font-mono text-shd-textSecondary">
+                <div>
+                  <span className="text-shd-textMonoMuted">Farming cost:</span>{' '}
+                  <span className="text-shd-orange font-bold">{result.gap.godRollPiecesNeeded} god-roll pieces</span>
+                </div>
+                <div>
+                  <span className="text-shd-textMonoMuted">Recalibrations:</span>{' '}
+                  <span className="text-white font-bold">{result.gap.recalibrationsRequired} cores</span>
+                </div>
+              </div>
+            </div>
 
-            <select
-              value={requiredExoticId}
-              onChange={(e) => setRequiredExoticId(e.target.value)}
-              className="bg-shd-surface1 border border-shd-border3 p-1.5 text-xs font-sans text-shd-textPrimary outline-none focus:border-shd-orange clip-corner-sm"
-            >
-              <option value="">Any Exotic Piece</option>
-              {namedGear.filter(g => g.isExotic).map(g => (
-                <option key={g.id} value={g.id}>Must Include: {g.name}</option>
-              ))}
-            </select>
+            {result.gap.libraryBanksRequired.length > 0 && (
+              <div className="text-xs font-mono text-shd-textSecondary flex items-center gap-1.5 pt-1">
+                <span className="text-shd-textMonoMuted">Library banking needed:</span>
+                <span className="text-amber-400 font-semibold">{result.gap.libraryBanksRequired.join(', ')}</span>
+              </div>
+            )}
+
+            {!result.floorsSatisfied && (
+              <div className="p-2.5 bg-red-950/40 border border-red-500/40 text-red-300 text-xs font-mono clip-corner-sm mt-1">
+                ⚠️ <span className="font-bold">Floor Shortfall:</span> {result.shortfallReason}. Showing closest achievable legal build.
+              </div>
+            )}
+          </div>
+
+          {/* Dual-Column Layout: PRACTICAL vs CEILING */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Column 1: PRACTICAL (Tier 1) */}
+            <TierColumn
+              title="PRACTICAL"
+              subtitle="Realistic drop rolls · Strict single recalibration committed per piece"
+              tag="TIER 1"
+              stats={result.practical.stats}
+              score={result.practical.score}
+              shoppingList={result.practical.shoppingList}
+              onEquip={() => handleEquipTier('practical')}
+              onCompare={() => handleCompareTier('practical')}
+              archetype={result.archetype}
+            />
+
+            {/* Column 2: CEILING (Tier 2) */}
+            <TierColumn
+              title="CEILING"
+              subtitle="Max rolls · Minors allocated ideally · Core recalibration freed"
+              tag="TIER 2"
+              stats={result.ceiling.stats}
+              score={result.ceiling.score}
+              shoppingList={result.ceiling.shoppingList}
+              onEquip={() => handleEquipTier('ceiling')}
+              onCompare={() => handleCompareTier('ceiling')}
+              archetype={result.archetype}
+              isCeiling
+            />
           </div>
         </div>
+      )}
+    </div>
+  );
+};
 
-        {/* Action Button */}
-        <div className="flex justify-end">
+interface TierColumnProps {
+  title: string;
+  subtitle: string;
+  tag: string;
+  stats: any;
+  score: number;
+  shoppingList: ShoppingListItem[];
+  onEquip: () => void;
+  onCompare: () => void;
+  archetype: ArchetypeDefinition;
+  isCeiling?: boolean;
+}
+
+const TierColumn: React.FC<TierColumnProps> = ({
+  title,
+  subtitle,
+  tag,
+  stats,
+  shoppingList,
+  onEquip,
+  onCompare,
+  isCeiling
+}) => {
+  return (
+    <div className={`bg-shd-surface1 border ${isCeiling ? 'border-shd-orange/50' : 'border-shd-border1'} p-4 clip-corner shadow-lg flex flex-col gap-4`}>
+      {/* Column Header */}
+      <div className="flex items-center justify-between border-b border-shd-border2 pb-2.5">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className={`text-[10px] font-heading font-bold px-1.5 py-0.5 uppercase clip-corner-sm ${
+              isCeiling ? 'bg-shd-orange text-shd-bg' : 'bg-shd-surface2 text-shd-textSecondary border border-shd-border3'
+            }`}>
+              {tag}
+            </span>
+            <h3 className="font-heading font-bold text-base text-shd-textPrimary uppercase tracking-wider">
+              {title}
+            </h3>
+          </div>
+          <p className="text-[11px] font-mono text-shd-textMonoMuted mt-0.5">
+            {subtitle}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
           <button
-            onClick={handleRunOptimizer}
-            disabled={isSearching}
-            className="px-6 py-2.5 bg-shd-orange text-shd-bg font-heading font-bold text-sm tracking-wider uppercase clip-corner hover:bg-shd-orangeLight transition-colors shadow-md disabled:opacity-50"
+            onClick={onCompare}
+            className="px-3 py-1.5 text-xs font-heading font-semibold bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm transition-colors"
           >
-            {isSearching ? 'Computing Multiplier Permutations...' : '⚡ Run Build Optimizer'}
+            + Compare
+          </button>
+          <button
+            onClick={onEquip}
+            className={`px-4 py-1.5 text-xs font-heading font-bold clip-corner-sm transition-colors ${
+              isCeiling
+                ? 'bg-shd-orange text-shd-bg hover:bg-shd-orangeLight'
+                : 'bg-shd-surface2 text-shd-textPrimary border border-shd-border3 hover:border-shd-orange'
+            }`}
+          >
+            Equip
           </button>
         </div>
       </div>
 
-      {/* Results Section */}
-      {results && (
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-shd-textPrimary">
-              Top Ranked Builds ({results.length} Candidates Found)
-            </h3>
-            <span className="text-xs font-mono text-shd-textMonoMuted">
-              Ranked by {objective.replace(/_/g, ' ')}
-            </span>
-          </div>
-
-          {results.length === 0 ? (
-            <div className="bg-shd-surface1 border border-shd-border2 p-6 text-center text-shd-textSecondary font-mono text-sm clip-corner">
-              No builds matched the specified core attribute floors and required sets. Try lowering the Armor or Skill Tier requirement.
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {results.map((candidate, rank) => (
-                <div
-                  key={candidate.id}
-                  className="bg-shd-surface1 border border-shd-border1 p-4 clip-corner shadow-lg flex flex-col gap-3"
-                >
-                  {/* Candidate Header */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-shd-border2 pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 flex items-center justify-center bg-shd-orange text-shd-bg font-heading font-bold text-xs clip-corner-sm">
-                        #{rank + 1}
-                      </span>
-                      <h4 className="font-heading font-bold text-base text-shd-textPrimary">
-                        {candidate.name}
-                      </h4>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => onAddToComparison(candidate)}
-                        className="px-3 py-1.5 text-xs font-heading font-semibold bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm transition-colors"
-                      >
-                        + Compare
-                      </button>
-                      <button
-                        onClick={() => onEquipCandidate(candidate)}
-                        className="px-4 py-1.5 text-xs font-heading font-bold bg-shd-orange text-shd-bg clip-corner-sm hover:bg-shd-orangeLight transition-colors"
-                      >
-                        Equip Build
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Candidate Stats Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-shd-surface2 p-2.5 border border-shd-border2 clip-corner-sm font-mono text-xs">
-                    <div>
-                      <span className="text-[10px] text-shd-textMonoMuted uppercase">Sustained DPS</span>
-                      <div className="font-bold text-shd-orange text-base">
-                        {Math.round(candidate.stats.sustainedDps).toLocaleString()}
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-shd-textMonoMuted uppercase">Expected Hit</span>
-                      <div className="font-bold text-emerald-400 text-base">
-                        {Math.round(candidate.stats.expectedDamagePerShot).toLocaleString()}
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-shd-textMonoMuted uppercase">Total Armor</span>
-                      <div className="font-bold text-shd-blueCore text-base">
-                        {(candidate.stats.totalArmor / 1000).toFixed(0)}k
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-shd-textMonoMuted uppercase">Crit Rate / Term</span>
-                      <div className="font-bold text-shd-textPrimary text-base">
-                        {(candidate.stats.groupBreakdown.critChance * 100).toFixed(0)}% CHC · {candidate.stats.groupBreakdown.effectiveCritFactor.toFixed(2)}x
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Tradeoff Explanation in Plain English */}
-                  <div className="bg-shd-surface2/60 p-3 border border-shd-border2 clip-corner-sm flex flex-col gap-1.5">
-                    <span className="font-heading font-bold text-xs uppercase text-amber-400">
-                      Why this build ranks #{rank + 1} & Trade-off Analysis:
-                    </span>
-                    <ul className="space-y-1 text-xs font-mono text-shd-textSecondary">
-                      {candidate.tradeoffAnalysis.map((note, ni) => (
-                        <li key={ni} className="flex items-start gap-1.5">
-                          <span className="text-shd-orange">▸</span>
-                          <span>{note}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Gear Layout Row */}
-                  <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 text-[11px] font-mono">
-                    {Object.entries(candidate.gear).map(([slot, piece]) => (
-                      <div key={slot} className="bg-shd-surface2 p-2 border border-shd-border1 clip-corner-sm">
-                        <div className="text-[9px] uppercase text-shd-orange font-bold">{slot}</div>
-                        <div className="font-semibold text-shd-textPrimary truncate">{piece.name}</div>
-                        <div className="text-[10px] text-shd-textMonoMuted">{piece.core.type}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+      {/* Stats Summary Bar */}
+      <div className="grid grid-cols-4 gap-2 bg-shd-surface2 p-2.5 border border-shd-border2 clip-corner-sm font-mono text-xs text-center">
+        <div>
+          <div className="text-[9px] text-shd-textMonoMuted uppercase">Armour</div>
+          <div className="font-bold text-shd-blueCore text-sm">{Math.round(stats.totalArmor / 1000)}k</div>
         </div>
-      )}
+        <div>
+          <div className="text-[9px] text-shd-textMonoMuted uppercase">Skill Tier</div>
+          <div className="font-bold text-shd-yellowCore text-sm">{stats.skillTier}</div>
+        </div>
+        <div>
+          <div className="text-[9px] text-shd-textMonoMuted uppercase">Sustain DPS</div>
+          <div className="font-bold text-shd-orange text-sm">{Math.round(stats.sustainedDps / 1000)}k</div>
+        </div>
+        <div>
+          <div className="text-[9px] text-shd-textMonoMuted uppercase">Repair / Status</div>
+          <div className="font-bold text-emerald-400 text-sm">
+            +{Math.round((stats.groupBreakdown.skillRepairSum || stats.groupBreakdown.statusEffectsSum) * 100)}%
+          </div>
+        </div>
+      </div>
+
+      {/* Shopping List Items */}
+      <div className="flex flex-col gap-2.5">
+        <h4 className="text-[11px] font-heading font-bold uppercase tracking-wider text-shd-textSecondary border-b border-shd-border3 pb-1">
+          RECALIBRATION SHOPPING LIST
+        </h4>
+
+        {shoppingList.map((item) => (
+          <div
+            key={item.slot}
+            className="bg-shd-surface2/70 border border-shd-border2 p-2.5 clip-corner-sm flex flex-col gap-1.5 font-mono text-xs"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] uppercase font-bold text-shd-orange px-1.5 py-0.2 bg-shd-orange/10 clip-corner-sm">
+                  {item.slot}
+                </span>
+                <span className="font-bold text-shd-textPrimary">{item.itemName}</span>
+              </div>
+              <span className="text-[10px] text-shd-textMonoMuted">{item.source}</span>
+            </div>
+
+            {/* Core & Minors */}
+            <div className="flex flex-wrap items-center gap-3 text-[11px] text-shd-textSecondary">
+              <span className={`font-semibold ${
+                item.coreType === 'Armor' ? 'text-shd-blueCore' : (item.coreType === 'Skill Tier' ? 'text-shd-yellowCore' : 'text-shd-redCore')
+              }`}>
+                Core: {item.coreType} {item.isCoreRecalibrated ? '(Recalibrated)' : '(Natural)'}
+              </span>
+
+              {item.minors.map((m, idx) => (
+                <span key={idx} className="text-shd-textPrimary">
+                  {m.attribute}: <span className="font-bold text-shd-orange">{m.valueFormatted}</span> {m.isLocked ? '🔒' : ''}
+                </span>
+              ))}
+
+              {item.mod && (
+                <span className="text-sky-300">
+                  Mod: {item.mod.attribute} ({item.mod.valueFormatted})
+                </span>
+              )}
+
+              {item.talent && (
+                <span className="text-amber-300">
+                  Talent: {item.talent.name} {item.talent.isLocked ? '🔒' : ''}
+                </span>
+              )}
+            </div>
+
+            {/* Actionable Recalibration Decision */}
+            <div className="bg-shd-surface1 p-1.5 border border-shd-border3/60 clip-corner-sm text-[11px] text-shd-textPrimary flex items-start gap-1.5">
+              <span className="text-shd-orange font-bold">RECAL:</span>
+              <span className="text-white font-medium">{item.recalibrationInstruction}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
