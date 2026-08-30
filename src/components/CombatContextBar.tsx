@@ -4,7 +4,7 @@ import { CombatContext } from '../lib/calc/types';
 interface Props {
   context: CombatContext;
   onChange: (updated: CombatContext) => void;
-  onLoadPreset: (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD') => void;
+  onLoadPreset: (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD' | 'buildE') => void;
 }
 
 export const CombatContextBar: React.FC<Props> = ({ context, onChange, onLoadPreset }) => {
@@ -23,16 +23,22 @@ export const CombatContextBar: React.FC<Props> = ({ context, onChange, onLoadPre
             A. Pestilence DPS
           </button>
           <button
+            onClick={() => onLoadPreset('buildE')}
+            className="px-2.5 py-1 text-[11px] font-heading font-semibold bg-shd-surface1 border border-amber-500/70 hover:border-shd-orange text-amber-300 clip-corner-sm transition-colors"
+          >
+            E. Ramping Bruiser (Heartbreaker)
+          </button>
+          <button
             onClick={() => onLoadPreset('buildB')}
             className="px-2.5 py-1 text-[11px] font-heading font-semibold bg-shd-surface1 border border-shd-border3 hover:border-shd-orange text-shd-textPrimary clip-corner-sm transition-colors"
           >
-            B. Control Group (Courier)
+            B. Control Group
           </button>
           <button
             onClick={() => onLoadPreset('buildB2')}
             className="px-2.5 py-1 text-[11px] font-heading font-semibold bg-shd-surface1 border border-shd-border3 hover:border-shd-orange text-shd-textPrimary clip-corner-sm transition-colors"
           >
-            B2. Control Solo (Symptom)
+            B2. Control Solo
           </button>
           <button
             onClick={() => onLoadPreset('buildC')}
@@ -44,7 +50,7 @@ export const CombatContextBar: React.FC<Props> = ({ context, onChange, onLoadPre
             onClick={() => onLoadPreset('buildD')}
             className="px-2.5 py-1 text-[11px] font-heading font-semibold bg-shd-surface1 border border-shd-border3 hover:border-shd-orange text-shd-textPrimary clip-corner-sm transition-colors"
           >
-            D. True Patriot (Red Flag)
+            D. True Patriot
           </button>
         </div>
 

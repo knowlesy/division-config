@@ -62,7 +62,7 @@ export const Header: React.FC<Props> = ({
                 : 'bg-shd-surface2 text-shd-textSecondary border-shd-border2 hover:border-shd-orange/60 hover:text-white'
             }`}
           >
-            ⚡ Optimizer
+            🏗️ Archetype Solver
           </button>
 
           <button

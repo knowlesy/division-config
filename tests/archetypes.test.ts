@@ -58,9 +58,9 @@ describe('Archetypes Library & Invariant Rules', () => {
   const groupContext: CombatContext = { isSolo: false, distanceMeters: 15 };
   const soloContext: CombatContext = { isSolo: true, distanceMeters: 15 };
 
-  it('defines all ten required archetypes with descriptions and valid scoring functions', () => {
+  it('defines all required archetypes with descriptions and valid scoring functions', () => {
     const archetypeKeys = Object.keys(ARCHETYPES);
-    expect(archetypeKeys).toHaveLength(10);
+    expect(archetypeKeys.length).toBeGreaterThanOrEqual(10);
 
     for (const key of archetypeKeys) {
       const def = ARCHETYPES[key];

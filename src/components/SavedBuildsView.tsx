@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { GearSlot, GearPieceInstance, WeaponInstance, WatchStats, CombatContext } from '../lib/calc/types';
 import { SavedBuild, loadLocalBuilds, saveLocalBuild, deleteLocalBuild, exportBuildToUrl, parseBuildString } from '../lib/storage/build-storage';
+import { calculateLoadout } from '../lib/calc/loadout-calculator';
+import { CandidateBuild } from '../lib/optimizer/types';
 
 interface Props {
   currentGear: Record<GearSlot, GearPieceInstance>;
@@ -11,6 +13,8 @@ interface Props {
   specialization: string;
   context: CombatContext;
   onLoadBuild: (build: SavedBuild) => void;
+  onAddToComparison?: (candidate: CandidateBuild) => void;
+  onSwitchToComparison?: () => void;
 }
 
 export const SavedBuildsView: React.FC<Props> = ({
@@ -21,7 +25,9 @@ export const SavedBuildsView: React.FC<Props> = ({
   watch,
   specialization,
   context,
-  onLoadBuild
+  onLoadBuild,
+  onAddToComparison,
+  onSwitchToComparison
 }) => {
   const [builds, setBuilds] = useState<SavedBuild[]>([]);
   const [saveName, setSaveName] = useState('');
@@ -192,7 +198,7 @@ export const SavedBuildsView: React.FC<Props> = ({
 
                 {/* Actions */}
                 <div className="flex items-center justify-between pt-2 border-t border-shd-border2">
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <button
                       onClick={() => handleCopyUrl(build)}
                       className="text-xs font-mono px-2 py-1 bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white clip-corner-sm"
@@ -206,6 +212,34 @@ export const SavedBuildsView: React.FC<Props> = ({
                     >
                       ⬇ JSON
                     </button>
+                    {onAddToComparison && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const stats = calculateLoadout(
+                            build.gear,
+                            build.weapon,
+                            build.watch || watch,
+                            build.specialization || specialization,
+                            build.context || context
+                          );
+                          onAddToComparison({
+                            id: `saved-${build.id}`,
+                            name: build.name,
+                            gear: build.gear,
+                            weapon: build.weapon,
+                            score: Math.round(stats.sustainedDps),
+                            stats,
+                            tradeoffAnalysis: [build.description || 'Saved custom build']
+                          });
+                          onSwitchToComparison?.();
+                        }}
+                        className="text-xs font-mono px-2 py-1 bg-shd-surface2 border border-amber-500/60 hover:border-amber-400 text-amber-300 hover:text-white clip-corner-sm flex items-center gap-1 shadow-sm"
+                        title="Compare this saved build with active loadout side-by-side"
+                      >
+                        <span>⚖️ Compare</span>
+                      </button>
+                    )}
                     <button
                       onClick={() => handleDelete(build.id)}
                       className="text-xs font-mono px-2 py-1 border border-shd-border3 hover:border-rose-500 text-shd-textMonoMuted hover:text-rose-400 clip-corner-sm"

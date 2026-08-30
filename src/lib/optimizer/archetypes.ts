@@ -233,5 +233,26 @@ export const ARCHETYPES: Record<string, ArchetypeDefinition> = {
       }
       return { satisfied: true };
     }
+  },
+
+  ramping_dps_brief_tank: {
+    id: 'ramping_dps_brief_tank',
+    name: 'Ramping DPS + Brief Tank',
+    description: 'High ramping weapon damage (Heartbreaker/Striker/Hunter\'s Fury) paired with substantial armor (1.05M–1.4M) and reactive shields for intense Heroic firefights.',
+    defaultFloors: {
+      minArmor: 1050000
+    },
+    score: (stats: ComputedLoadoutStats) => {
+      // Balance between sustained DPS and effective armor pool
+      const dpsFactor = stats.sustainedDps / 1000;
+      const armorFactor = (stats.totalArmor / 1000) * 1.5;
+      return dpsFactor + armorFactor;
+    },
+    validateFloors: (stats: ComputedLoadoutStats, floors: ArchetypeFloors) => {
+      if (floors.minArmor && stats.totalArmor < floors.minArmor) {
+        return { satisfied: false, shortfall: `Armour ${Math.round(stats.totalArmor / 1000)}k / ${Math.round(floors.minArmor / 1000)}k` };
+      }
+      return { satisfied: true };
+    }
   }
 };

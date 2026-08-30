@@ -71,10 +71,10 @@ export const StatsPanel: React.FC<Props> = ({ stats, onOpenOptimizer, onOpenTwea
           <button
             type="button"
             onClick={onOpenTweaks}
-            className="w-full py-2.5 px-3 bg-shd-surface2 border border-shd-orange/80 hover:bg-shd-orange hover:text-shd-bg text-shd-orange font-heading font-bold text-xs uppercase tracking-wider clip-corner transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-2.5 px-3 bg-shd-surface2 border border-shd-orange hover:bg-shd-orange hover:text-shd-bg text-shd-orange font-heading font-bold text-xs uppercase tracking-wider clip-corner transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
           >
-            <span>💡</span>
-            <span>Tweak This Loadout</span>
+            <span>⚡</span>
+            <span>Optimise This Loadout</span>
             <span className="text-[10px] opacity-80 font-normal font-mono">(Micro-Gains & Cap Fixes)</span>
           </button>
         )}
@@ -85,8 +85,8 @@ export const StatsPanel: React.FC<Props> = ({ stats, onOpenOptimizer, onOpenTwea
             onClick={onOpenOptimizer}
             className="w-full py-2 px-3 bg-shd-surface2 border border-shd-border3 hover:border-shd-orange text-shd-textSecondary hover:text-white font-heading font-semibold text-xs uppercase tracking-wider clip-corner transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
           >
-            <span>⚡</span>
-            <span>Full Two-Tier Optimiser</span>
+            <span>🏗️</span>
+            <span>Archetype Build Solver</span>
           </button>
         )}
       </div>

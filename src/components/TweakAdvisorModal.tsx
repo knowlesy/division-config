@@ -71,15 +71,15 @@ export const TweakAdvisorModal: React.FC<Props> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-shd-orange font-heading font-bold text-lg flex items-center gap-1.5">
-                <span>💡</span>
-                <span>TWEAK MY LOADOUT</span>
+                <span>⚡</span>
+                <span>LOADOUT OPTIMISER</span>
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 bg-shd-surface2 border border-shd-border3 text-shd-textSecondary clip-corner-sm">
-                Incremental Multiplier Tuning
+                Active Build Micro-Tuning & Cap Fixes
               </span>
             </div>
             <p className="text-xs font-mono text-shd-textSecondary mt-0.5">
-              Live mathematical analysis of 1-step and 2-step micro-changes to boost your active build's DPS or survivability.
+              Live mathematical analysis of 1-step and 2-step optimizations to boost your active build's DPS or survivability.
             </p>
           </div>
           <button
@@ -100,7 +100,7 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                 : 'bg-shd-surface2 text-shd-textSecondary hover:text-white border border-shd-border3'
             }`}
           >
-            All Suggestions ({tweaks.length})
+            All Optimisations ({tweaks.length})
           </button>
           <button
             onClick={() => setFilter('dps')}
@@ -223,9 +223,9 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                     <button
                       type="button"
                       onClick={() => handleApply(tweak)}
-                      className="px-4 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-orange hover:bg-shd-orangeLight text-shd-bg clip-corner-sm transition-colors shadow-md flex items-center gap-1.5"
+                      className="px-4 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-orange hover:bg-shd-orangeLight text-shd-bg clip-corner-sm transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
                     >
-                      <span>⚡ Apply Tweak</span>
+                      <span>⚡ Apply Optimisation</span>
                     </button>
                   </div>
                 </div>
@@ -236,7 +236,7 @@ export const TweakAdvisorModal: React.FC<Props> = ({
 
         {/* Modal Footer */}
         <div className="flex items-center justify-between pt-2 border-t border-shd-border2 text-[11px] font-mono text-shd-textMonoMuted">
-          <span>Clicking "Apply Tweak" updates your active loadout and recalculates all damage numbers.</span>
+          <span>Clicking "Apply Optimisation" updates your active loadout and recalculates all damage numbers.</span>
           <button
             onClick={onClose}
             className="px-4 py-1.5 text-xs font-mono border border-shd-border3 text-shd-textSecondary hover:text-white clip-corner-sm transition-colors"

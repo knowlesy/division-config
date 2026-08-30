@@ -6,6 +6,8 @@ import { TwoTierResult, ShoppingListItem, WeaponShoppingItem } from '../lib/opti
 import { CandidateBuild } from '../lib/optimizer/types';
 import { ConfidenceBadge } from './ConfidenceBadge';
 
+import { calculateLoadout } from '../lib/calc/loadout-calculator';
+
 interface Props {
   currentGear: Record<GearSlot, GearPieceInstance>;
   activeWeapon: WeaponInstance;
@@ -14,6 +16,7 @@ interface Props {
   context: CombatContext;
   onEquipCandidate: (candidate: CandidateBuild) => void;
   onAddToComparison: (candidate: CandidateBuild) => void;
+  onSwitchToComparison?: () => void;
 }
 
 export const OptimizerView: React.FC<Props> = ({
@@ -23,7 +26,8 @@ export const OptimizerView: React.FC<Props> = ({
   specialization,
   context,
   onEquipCandidate,
-  onAddToComparison
+  onAddToComparison,
+  onSwitchToComparison
 }) => {
   const [selectedArchetypeId, setSelectedArchetypeId] = useState<string>('sustained_dps');
   const [isGroupMode, setIsGroupMode] = useState<boolean>(!context.isSolo);
@@ -128,7 +132,7 @@ export const OptimizerView: React.FC<Props> = ({
         <div className="flex items-center justify-between border-b border-shd-border2 pb-2">
           <div>
             <h2 className="font-heading font-bold text-base text-shd-textPrimary uppercase tracking-wider flex items-center gap-2">
-              <span className="text-shd-orange">⚡</span> Two-Tier Build Optimiser
+              <span className="text-shd-orange">🏗️</span> Two-Tier Archetype Build Solver
             </h2>
             <p className="text-xs font-mono text-shd-textMonoMuted mt-0.5">
               Objective-driven search over data · Practical vs Ceiling · Deterministic itemisation
@@ -355,6 +359,78 @@ export const OptimizerView: React.FC<Props> = ({
               </div>
             )}
           </div>
+
+          {/* Active Loadout vs Optimized Recommendations Bar */}
+          {(() => {
+            const activeStats = calculateLoadout(currentGear, activeWeapon, watch, specialization, context);
+            const pracDpsDelta = result.practical.stats.sustainedDps - activeStats.sustainedDps;
+            const pracDpsPct = (pracDpsDelta / (activeStats.sustainedDps || 1)) * 100;
+            const ceilDpsDelta = result.ceiling.stats.sustainedDps - activeStats.sustainedDps;
+            const ceilDpsPct = (ceilDpsDelta / (activeStats.sustainedDps || 1)) * 100;
+
+            return (
+              <div className="bg-shd-surface1 border border-shd-border2 p-3.5 clip-corner shadow-md flex flex-col gap-2.5">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-shd-border3/40 pb-2">
+                  <span className="text-xs font-heading font-bold text-shd-orange uppercase flex items-center gap-1.5">
+                    <span>⚖️</span>
+                    <span>Active Loadout vs Optimized Recommendations</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleCompareTier('practical');
+                      handleCompareTier('ceiling');
+                      onSwitchToComparison?.();
+                    }}
+                    className="px-3 py-1 bg-shd-surface2 border border-shd-orange hover:bg-shd-orange hover:text-shd-bg text-shd-orange font-heading font-bold text-xs uppercase tracking-wider clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                  >
+                    <span>⚖️ Stage Both & Open Comparison Matrix</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 font-mono text-xs">
+                  {/* Active Loadout */}
+                  <div className="bg-shd-surface2 p-2.5 border border-shd-border3 clip-corner-sm">
+                    <div className="text-[10px] text-shd-textMonoMuted uppercase font-bold">1. Active Baseline</div>
+                    <div className="text-sm font-heading font-bold text-white mt-1">
+                      {Math.round(activeStats.sustainedDps).toLocaleString()} <span className="text-[10px] text-shd-textSecondary font-mono font-normal">DPS</span>
+                    </div>
+                    <div className="text-[11px] text-shd-blueCore mt-0.5">
+                      Armor: {(activeStats.totalArmor / 1000).toFixed(0)}k
+                    </div>
+                  </div>
+
+                  {/* Practical */}
+                  <div className="bg-shd-surface2 p-2.5 border border-shd-border3 clip-corner-sm">
+                    <div className="text-[10px] text-shd-orange uppercase font-bold">2. Practical Recommendation</div>
+                    <div className="text-sm font-heading font-bold text-shd-orange mt-1">
+                      {Math.round(result.practical.stats.sustainedDps).toLocaleString()}
+                      <span className={`text-xs ml-1.5 font-mono font-bold ${pracDpsDelta >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        ({pracDpsDelta >= 0 ? '+' : ''}{pracDpsPct.toFixed(1)}%)
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-shd-textSecondary mt-0.5">
+                      Armor: {(result.practical.stats.totalArmor / 1000).toFixed(0)}k ({result.practical.stats.totalArmor - activeStats.totalArmor >= 0 ? '+' : ''}{Math.round((result.practical.stats.totalArmor - activeStats.totalArmor) / 1000)}k)
+                    </div>
+                  </div>
+
+                  {/* Ceiling */}
+                  <div className="bg-shd-surface2 p-2.5 border border-shd-border3 clip-corner-sm">
+                    <div className="text-[10px] text-amber-400 uppercase font-bold">3. Theoretical Ceiling</div>
+                    <div className="text-sm font-heading font-bold text-amber-400 mt-1">
+                      {Math.round(result.ceiling.stats.sustainedDps).toLocaleString()}
+                      <span className={`text-xs ml-1.5 font-mono font-bold ${ceilDpsDelta >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        ({ceilDpsDelta >= 0 ? '+' : ''}{ceilDpsPct.toFixed(1)}%)
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-shd-textSecondary mt-0.5">
+                      Armor: {(result.ceiling.stats.totalArmor / 1000).toFixed(0)}k ({result.ceiling.stats.totalArmor - activeStats.totalArmor >= 0 ? '+' : ''}{Math.round((result.ceiling.stats.totalArmor - activeStats.totalArmor) / 1000)}k)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Dual-Column Layout: PRACTICAL vs CEILING */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

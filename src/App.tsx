@@ -373,13 +373,40 @@ export default function App() {
     showToast(`Applied tweak: "${title || 'Loadout Update'}"!`);
   };
 
-  const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD') => {
+  const handleLoadPreset = (presetKey: 'buildA' | 'buildB' | 'buildB2' | 'buildC' | 'buildD' | 'buildE') => {
     switch (presetKey) {
       case 'buildA':
         setGear(INITIAL_GEAR);
         setPrimaryWeapon(INITIAL_PRIMARY_WEAPON);
         setSpecialization('Gunner');
         setContext({ isSolo: true, distanceMeters: 25, isEnemyOutOfCover: true, throttleControlStacks: 75 });
+        break;
+
+      case 'buildE': // Ramping DPS + Brief Tank (Heartbreaker Bruiser)
+        setGear({
+          mask: { slot: 'mask', kind: 'exotic', name: "Coyote's Mask", brandOrSetId: 'coyotes-mask', core: { type: 'Weapon Damage', value: 0.15 }, minors: [{ attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }, { attribute: 'Critical Hit Chance', value: 0.06, unit: '%' }], modSlot: { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' } },
+          backpack: { slot: 'backpack', kind: 'brand', name: 'Ceska Backpack', brandOrSetId: 'ceska-vyroba', core: { type: 'Armor', value: 170000 }, minors: [{ attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }, { attribute: 'Critical Hit Chance', value: 0.06, unit: '%' }], modSlot: { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }, talent: 'Vigilance' },
+          chest: { slot: 'chest', kind: 'gear-set', name: 'Heartbreaker Chest', brandOrSetId: 'heartbreaker', core: { type: 'Armor', value: 170000 }, minors: [{ attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }], modSlot: { attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }, talent: 'Max BPM' },
+          gloves: { slot: 'gloves', kind: 'gear-set', name: 'Heartbreaker Gloves', brandOrSetId: 'heartbreaker', core: { type: 'Armor', value: 170000 }, minors: [{ attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }] },
+          holster: { slot: 'holster', kind: 'gear-set', name: 'Heartbreaker Holster', brandOrSetId: 'heartbreaker', core: { type: 'Armor', value: 170000 }, minors: [{ attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }] },
+          kneepads: { slot: 'kneepads', kind: 'gear-set', name: 'Heartbreaker Kneepads', brandOrSetId: 'heartbreaker', core: { type: 'Weapon Damage', value: 0.15, isRecalibrated: true }, minors: [{ attribute: 'Critical Hit Damage', value: 0.12, unit: '%' }] }
+        });
+        setPrimaryWeapon({
+          slot: 'primary',
+          name: 'Kingbreaker',
+          category: 'AR',
+          baseDamage: 59000,
+          rpm: 650,
+          magSize: 50,
+          reloadTime: 2.4,
+          innateHsd: 0.55,
+          coreAttribute: { type: 'Weapon Damage', value: 0.15 },
+          secondaryCoreAttribute: { type: 'Damage to Health', value: 0.21 },
+          minorAttribute: { attribute: 'Damage to Target Out of Cover', value: 0.10, unit: '%' },
+          talent: 'Perfect Flatline'
+        });
+        setSpecialization('Technician');
+        setContext({ isSolo: true, distanceMeters: 15, isEnemyPulsed: true, heartstopperStacks: 50 });
         break;
 
       case 'buildB': // Eclipse Group
@@ -494,18 +521,18 @@ export default function App() {
 
                 <button
                   onClick={() => setIsTweakModalOpen(true)}
-                  className="px-3 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-surface2 hover:bg-shd-orange hover:text-shd-bg text-amber-400 border border-amber-500/70 clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer"
-                  title="Inspect 1-step and 2-step micro tweaks to improve DPS or survivability"
+                  className="px-3 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-surface2 hover:bg-shd-orange hover:text-shd-bg text-shd-orange border border-shd-orange clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  title="Inspect micro-optimisations and cap fixes for your active build"
                 >
-                  <span>💡 Tweak Loadout</span>
+                  <span>⚡ Optimise Loadout</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('optimizer')}
-                  className="px-3 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-surface2 hover:bg-shd-orange hover:text-shd-bg text-shd-orange border border-shd-orange clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
-                  title="Run two-tier optimization to find higher DPS or better synergy"
+                  className="px-3 py-1.5 text-xs font-heading font-bold uppercase tracking-wider bg-shd-surface2 hover:bg-shd-orange hover:text-shd-bg text-white border border-shd-border3 hover:border-shd-orange clip-corner-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Run two-tier global search to generate new archetype builds from scratch"
                 >
-                  <span>🚀 Optimise Build</span>
+                  <span>🏗️ Archetype Solver</span>
                 </button>
 
                 <button
@@ -634,7 +661,7 @@ export default function App() {
         </div>
       )}
 
-        {/* Tab 2: Optimizer */}
+        {/* Tab 2: Archetype Solver */}
         {activeTab === 'optimizer' && (
           <OptimizerView
             currentGear={gear}
@@ -644,6 +671,7 @@ export default function App() {
             context={context}
             onEquipCandidate={handleEquipCandidate}
             onAddToComparison={handleAddToComparison}
+            onSwitchToComparison={() => setActiveTab('comparison')}
           />
         )}
 
@@ -652,7 +680,13 @@ export default function App() {
           <ComparisonView
             baselineStats={computedStats}
             baselineName={`${activeWeapon.name} Current Loadout`}
+            baselineGear={gear}
+            baselineWeapon={activeWeapon}
+            watch={watch}
+            specialization={specialization}
+            context={context}
             comparisonBuilds={comparisonBuilds}
+            onAddComparison={handleAddToComparison}
             onRemoveComparison={(id) => setComparisonBuilds(comparisonBuilds.filter(c => c.id !== id))}
             onEquip={handleEquipCandidate}
             onClearAll={() => setComparisonBuilds([])}
@@ -670,6 +704,8 @@ export default function App() {
             specialization={specialization}
             context={context}
             onLoadBuild={loadSavedBuild}
+            onAddToComparison={handleAddToComparison}
+            onSwitchToComparison={() => setActiveTab('comparison')}
           />
         )}
 
