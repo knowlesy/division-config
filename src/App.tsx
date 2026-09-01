@@ -756,6 +756,8 @@ export default function App() {
         isOpen={isTweakModalOpen}
         gear={gear}
         weapon={activeWeapon}
+        secondaryWeapon={secondaryWeapon}
+        sidearm={sidearm}
         watch={watch}
         specialization={specialization}
         context={context}

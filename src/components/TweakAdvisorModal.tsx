@@ -7,6 +7,8 @@ interface Props {
   isOpen: boolean;
   gear: Record<GearSlot, GearPieceInstance>;
   weapon: WeaponInstance;
+  secondaryWeapon?: WeaponInstance;
+  sidearm?: WeaponInstance;
   watch: WatchStats;
   specialization: string;
   context: CombatContext;
@@ -19,6 +21,8 @@ export const TweakAdvisorModal: React.FC<Props> = ({
   isOpen,
   gear,
   weapon,
+  secondaryWeapon,
+  sidearm,
   watch,
   specialization,
   context,
@@ -116,6 +120,50 @@ export const TweakAdvisorModal: React.FC<Props> = ({
     );
   };
 
+  /** Render a weapon change pill showing what changed */
+  const renderWeaponChange = (modifiedWeapon?: WeaponInstance) => {
+    if (!modifiedWeapon) return null;
+    const talentChanged = modifiedWeapon.talent !== weapon.talent;
+    const minorChanged = modifiedWeapon.minorAttribute?.attribute !== weapon.minorAttribute?.attribute;
+    const nameChanged = modifiedWeapon.name !== weapon.name;
+
+    return (
+      <div className="bg-shd-surface1 border border-amber-500/30 p-2 clip-corner-sm text-xs font-mono mt-1">
+        <span className="text-amber-400 font-heading font-bold text-[10px] uppercase mr-1.5">🔫 Weapon:</span>
+        {nameChanged ? (
+          <span className="text-shd-textPrimary">
+            <span className="text-rose-400 line-through opacity-70">{weapon.name}</span>
+            <span className="text-shd-textMonoMuted mx-1">→</span>
+            <span className="text-emerald-400">{modifiedWeapon.name}</span>
+          </span>
+        ) : (
+          <span className="text-shd-textSecondary">{weapon.name}</span>
+        )}
+        {talentChanged && (
+          <span className="ml-2">
+            <span className="text-shd-textMonoMuted">Talent: </span>
+            <span className="text-rose-400 line-through opacity-70">{weapon.talent}</span>
+            <span className="text-shd-textMonoMuted mx-1">→</span>
+            <span className="text-emerald-400">{modifiedWeapon.talent}</span>
+          </span>
+        )}
+        {minorChanged && (
+          <span className="ml-2">
+            <span className="text-shd-textMonoMuted">3rd: </span>
+            <span className="text-rose-400 line-through opacity-70">{weapon.minorAttribute?.attribute || '—'}</span>
+            <span className="text-shd-textMonoMuted mx-1">→</span>
+            <span className="text-emerald-400">{modifiedWeapon.minorAttribute?.attribute}</span>
+          </span>
+        )}
+      </div>
+    );
+  };
+
+  /** Render count of weapon changes in a package */
+  const countWeaponChangesInPackage = (pkg: TweakPackage): number => {
+    return pkg.includedTweaks.filter(t => !!t.modifiedWeapon).length;
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-5">
       <div className="bg-shd-surface1 border border-shd-border1 max-w-4xl w-full p-5 clip-corner shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-hidden">
@@ -128,11 +176,11 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                 <span>LOADOUT OPTIMISER</span>
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 bg-shd-surface2 border border-shd-border3 text-shd-textSecondary clip-corner-sm">
-                Active Build Micro-Tuning & Cap Fixes
+                Gear & Weapon Micro-Tuning
               </span>
             </div>
             <p className="text-xs font-mono text-shd-textSecondary mt-0.5">
-              Live mathematical analysis of 1-step and 2-step optimizations to boost your active build's DPS or survivability.
+              Analyses gear attributes, talents, weapon rolls and weapon talents to find improvements.
             </p>
           </div>
           <button
@@ -141,6 +189,28 @@ export const TweakAdvisorModal: React.FC<Props> = ({
           >
             ✕
           </button>
+        </div>
+
+        {/* Equipped Weapons Summary Bar */}
+        <div className="flex flex-wrap items-center gap-3 bg-shd-surface2 border border-shd-border3/60 p-2.5 clip-corner-sm text-[11px] font-mono">
+          <span className="text-shd-textMonoMuted uppercase font-heading font-bold text-[10px]">Weapons:</span>
+          <span className="text-shd-textPrimary">
+            🔫 <span className="text-shd-orange">{weapon.name}</span>
+            <span className="text-shd-textMonoMuted ml-1">({weapon.talent || '—'})</span>
+            {weapon.minorAttribute && <span className="text-shd-textMonoMuted ml-1">• {weapon.minorAttribute.attribute}</span>}
+          </span>
+          {secondaryWeapon && (
+            <span className="text-shd-textSecondary border-l border-shd-border3 pl-3">
+              🔫 {secondaryWeapon.name}
+              <span className="text-shd-textMonoMuted ml-1">({secondaryWeapon.talent || '—'})</span>
+            </span>
+          )}
+          {sidearm && (
+            <span className="text-shd-textSecondary border-l border-shd-border3 pl-3">
+              🔫 {sidearm.name}
+              <span className="text-shd-textMonoMuted ml-1">({sidearm.talent || '—'})</span>
+            </span>
+          )}
         </div>
 
         {/* Top-Level View Toggle: Packages / Individual */}
@@ -196,6 +266,11 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                           </span>
                           <span className="text-[10px] font-mono text-shd-textMonoMuted">
                             {pkg.includedTweaks.length} changes combined
+                            {countWeaponChangesInPackage(pkg) > 0 && (
+                              <span className="text-amber-400 ml-1.5">
+                                (incl. {countWeaponChangesInPackage(pkg)} weapon {countWeaponChangesInPackage(pkg) === 1 ? 'change' : 'changes'})
+                              </span>
+                            )}
                           </span>
                         </div>
                         {renderDeltaBadge(pkg.deltaSustainedDpsPct, pkg.deltaSustainedDps, pkg.deltaArmor)}
@@ -204,6 +279,9 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                       <p className="text-xs font-sans text-shd-textSecondary leading-relaxed">
                         {pkg.description}
                       </p>
+
+                      {/* Package weapon change summary */}
+                      {pkg.mergedWeapon && renderWeaponChange(pkg.mergedWeapon)}
 
                       {/* Expand/Collapse to see individual tweaks */}
                       <button
@@ -224,6 +302,7 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-shd-orange font-heading font-bold text-[10px]">{idx + 1}.</span>
                                   <span className="text-xs font-heading font-bold text-shd-textPrimary">{t.title}</span>
+                                  {t.modifiedWeapon && <span className="text-amber-400 text-[9px] font-mono px-1 py-0.5 bg-amber-500/10 border border-amber-500/30 clip-corner-sm">🔫 WEAPON</span>}
                                 </div>
                                 <div className="flex items-center gap-2 text-[10px] font-mono">
                                   <span className={t.deltaSustainedDpsPct > 0 ? 'text-emerald-400' : (t.deltaSustainedDpsPct < 0 ? 'text-rose-400' : 'text-shd-textMonoMuted')}>
@@ -235,6 +314,7 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                                 </div>
                               </div>
                               <p className="text-[10px] font-mono text-shd-textMonoMuted mt-1 whitespace-pre-line">{t.actionText}</p>
+                              {t.modifiedWeapon && renderWeaponChange(t.modifiedWeapon)}
                             </div>
                           ))}
                         </div>
@@ -362,6 +442,9 @@ export const TweakAdvisorModal: React.FC<Props> = ({
                       <span className="text-shd-orange font-bold font-heading mr-1.5 uppercase">Action:</span>
                       <span className="whitespace-pre-line">{tweak.actionText}</span>
                     </div>
+
+                    {/* Weapon Change Detail */}
+                    {tweak.modifiedWeapon && renderWeaponChange(tweak.modifiedWeapon)}
 
                     {/* Why Explanation */}
                     <p className="text-xs font-sans text-shd-textSecondary leading-relaxed">
